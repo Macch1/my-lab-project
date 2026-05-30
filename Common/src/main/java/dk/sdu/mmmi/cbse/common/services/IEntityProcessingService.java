@@ -16,7 +16,7 @@ public interface IEntityProcessingService {
      *
      *
      *
-     * Pre-Condition: gameData != null, world != null, called once per game tick.
+     * Pre-Condition: gameData != null, world != null, world contains at least one entity.
      * Post-Condition: all entities managed by this service updated for the current tick.
      *
      * @param gameData contains the UserInterface and the play-area for the game.
