@@ -102,6 +102,14 @@ public class EnemyShipPlugin implements IGamePluginService {
         enemyShip.setRadius(8);
         enemyShip.setRotation(start_rotation);
 
+        // Health and collision logic.
+        enemy.setCanCollide(true);
+        enemy.setCanDamage(true);
+        enemy.setCanBeDamaged(true);
+        enemy.setCollisionDamage(100);
+        enemy.setHealth(50); // easier to kill than player
+
+
         // Return Entity (Enemy).
         return enemyShip;
     }

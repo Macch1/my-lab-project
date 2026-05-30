@@ -30,6 +30,14 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
         bullet.setY(shooter.getY() + changeY * 10);
         bullet.setRotation(shooter.getRotation());
         bullet.setRadius(1);
+
+        // Health and collision logic.
+        bullet.setCanCollide(true);
+        bullet.setCanDamage(true);
+        bullet.setCanBeDamaged(true);
+        bullet.setCollisionDamage(10);
+        bullet.setHealth(1);
+
         return bullet;
     }
 }
