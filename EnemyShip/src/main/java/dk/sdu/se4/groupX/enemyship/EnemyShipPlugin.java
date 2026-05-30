@@ -6,6 +6,9 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.se4.groupX.commonenemy.Enemy;
 
+import java.util.Random;
+
+
 public class EnemyShipPlugin implements IGamePluginService {
 
 
@@ -98,7 +101,8 @@ public class EnemyShipPlugin implements IGamePluginService {
         double[] coordinates = new double[2];
 
         // Rolling for which side to spawn on.
-        int side_id = (int)(Math.random() % 4);
+        Random random_int = new Random();
+        int side_id = (int)(random_int.nextInt(100) % 4);
 
         // Logic to determine the coordinates based on the side.
         if (side_id == 0)
@@ -130,6 +134,12 @@ public class EnemyShipPlugin implements IGamePluginService {
             return coordinates;
         }
 
+        // Standard error stream (best for warnings/errors)
+        System.err.println("WARNING: Random number gave us this Side ID = " + side_id + ", and this random int = " + random_int + ".");
+
+        coordinates[0] = (double) 0.0;
+        coordinates[1] = (double) 0.0;
+        return coordinates;
     }
 
 
