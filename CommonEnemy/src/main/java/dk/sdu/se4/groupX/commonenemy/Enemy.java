@@ -17,6 +17,7 @@ public class Enemy extends Entity
 
     // Just to make it simple and easy to change the default without having to search.
     private static final double DEFAULT_DESIRED_ROTATION = 0.0;
+    private static final double DEFAULT_TURN_SPEED_MIN = 1.0;
     private static final double DEFAULT_TURN_SPEED_MAX = 3.0;
     private static final double DEFAULT_TURN_FACTOR = 0.1;
     private static final int DEFAULT_RELOAD_TIME = 60;
@@ -32,12 +33,13 @@ public class Enemy extends Entity
     ////////////////////    Enemy Attributes    ////////////////////
     ///
 
-    public double desired_rotation;
-    public double enemy_turnSpeed_max;
-    public double enemy_turnFactor;
-    public int enemy_Reload_time;
-    public int enemy_Reload_ticksLeft;
-    public boolean enemy_Bullet_loaded;
+    private double desired_rotation;
+    private double enemy_turnSpeed_min;
+    private double enemy_turnSpeed_max;
+    private double enemy_turnFactor;
+    private int enemy_Reload_time;
+    private int enemy_Reload_ticksLeft;
+    private boolean enemy_Bullet_loaded;
 
 
 
@@ -50,6 +52,7 @@ public class Enemy extends Entity
     {
         super();
         this.desired_rotation = DEFAULT_DESIRED_ROTATION;
+        this.enemy_turnSpeed_min = DEFAULT_TURN_SPEED_MIN;
         this.enemy_turnSpeed_max = DEFAULT_TURN_SPEED_MAX;
         this.enemy_turnFactor = DEFAULT_TURN_FACTOR;
         this.enemy_Reload_time = DEFAULT_RELOAD_TIME;
@@ -66,6 +69,10 @@ public class Enemy extends Entity
 
     public double getDesired_rotation() {
         return desired_rotation;
+    }
+
+    public double getEnemy_turnSpeed_min() {
+        return enemy_turnSpeed_min;
     }
 
     public double getEnemy_turnSpeed_max() {
@@ -95,6 +102,10 @@ public class Enemy extends Entity
 
     public void setDesired_rotation(double desired_rotation) {
         this.desired_rotation = desired_rotation;
+    }
+
+    public void setEnemy_turnSpeed_min(double enemy_turnSpeed_min) {
+        this.enemy_turnSpeed_min = enemy_turnSpeed_min;
     }
 
     public void setEnemy_turnSpeed_max(double enemy_turnSpeed_max) {

@@ -121,6 +121,37 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
 
 
+    private void shootIfAimed(Enemy enemyShip, GameData gameData, World world)
+    {
+        // Calculate how far off we are from facing the player
+        double angleDifference = Math.abs(enemyShip.getRotation() - enemyShip.getDesired_rotation());
+
+        // Only shoot if facing close enough to the player and bullet is loaded
+        if (angleDifference < ??? && enemyShip.isEnemy_Bullet_loaded())
+        {
+            // Shoot!
+            getBulletSPIs().stream().findFirst().ifPresent(
+                    spi -> { world.addEntity(spi.createBullet(enemyShip, gameData)); }
+            );
+            enemyShip.setEnemy_Bullet_loaded(???);
+            enemyShip.setEnemy_Reload_ticksLeft(???);
+        }
+        else if (!enemyShip.isEnemy_Bullet_loaded())
+        {
+            // Count down reload timer
+            enemyShip.setEnemy_Reload_ticksLeft(enemyShip.getEnemy_Reload_ticksLeft() - ???);
+            if (enemyShip.getEnemy_Reload_ticksLeft() <= 0)
+            {
+                enemyShip.setEnemy_Bullet_loaded(???);
+            }
+        }
+    }
+
+    private Collection<? extends BulletSPI> getBulletSPIs()
+    {
+        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+    }
+
 
 
 
