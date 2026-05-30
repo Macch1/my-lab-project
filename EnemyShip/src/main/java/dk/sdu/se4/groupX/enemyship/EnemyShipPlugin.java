@@ -86,13 +86,23 @@ public class EnemyShipPlugin implements IGamePluginService {
      */
     private Entity createEnemyShip(GameData gameData)
     {
-
+        // .
+        double[] start_position = new double[2];
+        double start_rotation;
         Entity enemyShip = new EnemyShip();
+
+        // .
+        start_position = this.getSpawnPosition(gameData);
+        start_rotation = this.getSpawnRotation(start_position[0], start_position[1], gameData);
+
+        // Set entity values.
         enemyShip.setPolygonCoordinates(-5,-5,10,0,-5,5);
-        enemyShip.setX(gameData.getDisplayHeight()/2);
-        enemyShip.setY(gameData.getDisplayWidth()/2);
+        enemyShip.setX(start_position[0]);
+        enemyShip.setY(start_position[1]);
         enemyShip.setRadius(8);
-        enemyShip.setRotation();
+        enemyShip.setRotation(start_rotation);
+
+        // Return Entity (EnemyShip).
         return enemyShip;
     }
 
@@ -146,6 +156,22 @@ public class EnemyShipPlugin implements IGamePluginService {
         return coordinates;
     }
 
+
+    private double getSpawnRotation(double spawnX, double spawnY, GameData gameData)
+    {
+        // Find Center of Map.
+        double center_X = gameData.getDisplayWidth() / 2.0;
+        double center_Y = gameData.getDisplayHeight() / 2.0;
+
+        // Calculate the direction of the center.
+        double angle_to_Center = Math.toDegrees(Math.atan2(center_Y - spawnY, center_X - spawnX));
+
+        // Calculate offset with a random chance.
+        double offset = (double) ((random.nextDouble() * 120.0) - 60.0);
+
+        // return the start rotation, for the enemy ship.
+        return angle_to_Center + offset;
+    }
 
 
 
