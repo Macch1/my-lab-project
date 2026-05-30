@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>asteroids.jpms</artifactId>
-    <groupId>dk.sdu.mmmi.cbse</groupId>
+    <groupId>dk.sdu.se4.groupX</groupId>
     <version>1.0.1-SNAPSHOT</version>
   </parent>
 

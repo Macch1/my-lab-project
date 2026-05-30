@@ -34,6 +34,16 @@
 
   <dependencies>
     <dependency>
+      <groupId>dk.sdu.mmmi.cbse</groupId>
+      <artifactId>Common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>dk.sdu.se4.groupX</groupId>
+      <artifactId>CommonEnemy</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
