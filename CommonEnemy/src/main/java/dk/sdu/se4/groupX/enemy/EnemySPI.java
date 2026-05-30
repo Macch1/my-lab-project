@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.common.bullet;
+package dk.sdu.mmmi.cbse.common.enemy;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -7,7 +7,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
  *
  * @author corfixen
  */
-public interface BulletSPI
+public interface EnemySPI
 {
-    Entity createBullet(Entity e, GameData gameData);
+    Entity createEnemy(Entity e, GameData gameData);
 }
