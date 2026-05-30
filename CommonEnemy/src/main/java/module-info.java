@@ -1,0 +1,3 @@
+module CommonEnemy {
+
+}

@@ -1,16 +1,40 @@
-package dk.sdu.mmmi.cbse.enemyShip;
+package dk.sdu.se4.groupX.enemyship;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.common.enemy.Enemy;
-import dk.sdu.mmmi.cbse.common.enemy.EnemySPI;
+import dk.sdu.se4.groupX.enemy.Enemy;
+import dk.sdu.se4.groupX.enemy.EnemySPI;
 
 import java.util.Random;
 
 
-public class EnemyShipProcessingSystem implements IEntityProcessingService, EnemySPI {
+public class EnemyShipProcessingSystem implements IEntityProcessingService, EnemySPI
+{
+
+
+
+
+    /**
+     *
+     * @param gameData
+     * @return
+     */
+    private Entity createEnemyShip(GameData gameData)
+    {
+
+        Entity enemyShip = new EnemyShip();
+        enemyShip.setPolygonCoordinates(-5,-5,10,0,-5,5);
+        enemyShip.setX(gameData.getDisplayHeight()/2);
+        enemyShip.setY(gameData.getDisplayWidth()/2);
+        enemyShip.setRadius(8);
+        enemyShip.setRotation();
+        return enemyShip;
+    }
+
+
+
 
     /**
      *
@@ -75,6 +99,8 @@ public class EnemyShipProcessingSystem implements IEntityProcessingService, Enem
         }
 
     }
+
+
 
 
     /**
