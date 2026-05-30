@@ -6,6 +6,7 @@
   <packaging>pom</packaging>
   <name>my-lab-project</name>
   <repositories/>
+
   <modules>
     <module>Core</module>
     <module>Common</module>
@@ -15,9 +16,11 @@
     <module>Collision</module>
     <module>EnemyShip</module>
     <module>CommonEnemy</module>
-      <module>CommonPlayer</module>
-      <module>CommonAsteroids</module>
+    <module>CommonPlayer</module>
+    <module>CommonAsteroids</module>
+    <module>Asteroids</module>
   </modules>
+
   <properties>
     <java>java</java>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
