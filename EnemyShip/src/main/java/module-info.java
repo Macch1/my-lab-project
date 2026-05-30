@@ -6,5 +6,5 @@ module EnemyShip {
     requires Common;
     requires CommonEnemy;
     provides IGamePluginService with dk.sdu.se4.groupX.enemyship.EnemyShipPlugin;
-    provides IEntityProcessingService with EnemyShipProcessor;
+    provides IEntityProcessingService with dk.sdu.se4.groupX.enemyship.EnemyShipProcessor;
 }
