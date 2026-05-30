@@ -86,12 +86,12 @@ public class EnemyShipPlugin implements IGamePluginService {
      */
     private Entity createEnemyShip(GameData gameData)
     {
-        // .
-        double[] start_position = new double[2];
+        // Setup variables.
+        double[] start_position;
         double start_rotation;
         Entity enemyShip = new EnemyShip();
 
-        // .
+        // Calculate.
         start_position = this.getSpawnPosition(gameData);
         start_rotation = this.getSpawnRotation(start_position[0], start_position[1], gameData);
 
