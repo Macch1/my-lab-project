@@ -8,12 +8,27 @@ import dk.sdu.se4.groupX.commonenemy.Enemy;
 public class EnemyShip extends Enemy
 {
 
+
+    /////////////////////////////////////////////////////////////////
+    ////////////////////    Default Parameter    ////////////////////
+    ///
+
+    // Just to make it simple and easy to change the default without having to search.
     private static final double DEFAULT_DESIRED_ROTATION = 0.0;
     private static final double DEFAULT_TURN_SPEED_MAX = 3.0;
     private static final double DEFAULT_TURN_FACTOR = 0.1;
     private static final int DEFAULT_RELOAD_TIME = 60;
     private static final int DEFAULT_RELOAD_TICKS_LEFT = 0;
     private static final boolean DEFAULT_BULLET_LOADED = true;
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////
+    ////////////////////    EnemyShip Attributes    ////////////////////
+    ///
 
     public double desired_rotation;
     public double ship_turnSpeed_max;
@@ -23,6 +38,12 @@ public class EnemyShip extends Enemy
     public boolean ship_Bullet_loaded;
 
 
+
+
+
+    ////////////////////////////////////////////////////////////
+    ////////////////////    Constructors    ////////////////////
+    ///
 
     public EnemyShip()
     {

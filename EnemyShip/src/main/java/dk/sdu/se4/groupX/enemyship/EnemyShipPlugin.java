@@ -17,6 +17,13 @@ public class EnemyShipPlugin implements IGamePluginService {
     }
 
 
+
+
+    /////////////////////////////////////////////////////////////////////////
+    ////////////////////    GamePluginService Methods    ////////////////////
+    ///
+
+
     /**
      * Starts the game using the gameData and World.
      *
@@ -53,6 +60,9 @@ public class EnemyShipPlugin implements IGamePluginService {
 
 
 
+
+
+
     /**
      * Stops the game using the gameData and World.
      *
@@ -67,5 +77,65 @@ public class EnemyShipPlugin implements IGamePluginService {
             world.removeEntity(enemy);
         }
     }
+
+
+
+
+
+
+
+
+
+    //////////////////////////////////////////////////////////////
+    ////////////////////    Helper Methods    ////////////////////
+    ///
+
+
+
+    private double[] getSpawnPosition(GameData gameData)
+    {
+        // The return values.
+        double[] coordinates = new double[2];
+
+        // Rolling for which side to spawn on.
+        int side_id = (int)(Math.random() % 4);
+
+        // Logic to determine the coordinates based on the side.
+        if (side_id == 0)
+        {
+            // Top
+            coordinates[0] = (double) (gameData.getDisplayWidth() / 2.0);
+            coordinates[1] = (double) 0.0;
+            return coordinates;
+        }
+        else if (side_id == 1)
+        {
+            // Bottom
+            coordinates[0] = (double) (gameData.getDisplayWidth() / 2.0);
+            coordinates[1] = (double) gameData.getDisplayHeight();
+            return coordinates;
+        }
+        else if (side_id == 2)
+        {
+            // Right
+            coordinates[0] = (double) gameData.getDisplayWidth();
+            coordinates[1] = (double) (gameData.getDisplayHeight() / 2.0);
+            return coordinates;
+        }
+        else if (side_id == 3)
+        {
+            // Left
+            coordinates[0] = (double) 0.0;
+            coordinates[1] = (double) (gameData.getDisplayHeight() / 2.0);
+            return coordinates;
+        }
+
+    }
+
+
+
+
+
+
 
 }
