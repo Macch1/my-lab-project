@@ -1,11 +1,11 @@
 package dk.sdu.se4.groupX.enemyship;
 
-import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.se4.groupX.commonenemy.Enemy;
 
 /**
  * Hello world!
  */
-public class EnemyShip extends Entity
+public class EnemyShip extends Enemy
 {
 
     // Variable that contains:
