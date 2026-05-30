@@ -12,7 +12,13 @@ import java.util.Random;
 public class EnemyShipPlugin implements IGamePluginService {
 
 
+
+    private final Random random = new Random();
+
     private Entity enemyShips;
+
+
+
 
     public EnemyShipPlugin()
     {
@@ -101,8 +107,7 @@ public class EnemyShipPlugin implements IGamePluginService {
         double[] coordinates = new double[2];
 
         // Rolling for which side to spawn on.
-        Random random_int = new Random();
-        int side_id = (int)(random_int.nextInt(100) % 4);
+        int side_id = (int)(random.nextInt(100) % 4);
 
         // Logic to determine the coordinates based on the side.
         if (side_id == 0)
@@ -135,7 +140,7 @@ public class EnemyShipPlugin implements IGamePluginService {
         }
 
         // Standard error stream (best for warnings/errors)
-        System.err.println("WARNING: Random number gave us this Side ID = " + side_id + ", and this random int = " + random_int + ".");
+        System.err.println("WARNING: Random number gave us this Side ID = " + side_id + ".");
 
         coordinates[0] = (double) 0.0;
         coordinates[1] = (double) 0.0;
