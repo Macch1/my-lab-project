@@ -4,8 +4,8 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.se4.groupX.enemy.Enemy;
-import dk.sdu.se4.groupX.enemy.EnemySPI;
+import dk.sdu.se4.groupX.commonenemy.Enemy;
+import dk.sdu.se4.groupX.commonenemy.EnemySPI;
 
 import java.util.Random;
 

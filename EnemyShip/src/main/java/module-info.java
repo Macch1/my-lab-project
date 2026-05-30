@@ -1,3 +1,6 @@
-module EnemyShip {
 
+
+module EnemyShip {
+    requires Common;
+    requires CommonEnemy;
 }
