@@ -54,7 +54,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
             turnTowardsPlayer(enemyShip);
 
             // Step 4 - Shoot if aimed
-            shootIfAimed(enemyShip, world, gameData);
+            shootIfAimed(enemyShip, gameData, world);
 
             // Step 5 - Wrap around screen edges
             wrapAroundEdges(enemyShip, gameData);
@@ -79,8 +79,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
         double changeY = Math.sin(Math.toRadians(enemyShip.getRotation()));
 
         // .
-        enemyShip.setX(enemyShip.getX() + changeX);
-        enemyShip.setY(enemyShip.getY() + changeY);
+        enemyShip.setX(enemyShip.getX() + changeX * enemyShip.getEnemy_speedFactor());
+        enemyShip.setY(enemyShip.getY() + changeY * enemyShip.getEnemy_speedFactor());
     }
 
 
