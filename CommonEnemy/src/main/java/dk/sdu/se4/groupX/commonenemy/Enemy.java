@@ -10,9 +10,128 @@ public class Enemy extends Entity
 {
 
 
+
+    /////////////////////////////////////////////////////////////////
+    ////////////////////    Default Parameter    ////////////////////
+    ///
+
+    // Just to make it simple and easy to change the default without having to search.
+    private static final double DEFAULT_DESIRED_ROTATION = 0.0;
+    private static final double DEFAULT_TURN_SPEED_MAX = 3.0;
+    private static final double DEFAULT_TURN_FACTOR = 0.1;
+    private static final int DEFAULT_RELOAD_TIME = 60;
+    private static final int DEFAULT_RELOAD_TICKS_LEFT = 0;
+    private static final boolean DEFAULT_BULLET_LOADED = true;
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////
+    ////////////////////    Enemy Attributes    ////////////////////
+    ///
+
+    public double desired_rotation;
+    public double enemy_turnSpeed_max;
+    public double enemy_turnFactor;
+    public int enemy_Reload_time;
+    public int enemy_Reload_ticksLeft;
+    public boolean enemy_Bullet_loaded;
+
+
+
+
+    ////////////////////////////////////////////////////////////
+    ////////////////////    Constructors    ////////////////////
+    ///
+
     public Enemy()
     {
-        super(); // calls Entity's default constructor
+        super();
+        this.desired_rotation = DEFAULT_DESIRED_ROTATION;
+        this.enemy_turnSpeed_max = DEFAULT_TURN_SPEED_MAX;
+        this.enemy_turnFactor = DEFAULT_TURN_FACTOR;
+        this.enemy_Reload_time = DEFAULT_RELOAD_TIME;
+        this.enemy_Reload_ticksLeft = DEFAULT_RELOAD_TICKS_LEFT;
+        this.enemy_Bullet_loaded = DEFAULT_BULLET_LOADED;
     }
+
+
+
+
+    ///////////////////////////////////////////////////////////
+    ////////////////////    Getters    ////////////////////
+    ///
+
+    public double getDesired_rotation() {
+        return desired_rotation;
+    }
+
+    public double getEnemy_turnSpeed_max() {
+        return enemy_turnSpeed_max;
+    }
+
+    public double getEnemy_turnFactor() {
+        return enemy_turnFactor;
+    }
+
+    public int getEnemy_Reload_time() {
+        return enemy_Reload_time;
+    }
+
+    public int getEnemy_Reload_ticksLeft() {
+        return enemy_Reload_ticksLeft;
+    }
+
+    public boolean isEnemy_Bullet_loaded() {
+        return enemy_Bullet_loaded;
+    }
+
+
+    ///////////////////////////////////////////////////////////
+    ////////////////////    Setters    ////////////////////
+    ///
+
+    public void setDesired_rotation(double desired_rotation) {
+        this.desired_rotation = desired_rotation;
+    }
+
+    public void setEnemy_turnSpeed_max(double enemy_turnSpeed_max) {
+        this.enemy_turnSpeed_max = enemy_turnSpeed_max;
+    }
+
+    public void setEnemy_turnFactor(double enemy_turnFactor) {
+        this.enemy_turnFactor = enemy_turnFactor;
+    }
+
+    public void setEnemy_Reload_time(int enemy_Reload_time) {
+        this.enemy_Reload_time = enemy_Reload_time;
+    }
+
+    public void setEnemy_Reload_ticksLeft(int enemy_Reload_ticksLeft) {
+        this.enemy_Reload_ticksLeft = enemy_Reload_ticksLeft;
+    }
+
+    public void setEnemy_Bullet_loaded(boolean enemy_Bullet_loaded) {
+        this.enemy_Bullet_loaded = enemy_Bullet_loaded;
+    }
+
+
+
+
+
+    //////////////////////////////////////////////////////////////
+    ////////////////////    Helper Methods    ////////////////////
+    ///
+
+
+
+
+
+
+
+
+
 
 }

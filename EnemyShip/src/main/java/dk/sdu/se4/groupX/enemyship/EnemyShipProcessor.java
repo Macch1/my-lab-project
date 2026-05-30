@@ -33,10 +33,14 @@ public class EnemyShipProcessor implements IEntityProcessingService
     public void process(GameData gameData, World world)
     {
 
+        System.out.println("EnemyShipProcessor is running!");
+
         for (Entity entity : world.getEntities(Enemy.class))
         {
             // .
-            EnemyShip enemyShip = (EnemyShip) entity;
+            Enemy enemyShip = (Enemy) entity;
+
+            System.out.println("EnemyShipProcessor is running! 2");
 
             // Step 1 - Move forward in the direction the ship is facing
             double changeX = Math.cos(Math.toRadians(enemyShip.getRotation()));
@@ -45,6 +49,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // .
             enemyShip.setX(enemyShip.getX() + changeX);
             enemyShip.setY(enemyShip.getY() + changeY);
+
+            System.out.println("EnemyShipProcessor is running! 3");
 
             // Step 5 - Wrap around screen edges
             if (enemyShip.getX() < 0) {

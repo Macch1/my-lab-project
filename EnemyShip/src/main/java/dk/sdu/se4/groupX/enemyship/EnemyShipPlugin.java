@@ -89,20 +89,20 @@ public class EnemyShipPlugin implements IGamePluginService {
         // Setup variables.
         double[] start_position;
         double start_rotation;
-        Entity enemyShip = new EnemyShip();
+        Entity enemyShip = new Enemy();
 
         // Calculate.
         start_position = this.getSpawnPosition(gameData);
         start_rotation = this.getSpawnRotation(start_position[0], start_position[1], gameData);
 
         // Set entity values.
-        enemyShip.setPolygonCoordinates(-5,-5,10,0,-5,5);
+        enemyShip.setPolygonCoordinates(0,-10,10,0,0,10,-10,0);
         enemyShip.setX(start_position[0]);
         enemyShip.setY(start_position[1]);
         enemyShip.setRadius(8);
         enemyShip.setRotation(start_rotation);
 
-        // Return Entity (EnemyShip).
+        // Return Entity (Enemy).
         return enemyShip;
     }
 
