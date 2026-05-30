@@ -12,6 +12,7 @@ import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import java.util.Collection;
 import java.util.ServiceLoader;
 
+import static java.util.stream.Collectors.toList;
 
 import java.util.Random;
 
@@ -127,22 +128,27 @@ public class EnemyShipProcessor implements IEntityProcessingService
         double angleDifference = Math.abs(enemyShip.getRotation() - enemyShip.getDesired_rotation());
 
         // Only shoot if facing close enough to the player and bullet is loaded
-        if (angleDifference < ??? && enemyShip.isEnemy_Bullet_loaded())
+        if ((angleDifference < enemyShip.getEnemy_turnSpeed_min()) && enemyShip.isEnemy_Bullet_loaded())
         {
-            // Shoot!
+            // Shoot Bullet!
             getBulletSPIs().stream().findFirst().ifPresent(
                     spi -> { world.addEntity(spi.createBullet(enemyShip, gameData)); }
             );
-            enemyShip.setEnemy_Bullet_loaded(???);
-            enemyShip.setEnemy_Reload_ticksLeft(???);
+
+            // Mark as unloaded, and start reload timer.
+            enemyShip.setEnemy_Bullet_loaded(false);
+            enemyShip.setEnemy_Reload_ticksLeft(enemyShip.getEnemy_Reload_time());
         }
         else if (!enemyShip.isEnemy_Bullet_loaded())
         {
             // Count down reload timer
-            enemyShip.setEnemy_Reload_ticksLeft(enemyShip.getEnemy_Reload_ticksLeft() - ???);
+            enemyShip.setEnemy_Reload_ticksLeft(enemyShip.getEnemy_Reload_ticksLeft() - 1);
+
+            // Check if reload is complete.
             if (enemyShip.getEnemy_Reload_ticksLeft() <= 0)
             {
-                enemyShip.setEnemy_Bullet_loaded(???);
+                // Reloaded!
+                enemyShip.setEnemy_Bullet_loaded(true);
             }
         }
     }
