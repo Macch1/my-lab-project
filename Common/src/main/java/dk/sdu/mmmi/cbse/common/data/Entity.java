@@ -6,61 +6,290 @@ import java.util.UUID;
 /**
  * Entity defines an entity, by defining the position, form and size.
  */
-public class Entity implements Serializable {
+public class Entity implements Serializable
+{
 
+    // .
     private final UUID ID = UUID.randomUUID();
-    
+
+
+    // .
     private double[] polygonCoordinates;
     private double x;
     private double y;
     private double rotation;
     private float radius;
-            
 
+
+    // .
+    private boolean canCollide = false;
+    private boolean canDamage = false;
+    private boolean canBeDamaged = false;
+
+    // .
+    private int health = 10;
+    private int collisionDamage = 0;
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////
+    ////////////////////    Identity Methods    ////////////////////
+    ///
+
+
+    // .
     public String getID() {
         return ID.toString();
     }
 
 
-    public void setPolygonCoordinates(double... coordinates ) {
+
+
+
+
+
+    ////////////////////////////////////////////////////////////
+    ////////////////////    Form Methods    ////////////////////
+    ///
+
+
+    /**
+     *
+     * @param coordinates
+     */
+    public void setPolygonCoordinates(double... coordinates )
+    {
         this.polygonCoordinates = coordinates;
     }
 
-    public double[] getPolygonCoordinates() {
+
+    /**
+     *
+     * @return
+     */
+    public double[] getPolygonCoordinates()
+    {
         return polygonCoordinates;
     }
-       
 
-    public void setX(double x) {
+
+    /**
+     *
+     * @param radius
+     */
+    public void setRadius(float radius)
+    {
+        this.radius = radius;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public float getRadius()
+    {
+        return this.radius;
+    }
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////
+    ////////////////////    Position Methods    ////////////////////
+    ///
+
+
+    /**
+     *
+     * @param x
+     */
+    public void setX(double x)
+    {
         this.x =x;
     }
 
-    public double getX() {
+
+    /**
+     *
+     * @return
+     */
+    public double getX()
+    {
         return x;
     }
 
-    
-    public void setY(double y) {
+
+    /**
+     *
+     * @param y
+     */
+    public void setY(double y)
+    {
         this.y = y;
     }
 
-    public double getY() {
+
+    /**
+     *
+     * @return
+     */
+    public double getY()
+    {
         return y;
     }
 
-    public void setRotation(double rotation) {
+
+    /**
+     *
+     * @param rotation
+     */
+    public void setRotation(double rotation)
+    {
         this.rotation = rotation;
     }
 
-    public double getRotation() {
+
+    /**
+     *
+     * @return
+     */
+    public double getRotation()
+    {
         return rotation;
     }
 
-    public void setRadius(float radius) {
-        this.radius = radius;
+
+
+
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////
+    ////////////////////    Collision Methods    ////////////////////
+    ///
+
+
+    /**
+     *
+     * @return
+     */
+    public boolean isCanCollide()
+    {
+        return canCollide;
     }
-        
-    public float getRadius() {
-        return this.radius;
+
+
+    /**
+     *
+     * @return
+     */
+    public boolean isCanDamage()
+    {
+        return canDamage;
     }
+
+
+    /**
+     *
+     * @return
+     */
+    public boolean isCanBeDamaged()
+    {
+        return canBeDamaged;
+    }
+
+
+    /**
+     *
+     * @param canCollide
+     */
+    public void setCanCollide(boolean canCollide)
+    {
+        this.canCollide = canCollide;
+    }
+
+
+    /**
+     *
+     * @param canDamage
+     */
+    public void setCanDamage(boolean canDamage)
+    {
+        this.canDamage = canDamage;
+    }
+
+
+    /**
+     *
+     * @param canBeDamaged
+     */
+    public void setCanBeDamaged(boolean canBeDamaged)
+    {
+        this.canBeDamaged = canBeDamaged;
+    }
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////
+    ////////////////////    Health & Damage Methods    ////////////////////
+    ///
+
+
+    /**
+     *
+     * @return
+     */
+    public int getHealth()
+    {
+        return health;
+    }
+
+
+    /**
+     *
+     * @param health
+     */
+    public void setHealth(int health)
+    {
+        this.health = health;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public int getCollisionDamage()
+    {
+        return collisionDamage;
+    }
+
+
+    /**
+     *
+     * @param collisionDamage
+     */
+    public void setCollisionDamage(int collisionDamage)
+    {
+        this.collisionDamage = collisionDamage;
+    }
+
+
+
+
 }
