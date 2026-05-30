@@ -12,7 +12,8 @@ import dk.sdu.mmmi.cbse.common.data.World;
 public interface IPostEntityProcessingService {
 
     /**
-     *
+     * Performs post-processing on all entities after all IEntityProcessingService
+     * implementations have been called. Used for cross-entity logic such as collision detection.
      *
      *
      * Pre-Condition: gameData != null, world != null, all IEntityProcessingService implementations have already been called this tick.
