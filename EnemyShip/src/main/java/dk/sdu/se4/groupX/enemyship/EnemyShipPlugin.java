@@ -101,6 +101,32 @@ public class EnemyShipPlugin implements IGamePluginService {
 
 
 
+
+
+
+    /**
+     *
+     * @param gameData
+     * @return
+     */
+    private Entity createEnemyShip(GameData gameData)
+    {
+
+        Entity enemyShip = new EnemyShip();
+        enemyShip.setPolygonCoordinates(-5,-5,10,0,-5,5);
+        enemyShip.setX(gameData.getDisplayHeight()/2);
+        enemyShip.setY(gameData.getDisplayWidth()/2);
+        enemyShip.setRadius(8);
+        enemyShip.setRotation();
+        return enemyShip;
+    }
+
+
+
+
+
+
+
     private double[] getSpawnPosition(GameData gameData)
     {
         // The return values.
