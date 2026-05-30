@@ -10,10 +10,12 @@
         <module name="Player" />
         <module name="Collision" />
         <module name="Enemy" />
+        <module name="CommonAsteroids" />
         <module name="EnemyShip" />
         <module name="CommonBullet" />
         <module name="Core" />
         <module name="Common" />
+        <module name="CommonPlayer" />
       </profile>
     </annotationProcessing>
   </component>

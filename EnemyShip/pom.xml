@@ -44,6 +44,11 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
+      <groupId>dk.sdu.se4.groupX.commonplayer</groupId>
+      <artifactId>CommonPlayer</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
