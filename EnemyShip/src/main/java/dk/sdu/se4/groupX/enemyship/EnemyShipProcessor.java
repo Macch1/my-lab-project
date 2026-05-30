@@ -8,6 +8,11 @@ import dk.sdu.se4.groupX.commonenemy.Enemy;
 
 import dk.sdu.se4.groupX.commonplayer.Player;
 
+import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
+import java.util.Collection;
+import java.util.ServiceLoader;
+
+
 import java.util.Random;
 
 
@@ -31,49 +36,6 @@ public class EnemyShipProcessor implements IEntityProcessingService
      * @param gameData contains the UserInterface and the play-area for the game.
      * @param world contains and updates the Game-world, and all the entities inside it.
      */
-    @Override
-    public void process(GameData gameData, World world)
-    {
-
-        System.out.println("EnemyShipProcessor is running!");
-
-        for (Entity entity : world.getEntities(Enemy.class))
-        {
-            // .
-            Enemy enemyShip = (Enemy) entity;
-
-            System.out.println("EnemyShipProcessor is running! 2");
-
-            // Step 1 - Move forward in the direction the ship is facing
-            double changeX = Math.cos(Math.toRadians(enemyShip.getRotation()));
-            double changeY = Math.sin(Math.toRadians(enemyShip.getRotation()));
-
-            // .
-            enemyShip.setX(enemyShip.getX() + changeX);
-            enemyShip.setY(enemyShip.getY() + changeY);
-
-            System.out.println("EnemyShipProcessor is running! 3");
-
-            // Step 5 - Wrap around screen edges
-            if (enemyShip.getX() < 0) {
-                enemyShip.setX(gameData.getDisplayWidth());
-            }
-            if (enemyShip.getX() > gameData.getDisplayWidth()) {
-                enemyShip.setX(0);
-            }
-            if (enemyShip.getY() < 0) {
-                enemyShip.setY(gameData.getDisplayHeight());
-            }
-            if (enemyShip.getY() > gameData.getDisplayHeight()) {
-                enemyShip.setY(0);
-            }
-        }
-
-    }
-
-
-
-
     @Override
     public void process(GameData gameData, World world)
     {
@@ -123,18 +85,38 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
     private void calculateAngleToPlayer(Enemy enemyShip, World world)
     {
+        // Find the entity of type "Player".
         for (Entity player : world.getEntities(Player.class))
         {
+            // Calculate the number of degrees the enemy ship needs to turn to look at the player.
             double angleToPlayer = Math.toDegrees(Math.atan2(
                     player.getY() - enemyShip.getY(),
                     player.getX() - enemyShip.getX()
             ));
+
+            // Sets the desired rotation for the enemyship.
             enemyShip.setDesired_rotation(angleToPlayer);
         }
     }
 
 
 
+    private void turnTowardsPlayer(Enemy enemyShip)
+    {
+        // Calculate how much we need to turn
+        double orientation_change = (enemyShip.getRotation() - enemyShip.getDesired_rotation()) * enemyShip.getEnemy_turnFactor();
+
+        // Clamp to max turn speed
+        if (orientation_change > enemyShip.getEnemy_turnSpeed_max()) {
+            orientation_change = enemyShip.getEnemy_turnSpeed_max();
+        }
+        if (orientation_change < -enemyShip.getEnemy_turnSpeed_max()) {
+            orientation_change = -enemyShip.getEnemy_turnSpeed_max();
+        }
+
+        // Apply the rotation
+        enemyShip.setRotation(enemyShip.getRotation() - orientation_change);
+    }
 
 
 
