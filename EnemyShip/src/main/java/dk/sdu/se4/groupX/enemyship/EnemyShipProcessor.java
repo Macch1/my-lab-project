@@ -9,7 +9,6 @@ import dk.sdu.se4.groupX.commonenemy.Enemy;
 import dk.sdu.se4.groupX.commonplayer.Player;
 
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Collection;
 import java.util.ServiceLoader;
@@ -95,6 +94,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // Notify ScoringService.
             try
             {
+                /**
                 // Create a RestTemplate to make HTTP requests to the ScoringService.
                 RestTemplate restTemplate = new RestTemplate();
 
@@ -103,6 +103,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
                 // Notify the ScoringService to add 50 points to the total score.
                 restTemplate.put("http://localhost:8080/score/add?point=50", null);
+                 **/
             }
             catch (Exception e)
             {

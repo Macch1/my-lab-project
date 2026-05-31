@@ -7,8 +7,6 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.se4.groupX.commonasteroids.Asteroid;
 import dk.sdu.se4.groupX.commonasteroids.AsteroidSplitterSPI;
 
-import org.springframework.web.client.RestTemplate;
-
 import java.util.Collection;
 import java.util.ServiceLoader;
 import static java.util.stream.Collectors.toList;
@@ -87,6 +85,7 @@ public class AsteroidProcessor implements IEntityProcessingService
             // Notify ScoringService.
             try
             {
+                /**
                 // Create a RestTemplate to make HTTP requests to the ScoringService.
                 RestTemplate restTemplate = new RestTemplate();
 
@@ -95,7 +94,7 @@ public class AsteroidProcessor implements IEntityProcessingService
 
                 // Notify the ScoringService to add 10 points to the total score.
                 restTemplate.put("http://localhost:8080/score/add?point=10", null);
-
+                **/
             }
             catch (Exception e)
             {

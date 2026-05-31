@@ -5,7 +5,6 @@ import dk.sdu.se4.groupX.commonasteroids.AsteroidSplitterSPI;
 module Asteroids {
     requires Common;
     requires CommonAsteroids;
-    requires spring.web;
     uses dk.sdu.se4.groupX.commonasteroids.AsteroidSplitterSPI;
     provides IGamePluginService with dk.sdu.se4.groupX.asteroids.AsteroidPlugin;
     provides IEntityProcessingService with dk.sdu.se4.groupX.asteroids.AsteroidProcessor;
