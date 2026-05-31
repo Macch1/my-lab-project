@@ -98,9 +98,11 @@ public class EnemyShipProcessor implements IEntityProcessingService
                 // Create a RestTemplate to make HTTP requests to the ScoringService.
                 RestTemplate restTemplate = new RestTemplate();
 
-                // Notify the ScoringService to add 10 points to the total score.
-                restTemplate.put("http://localhost:8080/score/add?point=50", null);
+                // Notify the ScoringService that one more EnemyShip has been destroyed.
+                restTemplate.put("http://localhost:8080/enemyship/add?point=1", null);
 
+                // Notify the ScoringService to add 50 points to the total score.
+                restTemplate.put("http://localhost:8080/score/add?point=50", null);
             }
             catch (Exception e)
             {
@@ -204,8 +206,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
                 // If a splitter was found, use the first one to split the asteroid.
                 if (!(bulletSPIs.isEmpty()))
                 {
-                    // Calls the "createBullet(enemyShip, gameData)" method.
-                    bulletSPIs.iterator().next().createBullet(enemyShip, gameData);
+                    // Calls the "createBullet(enemyShip, gameData)" method, and adds the bullet to the World.
+                    world.addEntity(bulletSPIs.iterator().next().createBullet(enemyShip, gameData));
                 }
             }
             catch (Exception e)
