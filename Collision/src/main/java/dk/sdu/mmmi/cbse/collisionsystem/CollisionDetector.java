@@ -71,12 +71,6 @@ public class CollisionDetector implements IPostEntityProcessingService {
             entityB.doDamage(entityA.getCollisionDamage());
         }
 
-        // Deal damage to Entity A, based on Entity B
-        if (entityB.isCanDamage() && entityA.isCanBeDamaged())
-        {
-            entityA.doDamage(entityB.getCollisionDamage());
-        }
-
         // return true.
         return true;
     }
