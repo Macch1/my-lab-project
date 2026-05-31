@@ -5,8 +5,10 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.se4.groupX.commonasteroids.Asteroid;
-
 import dk.sdu.se4.groupX.commonasteroids.AsteroidSplitterSPI;
+
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Collection;
 import java.util.ServiceLoader;
 import static java.util.stream.Collectors.toList;
@@ -20,6 +22,7 @@ public class AsteroidProcessor implements IEntityProcessingService
         // .
         for (Entity asteroid : world.getEntities(Asteroid.class))
         {
+            // Checks if the Asteroid is still "Alive" / "Not destroyed".
             if (this.handleHealth(asteroid, world))
             {
                 continue; // skip dead entities
@@ -60,9 +63,14 @@ public class AsteroidProcessor implements IEntityProcessingService
             // Try to find an implementation of "AsteroidSplitterSPI", so we can call the method "splitAsteroid()".
             try
             {
-                // .
-                getSplitters().stream().findFirst().ifPresent( spi -> spi.splitAsteroid(asteroid, world) );
+                // Get all available AsteroidSplitter implementations.
+                Collection<? extends AsteroidSplitterSPI> AsteroidSplitters = getSplitters();
 
+                // If a splitter was found, use the first one to split the asteroid.
+                if (!(AsteroidSplitters.isEmpty()))
+                {
+                    AsteroidSplitters.iterator().next().splitAsteroid(asteroid, world);
+                }
             }
             catch (Exception e)
             {
@@ -82,7 +90,7 @@ public class AsteroidProcessor implements IEntityProcessingService
                 RestTemplate restTemplate = new RestTemplate();
 
                 // .
-                restTemplate.postForObject("http://localhost:8080/asteroids/add?point=1", null, Long.class);
+                restTemplate.put("http://localhost:8080/asteroids/add?point=1", null, Long.class);
 
                 // .
                 restTemplate.put("http://localhost:8080/score/add?point=10", null);
