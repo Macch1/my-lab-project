@@ -21,7 +21,20 @@ class CollisionDetectorTest {
 
     // .
     @Test
-    void testCollides_WhenOverlapping_ReturnsTrue() { ... }
+    void testCollides_WhenOverlapping_ReturnsTrue()
+    {
+        // Arrange
+        entity1.setX(0);
+        entity1.setY(0);
+        entity1.setRadius(10);
+
+        entity2.setX(5);
+        entity2.setY(0);
+        entity2.setRadius(10);
+
+        // Act & Assert
+        assertTrue(collisionDetector.collides(entity1, entity2));
+    }
 
     // .
     @Test
