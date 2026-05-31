@@ -7,7 +7,7 @@ import dk.sdu.mmmi.cbse.common.data.GameKeys;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
-import dk.sdu.se4.groupX.commonenemy.Player;
+import dk.sdu.se4.groupX.commonplayer.Player;
 
 import java.util.Collection;
 import java.util.ServiceLoader;

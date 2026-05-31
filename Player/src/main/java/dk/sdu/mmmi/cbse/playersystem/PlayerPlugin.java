@@ -5,7 +5,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
-import dk.sdu.se4.groupX.commonenemy.Player;
+import dk.sdu.se4.groupX.commonplayer.Player;
 
 
 public class PlayerPlugin implements IGamePluginService {
