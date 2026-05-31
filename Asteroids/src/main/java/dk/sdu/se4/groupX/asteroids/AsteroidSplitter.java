@@ -50,6 +50,13 @@ public class AsteroidSplitter implements AsteroidSplitterSPI
             fragment.setRadius(newSize);
             fragment.setRotation(random.nextInt(360));
 
+            // Set collision properties
+            fragment.setCanCollide(true);
+            fragment.setCanDamage(true);
+            fragment.setCanBeDamaged(true);
+            fragment.setCollisionDamage(100);
+            fragment.setHealth(50);
+
             // .
             world.addEntity(fragment);
         }

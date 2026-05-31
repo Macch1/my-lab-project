@@ -67,13 +67,22 @@ public class PlayerControlSystem implements IEntityProcessingService {
     }
 
 
-
-    private Collection<? extends BulletSPI> getBulletSPIs() {
+    /**
+     *
+     * @return
+     */
+    private Collection<? extends BulletSPI> getBulletSPIs()
+    {
         return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
 
-
+    /**
+     *
+     * @param player
+     * @param world
+     * @return
+     */
     private boolean handleHealth(Entity player, World world) {
         if (player.getHealth() <= 0) {
             world.removeEntity(player);
