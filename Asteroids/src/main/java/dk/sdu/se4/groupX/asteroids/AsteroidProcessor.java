@@ -69,12 +69,13 @@ public class AsteroidProcessor implements IEntityProcessingService
                 // If a splitter was found, use the first one to split the asteroid.
                 if (!(AsteroidSplitters.isEmpty()))
                 {
+                    // Calls the "splitAsteroid(asteroid, world)" method.
                     AsteroidSplitters.iterator().next().splitAsteroid(asteroid, world);
                 }
             }
             catch (Exception e)
             {
-                System.out.println("AsteroidSplitter not available: " + e.getMessage());
+                System.out.println("AsteroidSplitter implementation is not available: " + e.getMessage());
 
                 // If the Asteroid wasn't removed from the "world", we remove it.
                 if ( world.containsEntity(asteroid.getID()) )
@@ -86,13 +87,13 @@ public class AsteroidProcessor implements IEntityProcessingService
             // Notify ScoringService.
             try
             {
-                // .
+                // Create a RestTemplate to make HTTP requests to the ScoringService.
                 RestTemplate restTemplate = new RestTemplate();
 
-                // .
+                // Notify the ScoringService that one more Asteroid has been destroyed.
                 restTemplate.put("http://localhost:8080/asteroids/add?point=1", null, Long.class);
 
-                // .
+                // Notify the ScoringService to add 10 points to the total score.
                 restTemplate.put("http://localhost:8080/score/add?point=10", null);
 
             }

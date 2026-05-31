@@ -9,6 +9,8 @@ import dk.sdu.se4.groupX.commonenemy.Enemy;
 import dk.sdu.se4.groupX.commonplayer.Player;
 
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Collection;
 import java.util.ServiceLoader;
 
@@ -19,10 +21,6 @@ import java.util.Random;
 
 public class EnemyShipProcessor implements IEntityProcessingService
 {
-
-
-
-
 
 
 
@@ -42,8 +40,10 @@ public class EnemyShipProcessor implements IEntityProcessingService
     {
         for (Entity entity : world.getEntities(Enemy.class))
         {
+            // .
             Enemy enemyShip = (Enemy) entity;
 
+            // Step 0 - Check Health
             if (this.handleHealth(enemyShip, world))
             {
                 continue; // skip dead entities
@@ -77,16 +77,50 @@ public class EnemyShipProcessor implements IEntityProcessingService
     ///
 
 
-    private boolean handleHealth(Entity enemy, World world) {
-        if (enemy.getHealth() <= 0) {
+    /**
+     *
+     * @param enemy
+     * @param world
+     * @return
+     */
+    private boolean handleHealth(Entity enemy, World world)
+    {
+        // If the health of the Enemy is zero or below, we define the Enemy as "Dead" / "Destroyed".
+        // If the v is "Dead" / "Destroyed" it gets handled below.
+        if (enemy.getHealth() <= 0)
+        {
+            // Remove the "Enemy" entity from the "world".
             world.removeEntity(enemy);
+
+            // Notify ScoringService.
+            try
+            {
+                // Create a RestTemplate to make HTTP requests to the ScoringService.
+                RestTemplate restTemplate = new RestTemplate();
+
+                // Notify the ScoringService to add 10 points to the total score.
+                restTemplate.put("http://localhost:8080/score/add?point=50", null);
+
+            }
+            catch (Exception e)
+            {
+                System.out.println("ScoringService not available: " + e.getMessage());
+            }
+
+            // returns "true" to indicate the Enemy is "Dead" / "Destroyed".
             return true;
         }
+
+        // returns "false" to indicate the Enemy is "Alive" / "Not destroyed".
         return false;
     }
 
 
 
+    /**
+     *
+     * @param enemyShip
+     */
     private void moveForward(Enemy enemyShip)
     {
         // .
@@ -99,16 +133,19 @@ public class EnemyShipProcessor implements IEntityProcessingService
     }
 
 
+
+    /**
+     *
+     * @param enemyShip
+     * @param world
+     */
     private void calculateAngleToPlayer(Enemy enemyShip, World world)
     {
         // Find the entity of type "Player".
         for (Entity player : world.getEntities(Player.class))
         {
             // Calculate the number of degrees the enemy ship needs to turn to look at the player.
-            double angleToPlayer = Math.toDegrees(Math.atan2(
-                    player.getY() - enemyShip.getY(),
-                    player.getX() - enemyShip.getX()
-            ));
+            double angleToPlayer = Math.toDegrees( Math.atan2((player.getY() - enemyShip.getY()), (player.getX() - enemyShip.getX())) );
 
             // Sets the desired rotation for the enemyship.
             enemyShip.setDesired_rotation(angleToPlayer);
@@ -117,16 +154,22 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
 
 
+    /**
+     *
+     * @param enemyShip
+     */
     private void turnTowardsPlayer(Enemy enemyShip)
     {
         // Calculate how much we need to turn
         double orientation_change = (enemyShip.getRotation() - enemyShip.getDesired_rotation()) * enemyShip.getEnemy_turnFactor();
 
         // Clamp to max turn speed
-        if (orientation_change > enemyShip.getEnemy_turnSpeed_max()) {
+        if (orientation_change > enemyShip.getEnemy_turnSpeed_max())
+        {
             orientation_change = enemyShip.getEnemy_turnSpeed_max();
         }
-        if (orientation_change < -enemyShip.getEnemy_turnSpeed_max()) {
+        if (orientation_change < -enemyShip.getEnemy_turnSpeed_max())
+        {
             orientation_change = -enemyShip.getEnemy_turnSpeed_max();
         }
 
@@ -136,24 +179,46 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
 
 
-
+    /**
+     *
+     * @param enemyShip
+     * @param gameData
+     * @param world
+     */
     private void shootIfAimed(Enemy enemyShip, GameData gameData, World world)
     {
         // Calculate how far off we are from facing the player
         double angleDifference = Math.abs(enemyShip.getRotation() - enemyShip.getDesired_rotation());
 
-        // Only shoot if facing close enough to the player and bullet is loaded
+
+        // Only shoot if facing close enough to the player and bullet is loaded.
         if ((angleDifference < enemyShip.getEnemy_turnSpeed_min()) && enemyShip.isEnemy_Bullet_loaded())
         {
-            // Shoot Bullet!
-            getBulletSPIs().stream().findFirst().ifPresent(
-                    spi -> { world.addEntity(spi.createBullet(enemyShip, gameData)); }
-            );
+
+            // Try to find an implementation of "BulletSPI", so we can call the method "createBullet()".
+            try
+            {
+                // Get all available BulletSPI implementations.
+                Collection<? extends BulletSPI> bulletSPIs = getBulletSPIs();
+
+                // If a splitter was found, use the first one to split the asteroid.
+                if (!(bulletSPIs.isEmpty()))
+                {
+                    // Calls the "createBullet(enemyShip, gameData)" method.
+                    bulletSPIs.iterator().next().createBullet(enemyShip, gameData);
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println("bulletSPI implementation is not available: " + e.getMessage());
+            }
 
             // Mark as unloaded, and start reload timer.
             enemyShip.setEnemy_Bullet_loaded(false);
             enemyShip.setEnemy_Reload_ticksLeft(enemyShip.getEnemy_Reload_time());
         }
+
+        // Else-If the enemy doesn't have their bullets loaded yet.
         else if (!enemyShip.isEnemy_Bullet_loaded())
         {
             // Count down reload timer
@@ -168,33 +233,62 @@ public class EnemyShipProcessor implements IEntityProcessingService
         }
     }
 
+
+
+
+    /**
+     *
+     * @return
+     */
     private Collection<? extends BulletSPI> getBulletSPIs()
     {
-        return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        // "Collection<? extends interface>"
+        // We use Collection, so we can store the implementations of the interface, without fear of duplications.
+        // We use Wildcard, so we can store any implementation of BulletSPI.
+        // Link = https://www.geeksforgeeks.org/java/wildcards-in-java/
+
+        // "ServiceLoader.load(Interface.class)"
+        // Finds and loads all registered implementations of an Interface available.
+        // Link = https://www.geeksforgeeks.org/java/java-mdoules-service-implementation-module/
+
+        // We find, load and collect the implementations of the "BulletSPI" interface.
+        Collection<? extends BulletSPI> bulletImplementation = ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+        // Returns all implementations of the interface "BulletSPI".
+        return bulletImplementation;
     }
 
 
 
 
+    /**
+     *
+     * @param enemyShip
+     * @param gameData
+     */
     private void wrapAroundEdges(Enemy enemyShip, GameData gameData)
     {
         // .
-        if (enemyShip.getX() < 0) {
+        if (enemyShip.getX() < 0)
+        {
             enemyShip.setX(gameData.getDisplayWidth());
         }
 
         // .
-        if (enemyShip.getX() > gameData.getDisplayWidth()) {
+        if (enemyShip.getX() > gameData.getDisplayWidth())
+        {
             enemyShip.setX(0);
         }
 
         // .
-        if (enemyShip.getY() < 0) {
+        if (enemyShip.getY() < 0)
+        {
             enemyShip.setY(gameData.getDisplayHeight());
         }
 
         // .
-        if (enemyShip.getY() > gameData.getDisplayHeight()) {
+        if (enemyShip.getY() > gameData.getDisplayHeight())
+        {
             enemyShip.setY(0);
         }
     }
