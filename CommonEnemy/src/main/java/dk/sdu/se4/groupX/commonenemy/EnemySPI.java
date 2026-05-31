@@ -1,4 +1,4 @@
-package dk.sdu.se4.groupX.commonplayer;
+package dk.sdu.se4.groupX.commonenemy;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
