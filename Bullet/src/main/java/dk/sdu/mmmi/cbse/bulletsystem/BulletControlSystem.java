@@ -40,4 +40,14 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
 
         return bullet;
     }
+
+
+
+    private void handleHealth(Entity bullet, World world) {
+        if (bullet.getHealth() <= 0) {
+            world.removeEntity(bullet);
+        }
+    }
+
+
 }

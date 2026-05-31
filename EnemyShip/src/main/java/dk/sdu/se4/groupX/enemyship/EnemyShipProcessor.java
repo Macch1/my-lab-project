@@ -72,6 +72,16 @@ public class EnemyShipProcessor implements IEntityProcessingService
     ///
 
 
+    private void handleHealth(Entity enemy, World world)
+    {
+        if (enemy.getHealth() <= 0)
+        {
+            world.removeEntity(enemy);
+        }
+    }
+
+
+
     private void moveForward(Enemy enemyShip)
     {
         // .
@@ -183,6 +193,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
             enemyShip.setY(0);
         }
     }
+
 
 
 

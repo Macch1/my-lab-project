@@ -30,4 +30,14 @@ public class AsteroidProcessor implements IEntityProcessingService
             if (asteroid.getY() > gameData.getDisplayHeight()) asteroid.setY(0);
         }
     }
+
+
+    private void handleHealth(Entity asteroid, World world) {
+        if (asteroid.getHealth() <= 0) {
+            getSplitters().stream().findFirst().ifPresent(
+                    spi -> spi.splitAsteroid(asteroid, world)
+            );
+        }
+    }
+
 }
