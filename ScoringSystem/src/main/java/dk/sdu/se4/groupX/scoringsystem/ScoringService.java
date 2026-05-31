@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication
 @RestController
-public class ScoringSystem
+public class ScoringService
 {
 
     private Long totalScore = 0L;
@@ -24,7 +24,7 @@ public class ScoringSystem
 
     // .
     public static void main(String[] args) {
-        SpringApplication.run(ScoringSystem.class, args);
+        SpringApplication.run(ScoringService.class, args);
     }
 
 
