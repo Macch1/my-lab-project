@@ -290,6 +290,26 @@ public class Entity implements Serializable
     }
 
 
+    /**
+     *
+     * @param damage
+     */
+    public void doDamage(int damage)
+    {
+        this.health = this.health - damage;
+    }
+
+
+    /**
+     *
+     * @param damage
+     */
+    public void undoDamage(int damage)
+    {
+        this.health = this.health + damage;
+    }
+
+
 
 
 }
