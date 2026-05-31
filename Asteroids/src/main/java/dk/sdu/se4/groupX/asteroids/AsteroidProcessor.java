@@ -42,18 +42,87 @@ public class AsteroidProcessor implements IEntityProcessingService
     }
 
 
-    private boolean handleHealth(Entity asteroid, World world) {
-        if (asteroid.getHealth() <= 0) {
-            getSplitters().stream().findFirst().ifPresent(
-                    spi -> spi.splitAsteroid(asteroid, world)
-            );
+
+
+    /**
+     *
+     * @param asteroid
+     * @param world
+     * @return
+     */
+    private boolean handleHealth(Entity asteroid, World world)
+    {
+
+        // If the health of the Asteroid is zero or below, we define the Asteroid as "Dead" / "Destroyed".
+        // If the Asteroid is "Dead" / "Destroyed" it gets handled below.
+        if (asteroid.getHealth() <= 0)
+        {
+            // Try to find an implementation of "AsteroidSplitterSPI", so we can call the method "splitAsteroid()".
+            try
+            {
+                // .
+                getSplitters().stream().findFirst().ifPresent( spi -> spi.splitAsteroid(asteroid, world) );
+
+            }
+            catch (Exception e)
+            {
+                System.out.println("AsteroidSplitter not available: " + e.getMessage());
+
+                // If the Asteroid wasn't removed from the "world", we remove it.
+                if ( world.containsEntity(asteroid.getID()) )
+                {
+                    world.removeEntity(asteroid.getID());
+                }
+            }
+
+            // Notify ScoringService.
+            try
+            {
+                // .
+                RestTemplate restTemplate = new RestTemplate();
+
+                // .
+                restTemplate.postForObject("http://localhost:8080/asteroids/add?point=1", null, Long.class);
+
+                // .
+                restTemplate.put("http://localhost:8080/score/add?point=10", null);
+
+            }
+            catch (Exception e)
+            {
+                System.out.println("ScoringService not available: " + e.getMessage());
+            }
+
+            // returns "true" to indicate the Asteroid is "Dead" / "Destroyed".
             return true;
         }
+
+        // returns "false" to indicate the Asteroid is "Alive" / "Not destroyed".
         return false;
     }
 
-    private Collection<? extends AsteroidSplitterSPI> getSplitters() {
-        return ServiceLoader.load(AsteroidSplitterSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+
+    /**
+     *
+     * @return
+     */
+    private Collection<? extends AsteroidSplitterSPI> getSplitters()
+    {
+        // "Collection<? extends interface>"
+        // We use Collection, so we can store the implementations of the interface, without fear of duplications.
+        // We use Wildcard, so we can store any implementation of AsteroidSplitterSPI.
+        // Link = https://www.geeksforgeeks.org/java/wildcards-in-java/
+
+        // "ServiceLoader.load(Interface.class)"
+        // Finds and loads all registered implementations of an Interface available.
+        // Link = https://www.geeksforgeeks.org/java/java-mdoules-service-implementation-module/
+
+        // We find, load and collect the implementations of the "AsteroidSplitterSPI" interface.
+        Collection<? extends AsteroidSplitterSPI> splitterImplementation = ServiceLoader.load(AsteroidSplitterSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+        // Returns all implementations of the interface "AsteroidSplitterSPI".
+        return splitterImplementation;
     }
 
 }
