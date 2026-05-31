@@ -11,6 +11,7 @@ class CollisionDetectorTest {
     private Entity entity1;
     private Entity entity2;
 
+    // .
     @BeforeEach
     void setUp() {
         collisionDetector = new CollisionDetector();
@@ -18,18 +19,23 @@ class CollisionDetectorTest {
         entity2 = new Entity();
     }
 
+    // .
     @Test
     void testCollides_WhenOverlapping_ReturnsTrue() { ... }
 
+    // .
     @Test
     void testCollides_WhenApart_ReturnsFalse() { ... }
 
+    // .
     @Test
     void testCollides_WhenTouching_ReturnsFalse() { ... }
 
+    // .
     @Test
     void testResolveCollision_WhenCannotCollide_NoDamage() { ... }
 
+    // .
     @Test
     void testResolveCollision_WhenCanDamage_DamageApplied() { ... }
 }
