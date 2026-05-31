@@ -44,6 +44,11 @@ public class EnemyShipProcessor implements IEntityProcessingService
         {
             Enemy enemyShip = (Enemy) entity;
 
+            if (this.handleHealth(enemyShip, world))
+            {
+                continue; // skip dead entities
+            }
+
             // Step 1 - Move forward
             moveForward(enemyShip);
 
@@ -72,12 +77,12 @@ public class EnemyShipProcessor implements IEntityProcessingService
     ///
 
 
-    private void handleHealth(Entity enemy, World world)
-    {
-        if (enemy.getHealth() <= 0)
-        {
+    private boolean handleHealth(Entity enemy, World world) {
+        if (enemy.getHealth() <= 0) {
             world.removeEntity(enemy);
+            return true;
         }
+        return false;
     }
 
 

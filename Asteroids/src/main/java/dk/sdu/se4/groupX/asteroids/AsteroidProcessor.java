@@ -6,6 +6,11 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.se4.groupX.commonasteroids.Asteroid;
 
+import dk.sdu.se4.groupX.commonasteroids.AsteroidSplitterSPI;
+import java.util.Collection;
+import java.util.ServiceLoader;
+import static java.util.stream.Collectors.toList;
+
 public class AsteroidProcessor implements IEntityProcessingService
 {
 
@@ -15,6 +20,11 @@ public class AsteroidProcessor implements IEntityProcessingService
         // .
         for (Entity asteroid : world.getEntities(Asteroid.class))
         {
+            if (this.handleHealth(asteroid, world))
+            {
+                continue; // skip dead entities
+            }
+
             // .
             double changeX = Math.cos(Math.toRadians(asteroid.getRotation()));
             double changeY = Math.sin(Math.toRadians(asteroid.getRotation()));
@@ -32,12 +42,18 @@ public class AsteroidProcessor implements IEntityProcessingService
     }
 
 
-    private void handleHealth(Entity asteroid, World world) {
+    private boolean handleHealth(Entity asteroid, World world) {
         if (asteroid.getHealth() <= 0) {
             getSplitters().stream().findFirst().ifPresent(
                     spi -> spi.splitAsteroid(asteroid, world)
             );
+            return true;
         }
+        return false;
+    }
+
+    private Collection<? extends AsteroidSplitterSPI> getSplitters() {
+        return ServiceLoader.load(AsteroidSplitterSPI.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
 }

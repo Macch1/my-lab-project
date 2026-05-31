@@ -12,7 +12,13 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
     @Override
     public void process(GameData gameData, World world) {
 
-        for (Entity bullet : world.getEntities(Bullet.class)) {
+        for (Entity bullet : world.getEntities(Bullet.class))
+        {
+            if (this.handleHealth(bullet, world))
+            {
+                continue; // skip dead entities
+            }
+
             double changeX = Math.cos(Math.toRadians(bullet.getRotation()));
             double changeY = Math.sin(Math.toRadians(bullet.getRotation()));
             bullet.setX(bullet.getX() + changeX * 3);
@@ -43,10 +49,12 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI 
 
 
 
-    private void handleHealth(Entity bullet, World world) {
+    private boolean handleHealth(Entity bullet, World world) {
         if (bullet.getHealth() <= 0) {
             world.removeEntity(bullet);
+            return true;
         }
+        return false;
     }
 
 

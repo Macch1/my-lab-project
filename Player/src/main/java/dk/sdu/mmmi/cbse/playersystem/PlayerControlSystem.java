@@ -21,7 +21,13 @@ public class PlayerControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
             
-        for (Entity player : world.getEntities(Player.class)) {
+        for (Entity player : world.getEntities(Player.class))
+        {
+            if (this.handleHealth(player, world))
+            {
+                continue; // skip dead entities
+            }
+
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
                 player.setRotation(player.getRotation() - 5);                
             }
@@ -40,21 +46,21 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 );
             }
             
-        if (player.getX() < 0) {
-            player.setX(1);
-        }
+            if (player.getX() < 0) {
+                player.setX(1);
+            }
 
-        if (player.getX() > gameData.getDisplayWidth()) {
-            player.setX(gameData.getDisplayWidth()-1);
-        }
+            if (player.getX() > gameData.getDisplayWidth()) {
+                player.setX(gameData.getDisplayWidth()-1);
+            }
 
-        if (player.getY() < 0) {
-            player.setY(1);
-        }
+            if (player.getY() < 0) {
+                player.setY(1);
+            }
 
-        if (player.getY() > gameData.getDisplayHeight()) {
-            player.setY(gameData.getDisplayHeight()-1);
-        }
+            if (player.getY() > gameData.getDisplayHeight()) {
+                player.setY(gameData.getDisplayHeight()-1);
+            }
 
                                         
         }
@@ -68,10 +74,12 @@ public class PlayerControlSystem implements IEntityProcessingService {
 
 
 
-    private void handleHealth(Entity player, World world) {
+    private boolean handleHealth(Entity player, World world) {
         if (player.getHealth() <= 0) {
             world.removeEntity(player);
+            return true;
         }
+        return false;
     }
 
 }
