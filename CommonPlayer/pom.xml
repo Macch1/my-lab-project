@@ -10,7 +10,7 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>dk.sdu.se4.groupX.commonplayer</groupId>
+    <groupId>dk.sdu.se4.groupX.commonenemy</groupId>
     <artifactId>CommonPlayer</artifactId>
     <version>1.0-SNAPSHOT</version>
 

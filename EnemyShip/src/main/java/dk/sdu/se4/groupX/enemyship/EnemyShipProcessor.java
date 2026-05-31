@@ -6,15 +6,13 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.se4.groupX.commonenemy.Enemy;
 
-import dk.sdu.se4.groupX.commonplayer.Player;
+import dk.sdu.se4.groupX.commonenemy.Player;
 
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import java.util.Collection;
 import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
-
-import java.util.Random;
 
 
 public class EnemyShipProcessor implements IEntityProcessingService
