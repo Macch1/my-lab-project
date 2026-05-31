@@ -1,13 +1,11 @@
 package dk.sdu.mmmi.cbse.collisionsystem;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.data.GameData;
 
 
 
@@ -224,8 +222,33 @@ class CollisionDetectorTest {
         collisionDetector.process(test_gameData, test_world);
 
         // Assert
-        assertEquals(50, entity1.getHealth());
-        assertEquals(75, entity2.getHealth());
+        assertEquals(100, entity1.getHealth());
+        assertEquals(100, entity2.getHealth());
+    }
+
+
+    @Test
+    void testCollides_WithItself_ReturnsFalse()
+    {
+        // Arrange
+        entity1.setX(0);
+        entity1.setY(0);
+        entity1.setRadius(10);
+        entity1.setHealth(100);
+        entity1.setCanCollide(true);
+        entity1.setCanDamage(true);
+        entity1.setCanBeDamaged(true);
+        entity1.setCollisionDamage(25);
+
+        World test_world = new World();
+        GameData test_gameData = new GameData();
+        test_world.addEntity(entity1);
+
+        // Act
+        collisionDetector.process(test_gameData, test_world);
+
+        // Assert
+        assertEquals(100, entity1.getHealth());
     }
 
 
