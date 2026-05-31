@@ -37,21 +37,21 @@ public class ScoringSystem
     }
 
     // .
-    @PutMapping("/score/set")
+    @PostMapping("/score/set")
     public Long set_TotalScore(@RequestParam(value = "point") Long point) {
         this.totalScore = point;
         return this.totalScore;
     }
 
     // .
-    @PostMapping("/score/add")
+    @PutMapping("/score/add")
     public Long addTo_TotalScore(@RequestParam(value = "point") Long point) {
         this.totalScore += point;
         return this.totalScore;
     }
 
     // .
-    @PostMapping("/score/remove")
+    @PutMapping("/score/remove")
     public Long removeFrom_TotalScore(@RequestParam(value = "point") Long point) {
         this.totalScore -= point;
         return this.totalScore;
@@ -67,21 +67,21 @@ public class ScoringSystem
     }
 
     // .
-    @PutMapping("/health/set")
+    @PostMapping("/health/set")
     public int set_CurrentHealth(@RequestParam(value = "point") int point) {
         this.currentHealth = point;
         return this.currentHealth;
     }
 
     // .
-    @PostMapping("/health/add")
+    @PutMapping("/health/add")
     public int addTo_CurrentHealth(@RequestParam(value = "point") int point) {
         this.currentHealth += point;
         return this.currentHealth;
     }
 
     // .
-    @PostMapping("/health/remove")
+    @PutMapping("/health/remove")
     public int removeFrom_CurrentHealth(@RequestParam(value = "point") int point) {
         this.currentHealth -= point;
         return this.currentHealth;
@@ -97,21 +97,21 @@ public class ScoringSystem
     }
 
     // .
-    @PutMapping("/asteroids/set")
+    @PostMapping("/asteroids/set")
     public Long set_TotalAsteroids(@RequestParam(value = "point") Long point) {
         this.totalAsteroids = point;
         return this.totalAsteroids;
     }
 
     // .
-    @PostMapping("/asteroids/add")
+    @PutMapping("/asteroids/add")
     public Long addTo_TotalAsteroids(@RequestParam(value = "point") Long point) {
         this.totalAsteroids += point;
         return this.totalAsteroids;
     }
 
     // .
-    @PostMapping("/asteroids/remove")
+    @PutMapping("/asteroids/remove")
     public Long removeFrom_TotalAsteroids(@RequestParam(value = "point") Long point) {
         this.totalAsteroids -= point;
         return this.totalAsteroids;
@@ -127,21 +127,21 @@ public class ScoringSystem
     }
 
     // .
-    @PutMapping("/enemyship/set")
+    @PostMapping("/enemyship/set")
     public Long set_TotalEnemyShips(@RequestParam(value = "point") Long point) {
         this.totalEnemyShips = point;
         return this.totalEnemyShips;
     }
 
     // .
-    @PostMapping("/enemyship/add")
+    @PutMapping("/enemyship/add")
     public Long addTo_TotalEnemyShips(@RequestParam(value = "point") Long point) {
         this.totalEnemyShips += point;
         return this.totalEnemyShips;
     }
 
     // .
-    @PostMapping("/enemyship/remove")
+    @PutMapping("/enemyship/remove")
     public Long removeFrom_TotalEnemyShips(@RequestParam(value = "point") Long point) {
         this.totalEnemyShips -= point;
         return this.totalEnemyShips;
