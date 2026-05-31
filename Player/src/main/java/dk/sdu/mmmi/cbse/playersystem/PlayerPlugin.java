@@ -32,11 +32,11 @@ public class PlayerPlugin implements IGamePluginService {
         playerShip.setRadius(8);
 
         // Health and collision logic.
-        player.setCanCollide(true);
-        player.setCanDamage(true);
-        player.setCanBeDamaged(true);
-        player.setCollisionDamage(100);
-        player.setHealth(100);
+        playerShip.setCanCollide(true);
+        playerShip.setCanDamage(true);
+        playerShip.setCanBeDamaged(true);
+        playerShip.setCollisionDamage(100);
+        playerShip.setHealth(100);
 
         return playerShip;
     }
