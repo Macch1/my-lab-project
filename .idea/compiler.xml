@@ -8,15 +8,16 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Bullet" />
         <module name="Player" />
-        <module name="Asteroids" />
         <module name="Collision" />
-        <module name="Enemy" />
         <module name="CommonAsteroids" />
-        <module name="EnemyShip" />
         <module name="CommonBullet" />
-        <module name="Core" />
         <module name="Common" />
         <module name="CommonPlayer" />
+        <module name="Score" />
+        <module name="Asteroids" />
+        <module name="Enemy" />
+        <module name="EnemyShip" />
+        <module name="Core" />
         <module name="ScoringSystem" />
       </profile>
     </annotationProcessing>

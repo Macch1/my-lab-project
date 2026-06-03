@@ -20,6 +20,7 @@
     <module>CommonAsteroids</module>
     <module>Asteroids</module>
     <module>ScoringSystem</module>
+    <module>Score</module>
   </modules>
 
   <properties>

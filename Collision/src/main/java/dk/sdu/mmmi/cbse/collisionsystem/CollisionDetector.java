@@ -190,7 +190,7 @@ public class CollisionDetector implements IPostEntityProcessingService
             // Entities are exactly on top of each other — no direction can be calculated.
             // Use a fallback direction, but still push by the full overlap distance.
             nx = 1;
-            ny = 1;
+            ny = 0;
         }
         else
         {
@@ -203,11 +203,11 @@ public class CollisionDetector implements IPostEntityProcessingService
         // even in edge cases where positions are near zero.
         if (entityA.Check_CanBe_Pushed())
         {
-            entityA.Push_Entity((int)(nx * overlap), (int)(ny * overlap));
+            entityA.Push_Entity((int)(nx * overlap * 2), (int)(ny * overlap * 2));
         }
         if (entityB.Check_CanBe_Pushed())
         {
-            entityB.Push_Entity((int)(-nx * overlap), (int)(-ny * overlap));
+            entityB.Push_Entity((int)(-nx * overlap * 2), (int)(-ny * overlap * 2));
         }
 
         return true;

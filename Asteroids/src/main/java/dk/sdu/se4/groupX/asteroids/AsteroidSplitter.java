@@ -51,10 +51,6 @@ public class AsteroidSplitter implements AsteroidSplitterSPI
             fragment.Set_Rotation(random.nextInt(360));
 
             // Set collision properties
-            fragment.Set_Can_Collide(true);
-            fragment.Set_CanTake_CollideDamage(true);
-            fragment.Set_CanTake_Damaged(true);
-            fragment.Set_CollisionDamage(100);
             fragment.Set_Health(50);
 
             // .
