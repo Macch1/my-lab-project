@@ -32,10 +32,18 @@ class Game {
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private final Pane gameWindow = new Pane();
+    private final Text scoreText = new Text(10, 20, "Score: 0");
     private final List<IGamePluginService> gamePluginServices;
     private final List<IEntityProcessingService> entityProcessingServiceList;
     private final List<IPostEntityProcessingService> postEntityProcessingServices;
 
+
+    /**
+     *
+     * @param gamePluginServices
+     * @param entityProcessingServiceList
+     * @param postEntityProcessingServices
+     */
     Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessingServiceList, List<IPostEntityProcessingService> postEntityProcessingServices)
     {
         this.gamePluginServices = gamePluginServices;
@@ -43,12 +51,22 @@ class Game {
         this.postEntityProcessingServices = postEntityProcessingServices;
     }
 
-    public void start(Stage window) throws Exception {
-        Text text = new Text(10, 20, "Destroyed asteroids: 0");
-        gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        gameWindow.getChildren().add(text);
 
+    /**
+     *
+     * @param window
+     * @throws Exception
+     */
+    public void start(Stage window) throws Exception
+    {
+        // .
+        gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
+        gameWindow.getChildren().add(scoreText);
+
+        // .
         Scene scene = new Scene(gameWindow);
+
+        // .
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.LEFT))
             {
@@ -101,10 +119,17 @@ class Game {
         window.show();
     }
 
-    public void render() {
-        new AnimationTimer() {
+
+    /**
+     *
+     */
+    public void render()
+    {
+        new AnimationTimer()
+        {
             @Override
-            public void handle(long now) {
+            public void handle(long now)
+            {
                 update();
                 draw();
                 gameData.getKeys().update();
@@ -113,31 +138,59 @@ class Game {
         }.start();
     }
 
-    private void update() {
-        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
+
+    /**
+     *
+     */
+    private void update()
+    {
+        // .
+        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices())
+        {
             entityProcessorService.process(gameData, world);
         }
-        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
+
+        // .
+        for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices())
+        {
             postEntityProcessorService.process(gameData, world);
         }
     }
 
-    private void draw() {
-        for (Entity polygonEntity : polygons.keySet()) {
-            if (!world.getEntities().contains(polygonEntity)) {
+
+
+
+    private void draw()
+    {
+        // .
+        scoreText.setText("Score: " + world.getCurrentScore());
+
+        // .
+        for (Entity polygonEntity : polygons.keySet())
+        {
+            // .
+            if (!world.getEntities().contains(polygonEntity))
+            {
                 Polygon removedPolygon = polygons.get(polygonEntity);
                 polygons.remove(polygonEntity);
                 gameWindow.getChildren().remove(removedPolygon);
             }
         }
 
-        for (Entity entity : world.getEntities()) {
+        for (Entity entity : world.getEntities())
+        {
+            // .
             Polygon polygon = polygons.get(entity);
-            if (polygon == null) {
+
+            // .
+            if (polygon == null)
+            {
                 polygon = new Polygon(entity.Get_PolygonCoordinates());
                 polygons.put(entity, polygon);
                 gameWindow.getChildren().add(polygon);
             }
+
+            // .
             polygon.setTranslateX(entity.Get_X());
             polygon.setTranslateY(entity.Get_Y());
             polygon.setRotate(entity.Get_Rotation());
@@ -145,15 +198,18 @@ class Game {
 
     }
 
-    public List<IGamePluginService> getGamePluginServices() {
+    public List<IGamePluginService> getGamePluginServices()
+    {
         return gamePluginServices;
     }
 
-    public List<IEntityProcessingService> getEntityProcessingServices() {
+    public List<IEntityProcessingService> getEntityProcessingServices()
+    {
         return entityProcessingServiceList;
     }
 
-    public List<IPostEntityProcessingService> getPostEntityProcessingServices() {
+    public List<IPostEntityProcessingService> getPostEntityProcessingServices()
+    {
         return postEntityProcessingServices;
     }
 
