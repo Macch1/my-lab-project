@@ -163,7 +163,7 @@ class Game {
     private void draw()
     {
         // .
-        scoreText.setText("Score: " + world.getCurrentScore());
+        scoreText.setText("Score: " + world.Get_CurrentScore());
 
         // .
         for (Entity polygonEntity : polygons.keySet())
@@ -198,16 +198,19 @@ class Game {
 
     }
 
+    // .
     public List<IGamePluginService> getGamePluginServices()
     {
         return gamePluginServices;
     }
 
+    // .
     public List<IEntityProcessingService> getEntityProcessingServices()
     {
         return entityProcessingServiceList;
     }
 
+    // .
     public List<IPostEntityProcessingService> getPostEntityProcessingServices()
     {
         return postEntityProcessingServices;

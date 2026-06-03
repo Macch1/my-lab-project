@@ -3,6 +3,7 @@ package dk.sdu.se4.groupX.enemyship;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.se4.groupX.commonenemy.Enemy;
 
@@ -92,16 +93,15 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // Notify ScoringService.
             try
             {
-                /**
-                // Create a RestTemplate to make HTTP requests to the ScoringService.
-                RestTemplate restTemplate = new RestTemplate();
+                // Notify ScoreTracker that an enemy was destroyed.
+                IScoreTracker scoreTracker = getScoreTracker();
 
-                // Notify the ScoringService that one more EnemyShip has been destroyed.
-                restTemplate.put("http://localhost:8080/enemyship/add?point=1", null);
-
-                // Notify the ScoringService to add 50 points to the total score.
-                restTemplate.put("http://localhost:8080/score/add?point=50", null);
-                 **/
+                // .
+                if (scoreTracker != null)
+                {
+                    scoreTracker.addScore(50);
+                    world.Set_CurrentScore(scoreTracker.getScore());
+                }
             }
             catch (Exception e)
             {
@@ -115,6 +115,28 @@ public class EnemyShipProcessor implements IEntityProcessingService
         // returns "false" to indicate the Enemy is "Alive" / "Not destroyed".
         return false;
     }
+
+
+
+
+
+    /**
+     *
+     * @return
+     */
+    private IScoreTracker getScoreTracker()
+    {
+        // "ServiceLoader.load(Interface.class)"
+        // Finds and loads all registered implementations of an Interface available.
+        // Link = https://www.geeksforgeeks.org/java/java-mdoules-service-implementation-module/
+
+        // We find, load and collect the implementations of the "IScoreTracker" interface.
+        Collection<? extends IScoreTracker> scoreTrackerImplementation = ServiceLoader.load(IScoreTracker.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+        // Returns the first implementation of the interface "IScoreTracker", or null if none is found.
+        return scoreTrackerImplementation.stream().findFirst().orElse(null);
+    }
+
 
 
 
