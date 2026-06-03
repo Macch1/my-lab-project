@@ -13,8 +13,16 @@ public class ScoreTracker implements IScoreTracker {
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private static final String SCORING_URL = "http://localhost:8080/score";
 
+
+    public ScoreTracker()
+    {
+        System.out.println("ScoreTracker instantiated");
+    }
+
+
     @Override
-    public void addScore(int points) {
+    public void addScore(int points)
+    {
         currentScore += points;
         System.out.println("Score updated: " + currentScore);
     }
@@ -25,8 +33,13 @@ public class ScoreTracker implements IScoreTracker {
     }
 
     @Override
-    public void submitFinalScore() {
-        try {
+    public void submitFinalScore()
+    {
+        // .
+        try
+        {
+            System.out.println("submitFinalScore() called from: " + Thread.currentThread().getStackTrace()[2]);
+
             String json = "{\"score\": " + currentScore + "}";
 
             HttpRequest request = HttpRequest.newBuilder()
@@ -42,7 +55,9 @@ public class ScoreTracker implements IScoreTracker {
             System.out.println("Score submitted: " + currentScore +
                     " | Response: " + response.statusCode());
 
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             // Graceful failure — game continues even if ScoringSystem is down
             System.out.println("ScoringSystem unreachable. Score not submitted: " + e.getMessage());
         }

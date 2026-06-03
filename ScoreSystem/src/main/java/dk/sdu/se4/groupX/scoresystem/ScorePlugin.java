@@ -11,6 +11,7 @@ public class ScorePlugin implements IGamePluginService
     public void start(GameData gameData, World world) {
         // Nothing to spawn — Score is a pure service component
         System.out.println("ScorePlugin started.");
+        System.out.println("ScorePlugin.start() called");
     }
 
     @Override

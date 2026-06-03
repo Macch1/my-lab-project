@@ -162,7 +162,7 @@ class Game {
     {
         // Check if player is alive before processing.
         boolean playerAliveBefore = isPlayerAlive();
-
+        System.out.println("Frame start — playerAliveBefore: " + playerAliveBefore);
 
         // .
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices())
@@ -183,6 +183,8 @@ class Game {
             scoreTracker.submitFinalScore();
         }
 
+        // .
+        System.out.println("Frame end — playerAliveAfter: " + isPlayerAlive());
     }
 
 
@@ -270,7 +272,9 @@ class Game {
      */
     private boolean isPlayerAlive()
     {
-        return world.getEntities().stream().anyMatch(e -> e.Get_Type() == EntityType.Player);
+        boolean alive = world.getEntities().stream().anyMatch(e -> e.Get_Type() == EntityType.Player);
+        System.out.println("isPlayerAlive: " + alive + " | Entities in world: " + world.getEntities().size());
+        return alive;
     }
 
 
