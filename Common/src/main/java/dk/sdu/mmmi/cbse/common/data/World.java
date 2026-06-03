@@ -20,8 +20,8 @@ public class World
 
     public String addEntity(Entity entity)
     {
-        entityMap.put(entity.getID(), entity);
-        return entity.getID();
+        entityMap.put(entity.Get_ID(), entity);
+        return entity.Get_ID();
     }
 
     public void removeEntity(String entityID)
@@ -31,7 +31,7 @@ public class World
 
     public void removeEntity(Entity entity)
     {
-        entityMap.remove(entity.getID());
+        entityMap.remove(entity.Get_ID());
     }
 
     public Collection<Entity> getEntities()

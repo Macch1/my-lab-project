@@ -15,8 +15,6 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-import java.util.Random;
-
 
 public class EnemyShipProcessor implements IEntityProcessingService
 {
@@ -86,7 +84,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
     {
         // If the health of the Enemy is zero or below, we define the Enemy as "Dead" / "Destroyed".
         // If the v is "Dead" / "Destroyed" it gets handled below.
-        if (enemy.getHealth() <= 0)
+        if (enemy.Get_Health() <= 0)
         {
             // Remove the "Enemy" entity from the "world".
             world.removeEntity(enemy);
@@ -127,12 +125,12 @@ public class EnemyShipProcessor implements IEntityProcessingService
     private void moveForward(Enemy enemyShip)
     {
         // .
-        double changeX = Math.cos(Math.toRadians(enemyShip.getRotation()));
-        double changeY = Math.sin(Math.toRadians(enemyShip.getRotation()));
+        double changeX = Math.cos(Math.toRadians(enemyShip.Get_Rotation()));
+        double changeY = Math.sin(Math.toRadians(enemyShip.Get_Rotation()));
 
         // .
-        enemyShip.setX(enemyShip.getX() + changeX * enemyShip.getEnemy_speedFactor());
-        enemyShip.setY(enemyShip.getY() + changeY * enemyShip.getEnemy_speedFactor());
+        enemyShip.Set_X(enemyShip.Get_X() + changeX * enemyShip.getEnemy_speedFactor());
+        enemyShip.Set_Y(enemyShip.Get_Y() + changeY * enemyShip.getEnemy_speedFactor());
     }
 
 
@@ -148,7 +146,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
         for (Entity player : world.getEntities(Player.class))
         {
             // Calculate the number of degrees the enemy ship needs to turn to look at the player.
-            double angleToPlayer = Math.toDegrees( Math.atan2((player.getY() - enemyShip.getY()), (player.getX() - enemyShip.getX())) );
+            double angleToPlayer = Math.toDegrees( Math.atan2((player.Get_Y() - enemyShip.Get_Y()), (player.Get_X() - enemyShip.Get_X())) );
 
             // Sets the desired rotation for the enemyship.
             enemyShip.setDesired_rotation(angleToPlayer);
@@ -164,7 +162,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
     private void turnTowardsPlayer(Enemy enemyShip)
     {
         // Calculate how much we need to turn
-        double orientation_change = (enemyShip.getRotation() - enemyShip.getDesired_rotation()) * enemyShip.getEnemy_turnFactor();
+        double orientation_change = (enemyShip.Get_Rotation() - enemyShip.getDesired_rotation()) * enemyShip.getEnemy_turnFactor();
 
         // Clamp to max turn speed
         if (orientation_change > enemyShip.getEnemy_turnSpeed_max())
@@ -177,7 +175,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
         }
 
         // Apply the rotation
-        enemyShip.setRotation(enemyShip.getRotation() - orientation_change);
+        enemyShip.Set_Rotation(enemyShip.Get_Rotation() - orientation_change);
     }
 
 
@@ -191,7 +189,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
     private void shootIfAimed(Enemy enemyShip, GameData gameData, World world)
     {
         // Calculate how far off we are from facing the player
-        double angleDifference = Math.abs(enemyShip.getRotation() - enemyShip.getDesired_rotation());
+        double angleDifference = Math.abs(enemyShip.Get_Rotation() - enemyShip.getDesired_rotation());
 
 
         // Only shoot if facing close enough to the player and bullet is loaded.
@@ -272,27 +270,27 @@ public class EnemyShipProcessor implements IEntityProcessingService
     private void wrapAroundEdges(Enemy enemyShip, GameData gameData)
     {
         // .
-        if (enemyShip.getX() < 0)
+        if (enemyShip.Get_X() < 0)
         {
-            enemyShip.setX(gameData.getDisplayWidth());
+            enemyShip.Set_X(gameData.getDisplayWidth());
         }
 
         // .
-        if (enemyShip.getX() > gameData.getDisplayWidth())
+        if (enemyShip.Get_X() > gameData.getDisplayWidth())
         {
-            enemyShip.setX(0);
+            enemyShip.Set_X(0);
         }
 
         // .
-        if (enemyShip.getY() < 0)
+        if (enemyShip.Get_Y() < 0)
         {
-            enemyShip.setY(gameData.getDisplayHeight());
+            enemyShip.Set_Y(gameData.getDisplayHeight());
         }
 
         // .
-        if (enemyShip.getY() > gameData.getDisplayHeight())
+        if (enemyShip.Get_Y() > gameData.getDisplayHeight())
         {
-            enemyShip.setY(0);
+            enemyShip.Set_Y(0);
         }
     }
 

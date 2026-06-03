@@ -1,6 +1,7 @@
 package dk.sdu.se4.groupX.commonenemy;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.EntityType;
 
 /**
  *
@@ -52,7 +53,26 @@ public class Enemy extends Entity
 
     public Enemy()
     {
+        // .
         super();
+
+        // .
+        this.Set_Type(EntityType.Enemy);
+
+        // Move.
+        this.Set_Can_Move(true);
+        this.Set_CanBe_Pushed(true);
+
+        // Health.
+        this.Set_Health(50);
+        this.Set_CanTake_Damaged(true);
+
+        // Collision.
+        this.Set_Can_Collide(true);
+        this.Set_CanTake_CollideDamage(true);
+        this.Set_CollisionDamage(100);
+
+        // .
         this.enemy_speedFactor = DEFAULT_SPEED_FACTOR;
         this.desired_rotation = DEFAULT_DESIRED_ROTATION;
         this.enemy_turnSpeed_min = DEFAULT_TURN_SPEED_MIN;

@@ -26,11 +26,11 @@ public enum EntityType
      * Solids: permanent, immovable, indestructible world geometry.
      * Such as: Walls, pillars and such.
      */
-    Solid,
+    Terrain,
 
     /**
      * Obstacles: dynamic blockers that can move or be destroyed.
-     * Such as: Asteroids, Barrels, Gates, and such.
+     * Such as: Asteroids, Enemy-Mines, Obstacle-Mines, Barrels, Gates, and such.
      */
     Obstacle,
 
@@ -54,7 +54,7 @@ public enum EntityType
 
     /**
      * Bullet: A special type of Obstacle, used by other types of Entities to Interact with other Entities or damage other Entities.
-     * Such as: Bullets, Mines, and such.
+     * Such as: Bullets, Player-Mines, and such.
      */
     Bullet,
 

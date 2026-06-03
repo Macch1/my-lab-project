@@ -27,56 +27,56 @@ class CollisionDetectorTest {
 
     // .
     @Test
-    void testCollides_WhenOverlapping_ReturnsTrue()
+    void testWithincollisiondistance_WhenOverlapping_ReturnsTrue()
     {
 
         // Arrange
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(10);
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(10);
 
-        entity2.setX(5);
-        entity2.setY(0);
-        entity2.setRadius(10);
+        entity2.Set_X(5);
+        entity2.Set_Y(0);
+        entity2.Set_Radius(10);
 
         // Act & Assert
-        assertTrue(collisionDetector.collides(entity1, entity2));
+        assertTrue(collisionDetector.within_collision_distance(entity1, entity2));
     }
 
 
     // .
     @Test
-    void testCollides_WhenApart_ReturnsFalse()
+    void testWithincollisiondistance_WhenApart_ReturnsFalse()
     {
         // Arrange
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(5);
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(5);
 
-        entity2.setX(15);
-        entity2.setY(0);
-        entity2.setRadius(5);
+        entity2.Set_X(15);
+        entity2.Set_Y(0);
+        entity2.Set_Radius(5);
 
         // Act & Assert
-        assertFalse(collisionDetector.collides(entity1, entity2));
+        assertFalse(collisionDetector.within_collision_distance(entity1, entity2));
     }
 
 
     // .
     @Test
-    void testCollides_WhenTouching_ReturnsFalse()
+    void testWithincollisiondistance_WhenTouching_ReturnsFalse()
     {
         // Arrange
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(5);
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(5);
 
-        entity2.setX(10);
-        entity2.setY(0);
-        entity2.setRadius(5);
+        entity2.Set_X(10);
+        entity2.Set_Y(0);
+        entity2.Set_Radius(5);
 
         // Act & Assert
-        assertFalse(collisionDetector.collides(entity1, entity2));
+        assertFalse(collisionDetector.within_collision_distance(entity1, entity2));
     }
 
 
@@ -88,17 +88,17 @@ class CollisionDetectorTest {
         World test_world = new World();
         GameData test_gameData = new GameData();
 
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(10);
-        entity1.setHealth(100);
-        entity1.setCanCollide(false);  // cannot collide!
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(10);
+        entity1.Set_Health(100);
+        entity1.Set_Can_Collide(false);  // cannot collide!
 
-        entity2.setX(5);
-        entity2.setY(0);
-        entity2.setRadius(10);
-        entity2.setHealth(100);
-        entity2.setCanCollide(false);  // cannot collide!
+        entity2.Set_X(5);
+        entity2.Set_Y(0);
+        entity2.Set_Radius(10);
+        entity2.Set_Health(100);
+        entity2.Set_Can_Collide(false);  // cannot collide!
 
         test_world.addEntity(entity1);
         test_world.addEntity(entity2);
@@ -107,8 +107,8 @@ class CollisionDetectorTest {
         collisionDetector.process(test_gameData, test_world);
 
         // Assert
-        assertEquals(100, entity1.getHealth());
-        assertEquals(100, entity2.getHealth());
+        assertEquals(100, entity1.Get_Health());
+        assertEquals(100, entity2.Get_Health());
     }
 
 
@@ -120,23 +120,23 @@ class CollisionDetectorTest {
         World test_world = new World();
         GameData test_gameData = new GameData();
 
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(10);
-        entity1.setHealth(100);
-        entity1.setCanCollide(true);  // can collide!
-        entity1.setCanDamage(true);
-        entity1.setCanBeDamaged(true);
-        entity1.setCollisionDamage(25);
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(10);
+        entity1.Set_Health(100);
+        entity1.Set_Can_Collide(true);  // can collide!
+        entity1.Set_CanTake_CollideDamage(true);
+        entity1.Set_CanTake_Damaged(true);
+        entity1.Set_CollisionDamage(25);
 
-        entity2.setX(5);
-        entity2.setY(0);
-        entity2.setRadius(10);
-        entity2.setHealth(100);
-        entity2.setCanCollide(true);  // can collide!
-        entity2.setCanDamage(true);
-        entity2.setCanBeDamaged(true);
-        entity2.setCollisionDamage(50);
+        entity2.Set_X(5);
+        entity2.Set_Y(0);
+        entity2.Set_Radius(10);
+        entity2.Set_Health(100);
+        entity2.Set_Can_Collide(true);  // can collide!
+        entity2.Set_CanTake_CollideDamage(true);
+        entity2.Set_CanTake_Damaged(true);
+        entity2.Set_CollisionDamage(50);
 
         test_world.addEntity(entity1);
         test_world.addEntity(entity2);
@@ -145,8 +145,8 @@ class CollisionDetectorTest {
         collisionDetector.process(test_gameData, test_world);
 
         // Assert
-        assertEquals(50, entity1.getHealth());
-        assertEquals(75, entity2.getHealth());
+        assertEquals(50, entity1.Get_Health());
+        assertEquals(75, entity2.Get_Health());
     }
 
 
@@ -158,23 +158,23 @@ class CollisionDetectorTest {
         World test_world = new World();
         GameData test_gameData = new GameData();
 
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(10);
-        entity1.setHealth(100);
-        entity1.setCanCollide(true);  // can collide!
-        entity1.setCanDamage(true);
-        entity1.setCanBeDamaged(false);   // Can not take damage.
-        entity1.setCollisionDamage(25);
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(10);
+        entity1.Set_Health(100);
+        entity1.Set_Can_Collide(true);  // can collide!
+        entity1.Set_CanTake_CollideDamage(true);
+        entity1.Set_CanTake_Damaged(false);   // Can not take damage.
+        entity1.Set_CollisionDamage(25);
 
-        entity2.setX(5);
-        entity2.setY(0);
-        entity2.setRadius(10);
-        entity2.setHealth(100);
-        entity2.setCanCollide(true);  // can collide!
-        entity2.setCanDamage(true);
-        entity2.setCanBeDamaged(true);   // can take damage.
-        entity2.setCollisionDamage(50);
+        entity2.Set_X(5);
+        entity2.Set_Y(0);
+        entity2.Set_Radius(10);
+        entity2.Set_Health(100);
+        entity2.Set_Can_Collide(true);  // can collide!
+        entity2.Set_CanTake_CollideDamage(true);
+        entity2.Set_CanTake_Damaged(true);   // can take damage.
+        entity2.Set_CollisionDamage(50);
 
         test_world.addEntity(entity1);
         test_world.addEntity(entity2);
@@ -183,8 +183,8 @@ class CollisionDetectorTest {
         collisionDetector.process(test_gameData, test_world);
 
         // Assert
-        assertEquals(100, entity1.getHealth());
-        assertEquals(75, entity2.getHealth());
+        assertEquals(100, entity1.Get_Health());
+        assertEquals(75, entity2.Get_Health());
     }
 
 
@@ -197,23 +197,23 @@ class CollisionDetectorTest {
         World test_world = new World();
         GameData test_gameData = new GameData();
 
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(10);
-        entity1.setHealth(100);
-        entity1.setCanCollide(true);  // can collide!
-        entity1.setCanDamage(true);
-        entity1.setCanBeDamaged(false);   // Can not be damaged.
-        entity1.setCollisionDamage(25);
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(10);
+        entity1.Set_Health(100);
+        entity1.Set_Can_Collide(true);  // can collide!
+        entity1.Set_CanTake_CollideDamage(true);
+        entity1.Set_CanTake_Damaged(false);   // Can not be damaged.
+        entity1.Set_CollisionDamage(25);
 
-        entity2.setX(5);
-        entity2.setY(0);
-        entity2.setRadius(10);
-        entity2.setHealth(100);
-        entity2.setCanCollide(true);  // can collide!
-        entity2.setCanDamage(true);
-        entity2.setCanBeDamaged(false);   // Can not be damaged.
-        entity2.setCollisionDamage(50);
+        entity2.Set_X(5);
+        entity2.Set_Y(0);
+        entity2.Set_Radius(10);
+        entity2.Set_Health(100);
+        entity2.Set_Can_Collide(true);  // can collide!
+        entity2.Set_CanTake_CollideDamage(true);
+        entity2.Set_CanTake_Damaged(false);   // Can not be damaged.
+        entity2.Set_CollisionDamage(50);
 
         test_world.addEntity(entity1);
         test_world.addEntity(entity2);
@@ -222,23 +222,23 @@ class CollisionDetectorTest {
         collisionDetector.process(test_gameData, test_world);
 
         // Assert
-        assertEquals(100, entity1.getHealth());
-        assertEquals(100, entity2.getHealth());
+        assertEquals(100, entity1.Get_Health());
+        assertEquals(100, entity2.Get_Health());
     }
 
 
     @Test
-    void testCollides_WithItself_ReturnsFalse()
+    void testWithincollisiondistance_WithItself_ReturnsFalse()
     {
         // Arrange
-        entity1.setX(0);
-        entity1.setY(0);
-        entity1.setRadius(10);
-        entity1.setHealth(100);
-        entity1.setCanCollide(true);
-        entity1.setCanDamage(true);
-        entity1.setCanBeDamaged(true);
-        entity1.setCollisionDamage(25);
+        entity1.Set_X(0);
+        entity1.Set_Y(0);
+        entity1.Set_Radius(10);
+        entity1.Set_Health(100);
+        entity1.Set_Can_Collide(true);
+        entity1.Set_CanTake_CollideDamage(true);
+        entity1.Set_CanTake_Damaged(true);
+        entity1.Set_CollisionDamage(25);
 
         World test_world = new World();
         GameData test_gameData = new GameData();
@@ -248,7 +248,7 @@ class CollisionDetectorTest {
         collisionDetector.process(test_gameData, test_world);
 
         // Assert
-        assertEquals(100, entity1.getHealth());
+        assertEquals(100, entity1.Get_Health());
     }
 
 

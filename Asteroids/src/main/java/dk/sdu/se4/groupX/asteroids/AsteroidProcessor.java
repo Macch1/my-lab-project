@@ -27,18 +27,18 @@ public class AsteroidProcessor implements IEntityProcessingService
             }
 
             // .
-            double changeX = Math.cos(Math.toRadians(asteroid.getRotation()));
-            double changeY = Math.sin(Math.toRadians(asteroid.getRotation()));
+            double changeX = Math.cos(Math.toRadians(asteroid.Get_Rotation()));
+            double changeY = Math.sin(Math.toRadians(asteroid.Get_Rotation()));
 
             // .
-            asteroid.setX(asteroid.getX() + changeX * 0.5);
-            asteroid.setY(asteroid.getY() + changeY * 0.5);
+            asteroid.Set_X(asteroid.Get_X() + changeX * 0.5);
+            asteroid.Set_Y(asteroid.Get_Y() + changeY * 0.5);
 
             // .
-            if (asteroid.getX() < 0) asteroid.setX(gameData.getDisplayWidth());
-            if (asteroid.getX() > gameData.getDisplayWidth()) asteroid.setX(0);
-            if (asteroid.getY() < 0) asteroid.setY(gameData.getDisplayHeight());
-            if (asteroid.getY() > gameData.getDisplayHeight()) asteroid.setY(0);
+            if (asteroid.Get_X() < 0) asteroid.Set_X(gameData.getDisplayWidth());
+            if (asteroid.Get_X() > gameData.getDisplayWidth()) asteroid.Set_X(0);
+            if (asteroid.Get_Y() < 0) asteroid.Set_Y(gameData.getDisplayHeight());
+            if (asteroid.Get_Y() > gameData.getDisplayHeight()) asteroid.Set_Y(0);
         }
     }
 
@@ -56,7 +56,7 @@ public class AsteroidProcessor implements IEntityProcessingService
 
         // If the health of the Asteroid is zero or below, we define the Asteroid as "Dead" / "Destroyed".
         // If the Asteroid is "Dead" / "Destroyed" it gets handled below.
-        if (asteroid.getHealth() <= 0)
+        if (asteroid.Get_Health() <= 0)
         {
             // Try to find an implementation of "AsteroidSplitterSPI", so we can call the method "splitAsteroid()".
             try
@@ -76,9 +76,9 @@ public class AsteroidProcessor implements IEntityProcessingService
                 System.out.println("AsteroidSplitter implementation is not available: " + e.getMessage());
 
                 // If the Asteroid wasn't removed from the "world", we remove it.
-                if ( world.containsEntity(asteroid.getID()) )
+                if ( world.containsEntity(asteroid.Get_ID()) )
                 {
-                    world.removeEntity(asteroid.getID());
+                    world.removeEntity(asteroid.Get_ID());
                 }
             }
 

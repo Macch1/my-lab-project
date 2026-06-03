@@ -3,6 +3,9 @@ package dk.sdu.mmmi.cbse.common.data;
 import java.io.Serializable;
 import java.util.UUID;
 
+
+
+
 /**
  * Entity defines an entity, by defining the position, form and size.
  */
@@ -10,25 +13,52 @@ public class Entity implements Serializable
 {
 
     // .
-    private final UUID ID = UUID.randomUUID();
-
-
-    // .
-    private double[] polygonCoordinates;
-    private double x;
-    private double y;
-    private double rotation;
-    private float radius;
-
+    private final UUID entity_ID = UUID.randomUUID();
+    private EntityType entity_Type;
 
     // .
-    private boolean canCollide = false;
-    private boolean canDamage = false;
-    private boolean canBeDamaged = false;
+    private double[] entity_polygonCoordinates;
+    private double entity_Position_X;
+    private double entity_Position_Y;
+    private double entity_Rotation;
+    private float entity_Radius;
 
     // .
-    private int health = 10;
-    private int collisionDamage = 0;
+    private boolean can_Move;
+    private boolean canBe_Pushed;
+
+    // .
+    private boolean can_Collide;
+    private boolean canTake_Damaged;
+    private boolean canTake_CollideDamage;
+
+    // .
+    private int entity_Health;
+    private int entity_CollisionDamage;
+
+
+
+
+
+    public Entity ()
+    {
+        // Identity.
+        this.entity_Type = EntityType.None;
+
+        // Move.
+        this.can_Move = false;
+        this.canBe_Pushed = false;
+
+        // Health.
+        this.entity_Health = 0;
+        this.canTake_Damaged = false;
+
+        // Collision.
+        this.can_Collide = false;
+        this.canTake_CollideDamage = false;
+        this.entity_CollisionDamage = 0;
+
+    }
 
 
 
@@ -40,9 +70,32 @@ public class Entity implements Serializable
     ///
 
 
-    // .
-    public String getID() {
-        return ID.toString();
+    /**
+     *
+     * @return
+     */
+    public String Get_ID() {
+        return this.entity_ID.toString();
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public EntityType Get_Type()
+    {
+        return this.entity_Type;
+    }
+
+
+    /**
+     *
+     * @param type
+     */
+    public void Set_Type(EntityType type)
+    {
+        this.entity_Type = type;
     }
 
 
@@ -60,9 +113,9 @@ public class Entity implements Serializable
      *
      * @param coordinates
      */
-    public void setPolygonCoordinates(double... coordinates )
+    public void Set_PolygonCoordinates(double... coordinates )
     {
-        this.polygonCoordinates = coordinates;
+        this.entity_polygonCoordinates = coordinates;
     }
 
 
@@ -70,9 +123,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public double[] getPolygonCoordinates()
+    public double[] Get_PolygonCoordinates()
     {
-        return polygonCoordinates;
+        return this.entity_polygonCoordinates;
     }
 
 
@@ -80,9 +133,9 @@ public class Entity implements Serializable
      *
      * @param radius
      */
-    public void setRadius(float radius)
+    public void Set_Radius(float radius)
     {
-        this.radius = radius;
+        this.entity_Radius = radius;
     }
 
 
@@ -90,9 +143,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public float getRadius()
+    public float Get_Radius()
     {
-        return this.radius;
+        return this.entity_Radius;
     }
 
 
@@ -111,9 +164,9 @@ public class Entity implements Serializable
      *
      * @param x
      */
-    public void setX(double x)
+    public void Set_X(double x)
     {
-        this.x =x;
+        this.entity_Position_X =x;
     }
 
 
@@ -121,9 +174,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public double getX()
+    public double Get_X()
     {
-        return x;
+        return this.entity_Position_X;
     }
 
 
@@ -131,9 +184,9 @@ public class Entity implements Serializable
      *
      * @param y
      */
-    public void setY(double y)
+    public void Set_Y(double y)
     {
-        this.y = y;
+        this.entity_Position_Y = y;
     }
 
 
@@ -141,9 +194,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public double getY()
+    public double Get_Y()
     {
-        return y;
+        return this.entity_Position_Y;
     }
 
 
@@ -151,9 +204,9 @@ public class Entity implements Serializable
      *
      * @param rotation
      */
-    public void setRotation(double rotation)
+    public void Set_Rotation(double rotation)
     {
-        this.rotation = rotation;
+        this.entity_Rotation = rotation;
     }
 
 
@@ -161,10 +214,81 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public double getRotation()
+    public double Get_Rotation()
     {
-        return rotation;
+        return this.entity_Rotation;
     }
+
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////////
+    ////////////////////    Push Methods    ////////////////////
+    ///
+
+
+    /**
+     *
+     * @param state
+     * @return
+     */
+    public void Set_Can_Move(boolean state)
+    {
+        this.can_Move = state;
+    }
+
+
+    /**
+     *
+     * @param state
+     * @return
+     */
+    public void Set_CanBe_Pushed(boolean state)
+    {
+        this.canBe_Pushed = state;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public boolean Check_Can_Move()
+    {
+        return this.can_Move;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public boolean Check_CanBe_Pushed()
+    {
+        return this.canBe_Pushed;
+    }
+
+
+    /**
+     *
+     * @param x_push
+     * @param y_push
+     * @return
+     */
+    public void Push_Entity(int x_push, int y_push)
+    {
+        this.entity_Position_X = this.entity_Position_X + x_push;
+        this.entity_Position_Y = this.entity_Position_Y + y_push;
+    }
+
+
+
+
 
 
 
@@ -184,9 +308,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public boolean isCanCollide()
+    public boolean Check_Can_Collide()
     {
-        return canCollide;
+        return this.can_Collide;
     }
 
 
@@ -194,19 +318,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public boolean isCanDamage()
+    public boolean Check_CanTake_CollideDamage()
     {
-        return canDamage;
-    }
-
-
-    /**
-     *
-     * @return
-     */
-    public boolean isCanBeDamaged()
-    {
-        return canBeDamaged;
+        return this.canTake_CollideDamage;
     }
 
 
@@ -214,29 +328,19 @@ public class Entity implements Serializable
      *
      * @param canCollide
      */
-    public void setCanCollide(boolean canCollide)
+    public void Set_Can_Collide(boolean canCollide)
     {
-        this.canCollide = canCollide;
+        this.can_Collide = canCollide;
     }
 
 
     /**
      *
-     * @param canDamage
+     * @param canCollideDamage
      */
-    public void setCanDamage(boolean canDamage)
+    public void Set_CanTake_CollideDamage(boolean canCollideDamage)
     {
-        this.canDamage = canDamage;
-    }
-
-
-    /**
-     *
-     * @param canBeDamaged
-     */
-    public void setCanBeDamaged(boolean canBeDamaged)
-    {
-        this.canBeDamaged = canBeDamaged;
+        this.canTake_CollideDamage = canCollideDamage;
     }
 
 
@@ -245,8 +349,10 @@ public class Entity implements Serializable
 
 
 
-    ///////////////////////////////////////////////////////////////////////
-    ////////////////////    Health & Damage Methods    ////////////////////
+
+
+    //////////////////////////////////////////////////////////////
+    ////////////////////    Health Methods    ////////////////////
     ///
 
 
@@ -254,9 +360,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public int getHealth()
+    public int Get_Health()
     {
-        return health;
+        return this.entity_Health;
     }
 
 
@@ -264,9 +370,42 @@ public class Entity implements Serializable
      *
      * @param health
      */
-    public void setHealth(int health)
+    public void Set_Health(int health)
     {
-        this.health = health;
+        this.entity_Health = health;
+    }
+
+
+
+
+
+
+
+
+
+
+    //////////////////////////////////////////////////////////////
+    ////////////////////    Damage Methods    ////////////////////
+    ///
+
+
+    /**
+     *
+     * @return
+     */
+    public boolean Check_CanTake_Damaged()
+    {
+        return this.canTake_Damaged;
+    }
+
+
+    /**
+     *
+     * @param canBeDamaged
+     */
+    public void Set_CanTake_Damaged(boolean canBeDamaged)
+    {
+        this.canTake_Damaged = canBeDamaged;
     }
 
 
@@ -274,9 +413,9 @@ public class Entity implements Serializable
      *
      * @return
      */
-    public int getCollisionDamage()
+    public int Get_CollisionDamage()
     {
-        return collisionDamage;
+        return this.entity_CollisionDamage;
     }
 
 
@@ -284,9 +423,9 @@ public class Entity implements Serializable
      *
      * @param collisionDamage
      */
-    public void setCollisionDamage(int collisionDamage)
+    public void Set_CollisionDamage(int collisionDamage)
     {
-        this.collisionDamage = collisionDamage;
+        this.entity_CollisionDamage = collisionDamage;
     }
 
 
@@ -294,20 +433,26 @@ public class Entity implements Serializable
      *
      * @param damage
      */
-    public void doDamage(int damage)
+    public void Take_Damage(int damage)
     {
-        this.health = this.health - damage;
+        this.entity_Health = this.entity_Health - damage;
     }
 
 
     /**
      *
-     * @param damage
+     * @param heal
      */
-    public void undoDamage(int damage)
+    public void Heal_Damage(int heal)
     {
-        this.health = this.health + damage;
+        this.entity_Health = this.entity_Health + heal;
     }
+
+
+
+
+
+
 
 
 

@@ -23,10 +23,10 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI
                 continue; // skip dead entities
             }
 
-            double changeX = Math.cos(Math.toRadians(bullet.getRotation()));
-            double changeY = Math.sin(Math.toRadians(bullet.getRotation()));
-            bullet.setX(bullet.getX() + changeX * 3);
-            bullet.setY(bullet.getY() + changeY * 3);
+            double changeX = Math.cos(Math.toRadians(bullet.Get_Rotation()));
+            double changeY = Math.sin(Math.toRadians(bullet.Get_Rotation()));
+            bullet.Set_X(bullet.Get_X() + changeX * 3);
+            bullet.Set_Y(bullet.Get_Y() + changeY * 3);
         }
     }
 
@@ -34,20 +34,20 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI
     public Entity createBullet(Entity shooter, GameData gameData)
     {
         Entity bullet = new Bullet();
-        bullet.setPolygonCoordinates(1, -1, 1, 1, -1, 1, -1, -1);
-        double changeX = Math.cos(Math.toRadians(shooter.getRotation()));
-        double changeY = Math.sin(Math.toRadians(shooter.getRotation()));
-        bullet.setX(shooter.getX() + changeX * 10);
-        bullet.setY(shooter.getY() + changeY * 10);
-        bullet.setRotation(shooter.getRotation());
-        bullet.setRadius(1);
+        bullet.Set_PolygonCoordinates(1, -1, 1, 1, -1, 1, -1, -1);
+        double changeX = Math.cos(Math.toRadians(shooter.Get_Rotation()));
+        double changeY = Math.sin(Math.toRadians(shooter.Get_Rotation()));
+        bullet.Set_X(shooter.Get_X() + changeX * 10);
+        bullet.Set_Y(shooter.Get_Y() + changeY * 10);
+        bullet.Set_Rotation(shooter.Get_Rotation());
+        bullet.Set_Radius(1);
 
         // Health and collision logic.
-        bullet.setCanCollide(true);
-        bullet.setCanDamage(true);
-        bullet.setCanBeDamaged(true);
-        bullet.setCollisionDamage(10);
-        bullet.setHealth(1);
+        bullet.Set_Can_Collide(true);
+        bullet.Set_CanTake_CollideDamage(true);
+        bullet.Set_CanTake_Damaged(true);
+        bullet.Set_CollisionDamage(10);
+        bullet.Set_Health(1);
 
         return bullet;
     }
@@ -55,7 +55,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI
 
 
     private boolean handleHealth(Entity bullet, World world) {
-        if (bullet.getHealth() <= 0) {
+        if (bullet.Get_Health() <= 0) {
             world.removeEntity(bullet);
             return true;
         }

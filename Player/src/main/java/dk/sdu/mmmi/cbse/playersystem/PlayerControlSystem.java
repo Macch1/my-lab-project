@@ -1,6 +1,5 @@
 package dk.sdu.mmmi.cbse.playersystem;
 
-import dk.sdu.mmmi.cbse.common.bullet.Bullet;
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -29,16 +28,16 @@ public class PlayerControlSystem implements IEntityProcessingService {
             }
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
-                player.setRotation(player.getRotation() - 5);                
+                player.Set_Rotation(player.Get_Rotation() - 5);
             }
             if (gameData.getKeys().isDown(GameKeys.RIGHT)) {
-                player.setRotation(player.getRotation() + 5);                
+                player.Set_Rotation(player.Get_Rotation() + 5);
             }
             if (gameData.getKeys().isDown(GameKeys.UP)) {
-                double changeX = Math.cos(Math.toRadians(player.getRotation()));
-                double changeY = Math.sin(Math.toRadians(player.getRotation()));
-                player.setX(player.getX() + changeX);
-                player.setY(player.getY() + changeY);
+                double changeX = Math.cos(Math.toRadians(player.Get_Rotation()));
+                double changeY = Math.sin(Math.toRadians(player.Get_Rotation()));
+                player.Set_X(player.Get_X() + changeX);
+                player.Set_Y(player.Get_Y() + changeY);
             }
             if(gameData.getKeys().isDown(GameKeys.SPACE)) {                
                 getBulletSPIs().stream().findFirst().ifPresent(
@@ -46,20 +45,20 @@ public class PlayerControlSystem implements IEntityProcessingService {
                 );
             }
             
-            if (player.getX() < 0) {
-                player.setX(1);
+            if (player.Get_X() < 0) {
+                player.Set_X(1);
             }
 
-            if (player.getX() > gameData.getDisplayWidth()) {
-                player.setX(gameData.getDisplayWidth()-1);
+            if (player.Get_X() > gameData.getDisplayWidth()) {
+                player.Set_X(gameData.getDisplayWidth()-1);
             }
 
-            if (player.getY() < 0) {
-                player.setY(1);
+            if (player.Get_Y() < 0) {
+                player.Set_Y(1);
             }
 
-            if (player.getY() > gameData.getDisplayHeight()) {
-                player.setY(gameData.getDisplayHeight()-1);
+            if (player.Get_Y() > gameData.getDisplayHeight()) {
+                player.Set_Y(gameData.getDisplayHeight()-1);
             }
 
                                         
@@ -84,7 +83,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
      * @return
      */
     private boolean handleHealth(Entity player, World world) {
-        if (player.getHealth() <= 0) {
+        if (player.Get_Health() <= 0) {
             world.removeEntity(player);
             return true;
         }

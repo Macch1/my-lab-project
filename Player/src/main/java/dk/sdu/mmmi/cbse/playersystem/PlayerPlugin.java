@@ -26,17 +26,17 @@ public class PlayerPlugin implements IGamePluginService {
     private Entity createPlayerShip(GameData gameData) {
 
         Entity playerShip = new Player();
-        playerShip.setPolygonCoordinates(-5,-5,10,0,-5,5);
-        playerShip.setX(gameData.getDisplayHeight()/2);
-        playerShip.setY(gameData.getDisplayWidth()/2);
-        playerShip.setRadius(8);
+        playerShip.Set_PolygonCoordinates(-5,-5,10,0,-5,5);
+        playerShip.Set_X(gameData.getDisplayHeight()/2);
+        playerShip.Set_Y(gameData.getDisplayWidth()/2);
+        playerShip.Set_Radius(8);
 
         // Health and collision logic.
-        playerShip.setCanCollide(true);
-        playerShip.setCanDamage(true);
-        playerShip.setCanBeDamaged(true);
-        playerShip.setCollisionDamage(100);
-        playerShip.setHealth(100);
+        playerShip.Set_Can_Collide(true);
+        playerShip.Set_CanTake_CollideDamage(true);
+        playerShip.Set_CanTake_Damaged(true);
+        playerShip.Set_CollisionDamage(100);
+        playerShip.Set_Health(100);
 
         return playerShip;
     }

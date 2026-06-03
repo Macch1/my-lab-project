@@ -39,18 +39,18 @@ public class AsteroidPlugin implements IGamePluginService {
         int size = random.nextInt(20) + 10;
 
         // .
-        asteroid.setPolygonCoordinates(size, -size, -size, -size, -size, size, size, size);
-        asteroid.setX(random.nextInt(gameData.getDisplayWidth()));
-        asteroid.setY(random.nextInt(gameData.getDisplayHeight()));
-        asteroid.setRadius((float)size);
-        asteroid.setRotation(random.nextInt(360));
+        asteroid.Set_PolygonCoordinates(size, -size, -size, -size, -size, size, size, size);
+        asteroid.Set_X(random.nextInt(gameData.getDisplayWidth()));
+        asteroid.Set_Y(random.nextInt(gameData.getDisplayHeight()));
+        asteroid.Set_Radius((float)size);
+        asteroid.Set_Rotation(random.nextInt(360));
 
         // Health and collision logic.
-        asteroid.setCanCollide(true);
-        asteroid.setCanDamage(true);
-        asteroid.setCanBeDamaged(true);
-        asteroid.setCollisionDamage(100); // destroys ships on contact
-        asteroid.setHealth(50);
+        asteroid.Set_Can_Collide(true);
+        asteroid.Set_CanTake_CollideDamage(true);
+        asteroid.Set_CanTake_Damaged(true);
+        asteroid.Set_CollisionDamage(100); // destroys ships on contact
+        asteroid.Set_Health(50);
 
         // .
         return asteroid;

@@ -96,18 +96,18 @@ public class EnemyShipPlugin implements IGamePluginService {
         start_rotation = this.getSpawnRotation(start_position[0], start_position[1], gameData);
 
         // Set entity values.
-        enemyShip.setPolygonCoordinates(10, 0, 5, -7, -7, -5, -7, 5, 5, 7);
-        enemyShip.setX(start_position[0]);
-        enemyShip.setY(start_position[1]);
-        enemyShip.setRadius(8);
-        enemyShip.setRotation(start_rotation);
+        enemyShip.Set_PolygonCoordinates(10, 0, 5, -7, -7, -5, -7, 5, 5, 7);
+        enemyShip.Set_X(start_position[0]);
+        enemyShip.Set_Y(start_position[1]);
+        enemyShip.Set_Radius(8);
+        enemyShip.Set_Rotation(start_rotation);
 
         // Health and collision logic.
-        enemyShip.setCanCollide(true);
-        enemyShip.setCanDamage(true);
-        enemyShip.setCanBeDamaged(true);
-        enemyShip.setCollisionDamage(100);
-        enemyShip.setHealth(50); // easier to kill than player
+        enemyShip.Set_Can_Collide(true);
+        enemyShip.Set_CanTake_CollideDamage(true);
+        enemyShip.Set_CanTake_Damaged(true);
+        enemyShip.Set_CollisionDamage(100);
+        enemyShip.Set_Health(50); // easier to kill than player
 
 
         // Return Entity (Enemy).

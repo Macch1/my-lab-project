@@ -24,7 +24,7 @@ public class AsteroidSplitter implements AsteroidSplitterSPI
         world.removeEntity(e);
 
         // .
-        float newSize = e.getRadius() / 2f;
+        float newSize = e.Get_Radius() / 2f;
 
         // .
         if (newSize < MIN_SIZE)
@@ -42,20 +42,20 @@ public class AsteroidSplitter implements AsteroidSplitterSPI
             int s = (int) newSize;
 
             // .
-            fragment.setPolygonCoordinates(s, -s, -s, -s, -s, s, s, s);
+            fragment.Set_PolygonCoordinates(s, -s, -s, -s, -s, s, s, s);
 
             // .
-            fragment.setX(e.getX() + random.nextInt(20) - 10);
-            fragment.setY(e.getY() + random.nextInt(20) - 10);
-            fragment.setRadius(newSize);
-            fragment.setRotation(random.nextInt(360));
+            fragment.Set_X(e.Get_X() + random.nextInt(20) - 10);
+            fragment.Set_Y(e.Get_Y() + random.nextInt(20) - 10);
+            fragment.Set_Radius(newSize);
+            fragment.Set_Rotation(random.nextInt(360));
 
             // Set collision properties
-            fragment.setCanCollide(true);
-            fragment.setCanDamage(true);
-            fragment.setCanBeDamaged(true);
-            fragment.setCollisionDamage(100);
-            fragment.setHealth(50);
+            fragment.Set_Can_Collide(true);
+            fragment.Set_CanTake_CollideDamage(true);
+            fragment.Set_CanTake_Damaged(true);
+            fragment.Set_CollisionDamage(100);
+            fragment.Set_Health(50);
 
             // .
             world.addEntity(fragment);
