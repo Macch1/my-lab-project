@@ -6,6 +6,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.GameKeys;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
 
 import dk.sdu.se4.groupX.commonplayer.Player;
 
@@ -66,6 +67,7 @@ public class PlayerControlSystem implements IEntityProcessingService {
     }
 
 
+
     /**
      *
      * @return
@@ -76,18 +78,65 @@ public class PlayerControlSystem implements IEntityProcessingService {
     }
 
 
+
     /**
      *
      * @param player
      * @param world
      * @return
      */
-    private boolean handleHealth(Entity player, World world) {
-        if (player.Get_Health() <= 0) {
+    private boolean handleHealth(Entity player, World world)
+    {
+        // If the health of the Player is zero or below, we define the Player as "Dead" / "Destroyed".
+        // If the Player is "Dead" / "Destroyed" it gets handled below.
+        if (player.Get_Health() <= 0)
+        {
+            // Remove the "Player" entity from the "world".
             world.removeEntity(player);
+
+            // Submit the final score to the HighScoreSystem.
+            try
+            {
+                // .
+                IScoreTracker scoreTracker = getScoreTracker();
+
+                // .
+                if (scoreTracker != null)
+                {
+                    scoreTracker.submitFinalScore();
+                }
+            }
+            catch (Exception e)
+            {
+                System.out.println("ScoringService not available: " + e.getMessage());
+            }
+
+            // returns "true" to indicate the Player is "Dead" / "Destroyed".
             return true;
         }
+
+        // returns "false" to indicate the Player is "Alive" / "Not destroyed".
         return false;
     }
+
+
+
+    /**
+     *
+     * @return
+     */
+    private IScoreTracker getScoreTracker()
+    {
+        // "ServiceLoader.load(Interface.class)"
+        // Finds and loads all registered implementations of an Interface available.
+        // Link = https://www.geeksforgeeks.org/java/java-mdoules-service-implementation-module/
+
+        // We find, load and collect the implementations of the "IScoreTracker" interface.
+        Collection<? extends IScoreTracker> scoreTrackerImplementation = ServiceLoader.load(IScoreTracker.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+        // Returns the first implementation of the interface "IScoreTracker", or null if none is found.
+        return scoreTrackerImplementation.stream().findFirst().orElse(null);
+    }
+
 
 }
