@@ -2,7 +2,13 @@ package dk.sdu.se4.groupX.scoringsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 
 
 
@@ -10,17 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ScoringService
 {
-
-    private Long totalScore = 0L;
-
-    private Long totalAsteroids = 0L;
-
-    private Long totalEnemyShips = 0L;
-
-    private int currentHealth = 0;
-
-
-
 
     // .
     public static void main(String[] args) {
@@ -31,130 +26,43 @@ public class ScoringService
 
 
     // .
-    @GetMapping("/score/total")
-    public Long get_TotalScore() {
-        return this.totalScore;
-    }
+    @PostMapping("/score/submit")
+    public ResponseEntity<String> submit_FinalScore(@RequestParam(value = "score") Long score) {
+        try {
+            String entry = LocalDateTime.now() + " — Final Score: " + score + "\n";
 
-    // .
-    @PostMapping("/score/set")
-    public Long set_TotalScore(@RequestParam(value = "point") Long point) {
-        this.totalScore = point;
-        return this.totalScore;
-    }
+            Files.writeString(
+                    Path.of("highscores.txt"),
+                    entry,
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND
+            );
 
-    // .
-    @PutMapping("/score/add")
-    public Long addTo_TotalScore(@RequestParam(value = "point") Long point) {
-        this.totalScore += point;
-        return this.totalScore;
-    }
+            System.out.println("Highscore saved: " + score);
+            return ResponseEntity.ok("Score saved: " + score);
 
-    // .
-    @PutMapping("/score/remove")
-    public Long removeFrom_TotalScore(@RequestParam(value = "point") Long point) {
-        this.totalScore -= point;
-        return this.totalScore;
+        } catch (Exception e) {
+            System.out.println("Failed to save score: " + e.getMessage());
+            return ResponseEntity.internalServerError().body("Failed to save score.");
+        }
     }
 
 
 
 
     // .
-    @GetMapping("/health/total")
-    public int get_CurrentHealth() {
-        return this.currentHealth;
+    @GetMapping("/score/highscores")
+    public ResponseEntity<String> get_Highscores() {
+        try {
+            Path path = Path.of("highscores.txt");
+            if (!Files.exists(path)) {
+                return ResponseEntity.ok("No highscores yet.");
+            }
+            return ResponseEntity.ok(Files.readString(path));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to read highscores.");
+        }
     }
-
-    // .
-    @PostMapping("/health/set")
-    public int set_CurrentHealth(@RequestParam(value = "point") int point) {
-        this.currentHealth = point;
-        return this.currentHealth;
-    }
-
-    // .
-    @PutMapping("/health/add")
-    public int addTo_CurrentHealth(@RequestParam(value = "point") int point) {
-        this.currentHealth += point;
-        return this.currentHealth;
-    }
-
-    // .
-    @PutMapping("/health/remove")
-    public int removeFrom_CurrentHealth(@RequestParam(value = "point") int point) {
-        this.currentHealth -= point;
-        return this.currentHealth;
-    }
-
-
-
-
-    // .
-    @GetMapping("/asteroids/total")
-    public Long get_TotalAsteroids() {
-        return this.totalAsteroids;
-    }
-
-    // .
-    @PostMapping("/asteroids/set")
-    public Long set_TotalAsteroids(@RequestParam(value = "point") Long point) {
-        this.totalAsteroids = point;
-        return this.totalAsteroids;
-    }
-
-    // .
-    @PutMapping("/asteroids/add")
-    public Long addTo_TotalAsteroids(@RequestParam(value = "point") Long point) {
-        this.totalAsteroids += point;
-        return this.totalAsteroids;
-    }
-
-    // .
-    @PutMapping("/asteroids/remove")
-    public Long removeFrom_TotalAsteroids(@RequestParam(value = "point") Long point) {
-        this.totalAsteroids -= point;
-        return this.totalAsteroids;
-    }
-
-
-
-
-    // .
-    @GetMapping("/enemyship/total")
-    public Long get_TotalEnemyShips() {
-        return this.totalEnemyShips;
-    }
-
-    // .
-    @PostMapping("/enemyship/set")
-    public Long set_TotalEnemyShips(@RequestParam(value = "point") Long point) {
-        this.totalEnemyShips = point;
-        return this.totalEnemyShips;
-    }
-
-    // .
-    @PutMapping("/enemyship/add")
-    public Long addTo_TotalEnemyShips(@RequestParam(value = "point") Long point) {
-        this.totalEnemyShips += point;
-        return this.totalEnemyShips;
-    }
-
-    // .
-    @PutMapping("/enemyship/remove")
-    public Long removeFrom_TotalEnemyShips(@RequestParam(value = "point") Long point) {
-        this.totalEnemyShips -= point;
-        return this.totalEnemyShips;
-    }
-
-
-
 
 
 }
-
-
-
-
-
-
