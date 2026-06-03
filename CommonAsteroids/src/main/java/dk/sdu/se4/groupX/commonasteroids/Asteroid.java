@@ -19,7 +19,7 @@ public class Asteroid extends Entity
         this.Set_CanBe_Pushed(false);
 
         // Health.
-        this.Set_Health(10);
+        this.Set_Health(100);
         this.Set_CanTake_Damaged(true);
 
         // Collision.
