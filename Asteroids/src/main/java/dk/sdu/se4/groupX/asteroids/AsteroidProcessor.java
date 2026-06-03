@@ -6,6 +6,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.se4.groupX.commonasteroids.Asteroid;
 import dk.sdu.se4.groupX.commonasteroids.AsteroidSplitterSPI;
+import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
 
 import java.util.Collection;
 import java.util.ServiceLoader;
@@ -82,19 +83,18 @@ public class AsteroidProcessor implements IEntityProcessingService
                 }
             }
 
-            // Notify ScoringService.
+            // Notify ScoreTracker that an asteroid was destroyed.
             try
             {
-                /**
-                // Create a RestTemplate to make HTTP requests to the ScoringService.
-                RestTemplate restTemplate = new RestTemplate();
+                // .
+                IScoreTracker scoreTracker = getScoreTracker();
 
-                // Notify the ScoringService that one more Asteroid has been destroyed.
-                restTemplate.put("http://localhost:8080/asteroids/add?point=1", null, Long.class);
-
-                // Notify the ScoringService to add 10 points to the total score.
-                restTemplate.put("http://localhost:8080/score/add?point=10", null);
-                **/
+                // .
+                if (scoreTracker != null)
+                {
+                    scoreTracker.addScore(10);
+                    world.Set_CurrentScore(scoreTracker.getScore());
+                }
             }
             catch (Exception e)
             {
@@ -108,6 +108,26 @@ public class AsteroidProcessor implements IEntityProcessingService
         // returns "false" to indicate the Asteroid is "Alive" / "Not destroyed".
         return false;
     }
+
+
+
+    /**
+     *
+     * @return
+     */
+    private IScoreTracker getScoreTracker()
+    {
+        // "ServiceLoader.load(Interface.class)"
+        // Finds and loads all registered implementations of an Interface available.
+        // Link = https://www.geeksforgeeks.org/java/java-mdoules-service-implementation-module/
+
+        // We find, load and collect the implementations of the "IScoreTracker" interface.
+        Collection<? extends IScoreTracker> scoreTrackerImplementation = ServiceLoader.load(IScoreTracker.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+        // Returns the first implementation of the interface "IScoreTracker", or null if none is found.
+        return scoreTrackerImplementation.stream().findFirst().orElse(null);
+    }
+
 
 
 
