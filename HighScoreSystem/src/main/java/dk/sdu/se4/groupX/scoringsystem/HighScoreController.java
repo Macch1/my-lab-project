@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 
 @SpringBootApplication
 @RestController
-public class ScoringService
+public class HighScoreController
 {
 
     // .
     public static void main(String[] args) {
-        SpringApplication.run(ScoringService.class, args);
+        SpringApplication.run(HighScoreController.class, args);
     }
 
 

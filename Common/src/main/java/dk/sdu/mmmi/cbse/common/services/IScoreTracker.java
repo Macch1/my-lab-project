@@ -1,4 +1,4 @@
-// Common/src/main/java/dk/sdu/mmmi/cbse/common/services/IScoreService.java
+// Common/src/main/java/dk/sdu/mmmi/cbse/common/services/IScoreTracker.java
 package dk.sdu.mmmi.cbse.common.services;
 
 /**
@@ -7,7 +7,7 @@ package dk.sdu.mmmi.cbse.common.services;
  * PRE-CONDITION:  addScore() called with a positive point value when an entity is destroyed.
  * POST-CONDITION: Score total is updated and persisted to the ScoringSystem on submitFinalScore().
  */
-public interface IScoreService {
+public interface IScoreTracker {
 
     /**
      * Adds points to the current running score.

@@ -19,8 +19,8 @@
     <module>CommonPlayer</module>
     <module>CommonAsteroids</module>
     <module>Asteroids</module>
-    <module>ScoringSystem</module>
-    <module>Score</module>
+    <module>HighScoreSystem</module>
+    <module>ScoreSystem</module>
   </modules>
 
   <properties>

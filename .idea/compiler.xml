@@ -13,18 +13,18 @@
         <module name="CommonBullet" />
         <module name="Common" />
         <module name="CommonPlayer" />
-        <module name="Score" />
+        <module name="ScoreSystem" />
         <module name="Asteroids" />
         <module name="Enemy" />
+        <module name="HighScoreSystem" />
         <module name="EnemyShip" />
         <module name="Core" />
-        <module name="ScoringSystem" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="ScoringSystem" options="-parameters" />
+      <module name="HighScoreSystem" options="-parameters" />
     </option>
   </component>
 </project>

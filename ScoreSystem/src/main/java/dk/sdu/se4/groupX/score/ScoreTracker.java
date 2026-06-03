@@ -1,12 +1,13 @@
 package dk.sdu.se4.groupX.score;
 
-import dk.sdu.mmmi.cbse.common.services.IScoreService;
+import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ScoreService implements IScoreService {
+public class ScoreTracker implements IScoreTracker {
 
     private int currentScore = 0;
     private final HttpClient httpClient = HttpClient.newHttpClient();

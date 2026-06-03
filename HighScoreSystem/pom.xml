@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>dk.sdu.se4.groupX.scoringsystem</groupId>
-    <artifactId>ScoringSystem</artifactId>
+    <artifactId>HighScoreSystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>ScoringSystem</name>
+    <name>HighScoreSystem</name>
 
     <dependencies>
         <dependency>

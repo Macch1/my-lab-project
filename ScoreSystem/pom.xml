@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>dk.sdu.se4.groupX.score</groupId>
-    <artifactId>Score</artifactId>
+    <artifactId>ScoreSystem</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
