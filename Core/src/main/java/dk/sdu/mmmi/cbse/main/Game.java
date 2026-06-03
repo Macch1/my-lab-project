@@ -11,6 +11,8 @@ import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +23,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
+import java.util.ServiceLoader;
+
+import static java.util.stream.Collectors.toList;
+
+import dk.sdu.mmmi.cbse.common.data.EntityType;
+import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
+import java.util.ServiceLoader;
+
+
+
 
 /**
  *
@@ -36,6 +49,7 @@ class Game {
     private final List<IGamePluginService> gamePluginServices;
     private final List<IEntityProcessingService> entityProcessingServiceList;
     private final List<IPostEntityProcessingService> postEntityProcessingServices;
+    private IScoreTracker scoreTracker = null;
 
 
     /**
@@ -114,6 +128,11 @@ class Game {
             polygons.put(entity, polygon);
             gameWindow.getChildren().add(polygon);
         }
+
+        // .
+        this.scoreTracker = getScoreTracker();
+
+        // .
         window.setScene(scene);
         window.setTitle("ASTEROIDS");
         window.show();
@@ -144,6 +163,10 @@ class Game {
      */
     private void update()
     {
+        // Check if player is alive before processing.
+        boolean playerAliveBefore = isPlayerAlive();
+
+
         // .
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices())
         {
@@ -155,6 +178,14 @@ class Game {
         {
             postEntityProcessorService.process(gameData, world);
         }
+
+
+        // If player was alive before but is gone now — game over, submit final score.
+        if ((playerAliveBefore)   &&   (!isPlayerAlive())   &&   (scoreTracker != null))
+        {
+            scoreTracker.submitFinalScore();
+        }
+
     }
 
 
@@ -215,5 +246,37 @@ class Game {
     {
         return postEntityProcessingServices;
     }
+
+
+
+    /**
+     *
+     * @return
+     */
+    private IScoreTracker getScoreTracker()
+    {
+        // "ServiceLoader.load(Interface.class)"
+        // Finds and loads all registered implementations of an Interface available.
+        // Link = https://www.geeksforgeeks.org/java/java-mdoules-service-implementation-module/
+
+        // We find, load and collect the implementations of the "IScoreTracker" interface.
+        Collection<? extends IScoreTracker> scoreTrackerImplementation = ServiceLoader.load(IScoreTracker.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+        // Returns the first implementation of the interface "IScoreTracker", or null if none is found.
+        return scoreTrackerImplementation.stream().findFirst().orElse(null);
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    private boolean isPlayerAlive()
+    {
+        return world.getEntities().stream().anyMatch(e -> e.Get_Type() == EntityType.Player);
+    }
+
+
+
 
 }

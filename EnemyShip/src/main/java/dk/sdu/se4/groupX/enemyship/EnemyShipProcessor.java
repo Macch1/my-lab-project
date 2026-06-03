@@ -96,6 +96,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
                 // Notify ScoreTracker that an enemy was destroyed.
                 IScoreTracker scoreTracker = getScoreTracker();
 
+                //System.out.println("ScoreTracker found: " + scoreTracker.size());
+
                 // .
                 if (scoreTracker != null)
                 {
@@ -132,6 +134,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
         // We find, load and collect the implementations of the "IScoreTracker" interface.
         Collection<? extends IScoreTracker> scoreTrackerImplementation = ServiceLoader.load(IScoreTracker.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+        System.out.println("ScoreTracker found: " + scoreTrackerImplementation.size());
 
         // Returns the first implementation of the interface "IScoreTracker", or null if none is found.
         return scoreTrackerImplementation.stream().findFirst().orElse(null);

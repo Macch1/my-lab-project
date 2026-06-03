@@ -89,5 +89,15 @@ public class World
     }
 
 
+    /**
+     *
+     * @param points
+     */
+    public void AddTo_CurrentScore(int points)
+    {
+        this.currentScore += points;
+    }
+
+
 
 }
