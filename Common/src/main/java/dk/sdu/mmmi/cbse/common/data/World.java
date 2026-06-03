@@ -16,6 +16,7 @@ public class World
 
     private final Map<String, Entity> entityMap = new ConcurrentHashMap<>();
 
+    private int currentScore = 0;
 
 
     public String addEntity(Entity entity)
@@ -43,9 +44,12 @@ public class World
     {
         List<Entity> r = new ArrayList<>();
 
-        for (Entity e : getEntities()) {
-            for (Class<E> entityType : entityTypes) {
-                if (entityType.equals(e.getClass())) {
+        for (Entity e : getEntities())
+        {
+            for (Class<E> entityType : entityTypes)
+            {
+                if (entityType.equals(e.getClass()))
+                {
                     r.add(e);
                 }
             }
@@ -63,5 +67,27 @@ public class World
     {
         return entityMap.containsKey(ID);
     }
+
+
+    /**
+     * Sets the current score.
+     *
+     * @param score the current score
+     */
+    public void Set_CurrentScore(int score)
+    {
+        this.currentScore = score;
+    }
+
+    /**
+     * Returns the current score.
+     * @return current score
+     */
+    public int Get_CurrentScore()
+    {
+        return currentScore;
+    }
+
+
 
 }
