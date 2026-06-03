@@ -11,13 +11,6 @@ public interface IScoreTracker
 {
 
     /**
-     * Adds points to the current running score.
-     * Called by processors at the moment of entity destruction.
-     * @param points the point value to add
-     */
-    void addScore(int points);
-
-    /**
      * Returns the current accumulated score.
      * @return current score
      */
@@ -27,6 +20,6 @@ public interface IScoreTracker
      * Submits the final score to the ScoringSystem microservice via HTTP.
      * Called when the player dies. Fails gracefully if ScoringSystem is unreachable.
      */
-    void submitFinalScore();
+    void submitFinalScore(int score);
 }
 

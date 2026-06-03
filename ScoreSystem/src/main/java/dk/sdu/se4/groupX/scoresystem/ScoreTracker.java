@@ -7,9 +7,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ScoreTracker implements IScoreTracker {
+public class ScoreTracker implements IScoreTracker
+{
 
-    private int currentScore = 0;
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private static final String SCORING_URL = "http://localhost:8080/score";
 
@@ -20,49 +20,36 @@ public class ScoreTracker implements IScoreTracker {
     }
 
 
-    @Override
-    public void addScore(int points)
-    {
-        currentScore += points;
-        System.out.println("Score updated: " + currentScore);
-    }
 
     @Override
     public int getScore() {
-        return currentScore;
+        return 0;
     }
 
+
+
     @Override
-    public void submitFinalScore()
+    public void submitFinalScore(int score)
     {
-        // .
         try
         {
-            System.out.println("submitFinalScore() called from: " + Thread.currentThread().getStackTrace()[2]);
-
-            String json = "{\"score\": " + currentScore + "}";
-
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(SCORING_URL + "/submit"))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .uri(URI.create(SCORING_URL + "/submit?score=" + score))
+                    .POST(HttpRequest.BodyPublishers.noBody())
                     .build();
 
             HttpResponse<String> response = httpClient.send(
                     request, HttpResponse.BodyHandlers.ofString()
             );
 
-            System.out.println("Score submitted: " + currentScore +
+            System.out.println("Score submitted: " + score +
                     " | Response: " + response.statusCode());
-
         }
         catch (Exception e)
         {
-            // Graceful failure — game continues even if ScoringSystem is down
             System.out.println("ScoringSystem unreachable. Score not submitted: " + e.getMessage());
         }
-
-        // Reset score for next game
-        currentScore = 0;
     }
+
+
 }
