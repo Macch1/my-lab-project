@@ -1,7 +1,8 @@
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
-module EnemyShip {
+module EnemyShip
+{
     requires Common;
     requires CommonEnemy;
     requires CommonPlayer;

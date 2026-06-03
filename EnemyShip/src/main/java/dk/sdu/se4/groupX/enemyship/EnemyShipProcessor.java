@@ -3,10 +3,8 @@ package dk.sdu.se4.groupX.enemyship;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.se4.groupX.commonenemy.Enemy;
-
 import dk.sdu.se4.groupX.commonplayer.Player;
 
 import dk.sdu.mmmi.cbse.common.bullet.BulletSPI;
@@ -90,25 +88,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // Remove the "Enemy" entity from the "world".
             world.removeEntity(enemy);
 
-            // Notify ScoringService.
-            try
-            {
-                // Notify ScoreTracker that an enemy was destroyed.
-                IScoreTracker scoreTracker = getScoreTracker();
-
-                //System.out.println("ScoreTracker found: " + scoreTracker.size());
-
-                // .
-                if (scoreTracker != null)
-                {
-                    scoreTracker.addScore(50);
-                    world.Set_CurrentScore(scoreTracker.getScore());
-                }
-            }
-            catch (Exception e)
-            {
-                System.out.println("ScoringService not available: " + e.getMessage());
-            }
+            // Notify World that an enemy was destroyed.
+            world.AddTo_CurrentScore(50);
 
             // returns "true" to indicate the Enemy is "Dead" / "Destroyed".
             return true;
@@ -116,29 +97,6 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
         // returns "false" to indicate the Enemy is "Alive" / "Not destroyed".
         return false;
-    }
-
-
-
-
-
-    /**
-     *
-     * @return
-     */
-    private IScoreTracker getScoreTracker()
-    {
-        // "ServiceLoader.load(Interface.class)"
-        // Finds and loads all registered implementations of an Interface available.
-        // Link = https://www.geeksforgeeks.org/java/java-mdoules-service-implementation-module/
-
-        // We find, load and collect the implementations of the "IScoreTracker" interface.
-        Collection<? extends IScoreTracker> scoreTrackerImplementation = ServiceLoader.load(IScoreTracker.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-
-        System.out.println("ScoreTracker found: " + scoreTrackerImplementation.size());
-
-        // Returns the first implementation of the interface "IScoreTracker", or null if none is found.
-        return scoreTrackerImplementation.stream().findFirst().orElse(null);
     }
 
 
