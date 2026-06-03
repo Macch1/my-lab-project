@@ -5,6 +5,7 @@
 package dk.sdu.mmmi.cbse.main;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.EntityType;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.GameKeys;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -27,10 +28,6 @@ import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
 import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
-
-import dk.sdu.mmmi.cbse.common.data.EntityType;
-import dk.sdu.mmmi.cbse.common.services.IScoreTracker;
-import java.util.ServiceLoader;
 
 
 

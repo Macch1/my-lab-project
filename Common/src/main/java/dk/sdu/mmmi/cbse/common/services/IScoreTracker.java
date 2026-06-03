@@ -7,7 +7,8 @@ package dk.sdu.mmmi.cbse.common.services;
  * PRE-CONDITION:  addScore() called with a positive point value when an entity is destroyed.
  * POST-CONDITION: Score total is updated and persisted to the ScoringSystem on submitFinalScore().
  */
-public interface IScoreTracker {
+public interface IScoreTracker
+{
 
     /**
      * Adds points to the current running score.
