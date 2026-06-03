@@ -178,17 +178,36 @@ public class CollisionDetector implements IPostEntityProcessingService
         double distance = Math.sqrt(dx * dx + dy * dy);
 
         // Calculate how much the two entities are overlapping.
-        // We MUST push at least this far to guarantee separation.
+        // This is our priority — we MUST push at least this far.
         double overlap = (entityA.Get_Radius() + entityB.Get_Radius()) - distance;
 
-        // Push each entity by the full overlap in opposite directions.
+        // Normalise to a unit vector (the collision normal).
+        double nx;
+        double ny;
+
+        if (distance == 0)
+        {
+            // Entities are exactly on top of each other — no direction can be calculated.
+            // Use a fallback direction, but still push by the full overlap distance.
+            nx = 1;
+            ny = 1;
+        }
+        else
+        {
+            nx = dx / distance;
+            ny = dy / distance;
+        }
+
+        // Push each entity by the FULL overlap in opposite directions.
+        // This guarantees they are always fully separated after the push,
+        // even in edge cases where positions are near zero.
         if (entityA.Check_CanBe_Pushed())
         {
-            entityA.Push_Entity((int)(dx + overlap), (int)(dy + overlap));
+            entityA.Push_Entity((int)(nx * overlap), (int)(ny * overlap));
         }
         if (entityB.Check_CanBe_Pushed())
         {
-            entityB.Push_Entity((int)(-dx - overlap), (int)(-dy - overlap));
+            entityB.Push_Entity((int)(-nx * overlap), (int)(-ny * overlap));
         }
 
         return true;
