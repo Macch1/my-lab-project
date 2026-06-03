@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>dk.sdu.se4.groupX.scoringsystem</groupId>
+    <groupId>dk.sdu.se4.groupX.highscoresystem</groupId>
     <artifactId>HighScoreSystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 

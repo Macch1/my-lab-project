@@ -1,4 +1,4 @@
-package dk.sdu.se4.groupX.score;
+package dk.sdu.se4.groupX.scoresystem;
 
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;

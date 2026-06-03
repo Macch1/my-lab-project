@@ -9,7 +9,7 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>dk.sdu.se4.groupX.score</groupId>
+    <groupId>dk.sdu.se4.groupX.scoresystem</groupId>
     <artifactId>ScoreSystem</artifactId>
 
     <properties>

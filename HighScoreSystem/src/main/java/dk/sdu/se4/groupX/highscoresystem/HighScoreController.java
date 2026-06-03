@@ -1,4 +1,4 @@
-package dk.sdu.se4.groupX.scoringsystem;
+package dk.sdu.se4.groupX.highscoresystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
