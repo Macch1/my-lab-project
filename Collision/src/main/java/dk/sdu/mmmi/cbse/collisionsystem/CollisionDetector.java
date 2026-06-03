@@ -110,6 +110,20 @@ public class CollisionDetector implements IPostEntityProcessingService
             return true;
         }
 
+        // NPC is neutral — outside the combat system entirely.
+        // Nothing damages an NPC, and an NPC damages nothing.
+        if ((entityA.Get_Type() == EntityType.Player)  &&  (entityB.Get_Type() == EntityType.NPC))
+        {
+            return false;
+        }
+
+        // PowerUps are Player-exclusive.
+        // Enemies should not interact with items meant for the player.
+        if ((entityA.Get_Type() == EntityType.PowerUp)  &&  (entityB.Get_Type() != EntityType.Player))
+        {
+            return false;
+        }
+
         // Resolve the damage between the 2 entities.
         this.resolve_collision_damage(entityA, entityB);
 
@@ -131,39 +145,19 @@ public class CollisionDetector implements IPostEntityProcessingService
     private boolean resolve_collision_damage  (Entity entityA, Entity entityB)
     {
 
-        if (entityA.Get_Type() == ) {
-
-            // .
-            // Deal damage to Entity B, based on Entity A
-            if (entityA.Check_CanTake_CollideDamage() && entityB.Check_CanTake_Damaged()) {
-                entityB.Take_Damage(entityA.Get_CollisionDamage());
-            }
-
-        }
-
-
-        if ()
+        // IF Entity A can Take Collision Damage, it takes Collision Damage.
+        if (entityA.Check_CanTake_Damaged()  &&  entityA.Check_CanTake_CollideDamage())
         {
-
-            // .
-            // Deal damage to Entity B, based on Entity A
-            if ((!entityA.Check_CanTake_CollideDamage()) && entityB.Check_CanTake_Damaged()) {
-                entityB.Take_Damage(entityA.Get_CollisionDamage());
-            }
-
+            entityA.Take_Damage(entityB.Get_CollisionDamage());
         }
 
-
-        if ()
+        // IF Entity B can Take Collision Damage, it takes Collision Damage.
+        if (entityB.Check_CanTake_Damaged()  &&  entityB.Check_CanTake_CollideDamage())
         {
-
-            // .
-            // Deal damage to Entity B, based on Entity A
-            if (entityA.Check_CanTake_CollideDamage() && (!entityB.Check_CanTake_Damaged())) {
-                entityB.Take_Damage(entityA.Get_CollisionDamage());
-            }
+            entityB.Take_Damage(entityA.Get_CollisionDamage());
         }
 
+        return true;
     }
 
 
@@ -176,7 +170,27 @@ public class CollisionDetector implements IPostEntityProcessingService
      */
     private boolean resolve_collision_push  (Entity entityA, Entity entityB)
     {
-        // This is for future improvements where we can make them get pushed around.
+        // Get the vector from B to A (the direction A should be pushed).
+        double dx = entityA.Get_X() - entityB.Get_X();
+        double dy = entityA.Get_Y() - entityB.Get_Y();
+
+        // Get the distance between the two entity centers.
+        double distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Calculate how much the two entities are overlapping.
+        // We MUST push at least this far to guarantee separation.
+        double overlap = (entityA.Get_Radius() + entityB.Get_Radius()) - distance;
+
+        // Push each entity by the full overlap in opposite directions.
+        if (entityA.Check_CanBe_Pushed())
+        {
+            entityA.Push_Entity((int)(dx + overlap), (int)(dy + overlap));
+        }
+        if (entityB.Check_CanBe_Pushed())
+        {
+            entityB.Push_Entity((int)(-dx - overlap), (int)(-dy - overlap));
+        }
+
         return true;
     }
 

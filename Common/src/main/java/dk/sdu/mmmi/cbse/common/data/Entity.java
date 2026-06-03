@@ -280,7 +280,7 @@ public class Entity implements Serializable
      * @param y_push
      * @return
      */
-    public void Push_Entity(int x_push, int y_push)
+    public void Push_Entity(double x_push, double y_push)
     {
         this.entity_Position_X = this.entity_Position_X + x_push;
         this.entity_Position_Y = this.entity_Position_Y + y_push;
