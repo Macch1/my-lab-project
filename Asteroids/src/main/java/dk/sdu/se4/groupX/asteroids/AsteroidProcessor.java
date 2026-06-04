@@ -67,6 +67,8 @@ public class AsteroidProcessor implements IEntityProcessingService
         // Spawn new asteroids if below max.
         if (world.Get_CurrentAsteroidCount() < world.Get_MaxAsteroids())
         {
+            // .
+            System.out.println("Spawning new asteroids...");
 
             // .
             while (world.Get_CurrentAsteroidCount() < world.Get_MaxAsteroids())
@@ -78,6 +80,9 @@ public class AsteroidProcessor implements IEntityProcessingService
                 world.addEntity(asteroid);
                 world.AddTo_CurrentAsteroidCount(1);
             }
+
+            // .
+            System.out.println("Asteroid count now: " + world.Get_CurrentAsteroidCount());
         }
 
     }

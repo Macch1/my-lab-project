@@ -76,6 +76,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
         // Spawn new enemies if below max.
         if (world.Get_CurrentEnemyCount() < world.Get_MaxEnemies())
         {
+            // .
+            System.out.println("Spawning new enemies...");
 
             // .
             while(world.Get_CurrentEnemyCount() < world.Get_MaxEnemies())
@@ -87,6 +89,9 @@ public class EnemyShipProcessor implements IEntityProcessingService
                 world.addEntity(enemy);
                 world.AddTo_CurrentEnemyCount(1);
             }
+
+            // .
+            System.out.println("Enemy count now: " + world.Get_CurrentEnemyCount());
         }
 
     }
