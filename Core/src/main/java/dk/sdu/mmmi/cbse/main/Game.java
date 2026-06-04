@@ -362,6 +362,8 @@ class Game {
     }
 
 
+
+
     /**
      *
      * @return
@@ -369,12 +371,50 @@ class Game {
     private boolean isPlayerAlive()
     {
         // .
-        boolean alive = world.getEntities().stream().anyMatch(e -> e.Get_Type() == EntityType.Player);
+        Entity player = null;
 
         // .
-        // System.out.println("isPlayerAlive: " + alive + " | Entities in world: " + world.getEntities().size());
+        for (Entity entity : world.getEntities())
+        {
+            // .
+            if (entity.Get_Type() == EntityType.Player)
+            {
+                // .
+                player = entity;
+                break;
+            }
+        }
 
-        return alive;
+
+        // If player found, update health display.
+        if (player != null)
+        {
+            // .
+            Update_PlayerHealth_Display(player);
+
+            // .
+            return true;
+        }
+        else
+        {
+            // .
+            this.healthText.setText("Health: 0");
+        }
+
+        return false;
+    }
+
+
+
+
+    /**
+     * Updates the health display text with the player's current health.
+     * @param player the player entity
+     */
+    private void Update_PlayerHealth_Display(Entity player)
+    {
+        // .
+        this.healthText.setText("Health: " + (int) player.Get_Health());
     }
 
 
