@@ -242,9 +242,6 @@ class Game
         boolean playerAliveBefore = this.isPlayerAlive();
 
         // .
-        // System.out.println("Frame start — playerAliveBefore: " + playerAliveBefore);
-
-        // .
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices())
         {
             entityProcessorService.EntityProcess(this.gameData, this.world);
@@ -262,9 +259,6 @@ class Game
         {
             this.gameOver();
         }
-
-        // .
-        // System.out.println("Frame end — playerAliveAfter: " + isPlayerAlive());
     }
 
 
