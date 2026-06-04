@@ -36,19 +36,36 @@ import static java.util.stream.Collectors.toList;
  *
  * @author jcs
  */
-class Game {
+class Game
+{
 
+    // .
     private final GameData gameData = new GameData();
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
+
+    // .
     private final Pane gameWindow = new Pane();
+
+    // .
     private final Text scoreText = new Text(10, 20, "Score: 0");
+    private final Text healthText = new Text(10, 40, "Health: 100");
     private final Text gameOverText = new Text("GAME OVER\nPress ENTER to restart");
+
+    // .
+    // .
     private final List<IGamePluginService> gamePluginServices;
     private final List<IEntityProcessingService> entityProcessingServiceList;
     private final List<IPostEntityProcessingService> postEntityProcessingServices;
+
+    // .
     private IScoreTracker scoreTracker = null;
+
+    // .
     private boolean gameOver = false;
+
+
+
 
 
     /**
@@ -57,12 +74,17 @@ class Game {
      * @param entityProcessingServiceList
      * @param postEntityProcessingServices
      */
-    Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessingServiceList, List<IPostEntityProcessingService> postEntityProcessingServices)
+    public Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessingServiceList, List<IPostEntityProcessingService> postEntityProcessingServices)
     {
         this.gamePluginServices = gamePluginServices;
         this.entityProcessingServiceList = entityProcessingServiceList;
         this.postEntityProcessingServices = postEntityProcessingServices;
     }
+
+
+
+
+
 
 
     /**
@@ -74,7 +96,10 @@ class Game {
     {
         // .
         this.gameWindow.setPrefSize(this.gameData.getDisplayWidth(), this.gameData.getDisplayHeight());
+
+        // .
         this.gameWindow.getChildren().add(this.scoreText);
+        this.gameWindow.getChildren().add(this.healthText);
 
         // .
         Scene scene = new Scene(this.gameWindow);
@@ -83,6 +108,8 @@ class Game {
         this.gameOverText.setX(this.gameData.getDisplayWidth() / 2.0 - 100);
         this.gameOverText.setY(this.gameData.getDisplayHeight() / 2.0);
         this.gameOverText.setVisible(false);
+
+        // .
         this.gameWindow.getChildren().add(this.gameOverText);
 
         // .
@@ -155,6 +182,9 @@ class Game {
     }
 
 
+
+
+
     /**
      *
      */
@@ -172,6 +202,9 @@ class Game {
 
         }.start();
     }
+
+
+
 
 
     /**
@@ -218,6 +251,8 @@ class Game {
         // .
         // System.out.println("Frame end — playerAliveAfter: " + isPlayerAlive());
     }
+
+
 
 
 
@@ -324,11 +359,16 @@ class Game {
 
     }
 
+
+
+
     // .
     public List<IGamePluginService> getGamePluginServices()
     {
         return gamePluginServices;
     }
+
+
 
     // .
     public List<IEntityProcessingService> getEntityProcessingServices()
@@ -336,11 +376,17 @@ class Game {
         return entityProcessingServiceList;
     }
 
+
+
+
     // .
     public List<IPostEntityProcessingService> getPostEntityProcessingServices()
     {
         return postEntityProcessingServices;
     }
+
+
+
 
 
 
@@ -360,6 +406,7 @@ class Game {
         // Returns the first implementation of the interface "IScoreTracker", or null if none is found.
         return scoreTrackerImplementation.stream().findFirst().orElse(null);
     }
+
 
 
 
