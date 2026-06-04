@@ -277,4 +277,9 @@ my-lab-project/
 
 Developed as a university exam project for **Komponentbaserede Systemer** at SDU, Spring 2026.
 
-GitHub: [https://github.com/Macch1/my-lab-project](https://github.com/Macch1/my-lab-project)
+
+---
+
+## Disclaimer
+
+AI have been used in the project for the following tasks: Updating Comments, Updating JavaDocs, Debugging, and as a RubberDuck.
