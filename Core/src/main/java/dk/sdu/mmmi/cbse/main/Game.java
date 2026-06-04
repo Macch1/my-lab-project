@@ -39,6 +39,7 @@ import static java.util.stream.Collectors.toList;
 class Game
 {
 
+
     // .
     private final GameData gameData = new GameData();
     private final World world = new World();
@@ -94,6 +95,8 @@ class Game
      */
     public void start(Stage window) throws Exception
     {
+        // //
+
         // .
         this.gameWindow.setPrefSize(this.gameData.getDisplayWidth(), this.gameData.getDisplayHeight());
 
@@ -111,6 +114,10 @@ class Game
 
         // .
         this.gameWindow.getChildren().add(this.gameOverText);
+
+
+
+        // //
 
         // .
         scene.setOnKeyPressed(event -> {
@@ -159,6 +166,10 @@ class Game
             }
         });
 
+
+
+        // //
+
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : getGamePluginServices())
         {
@@ -174,6 +185,10 @@ class Game
 
         // .
         this.scoreTracker = this.getScoreTracker();
+
+        
+
+        // //
 
         // .
         window.setScene(scene);
