@@ -186,7 +186,7 @@ class Game
         // .
         this.scoreTracker = this.getScoreTracker();
 
-        
+
 
         // //
 
@@ -247,7 +247,7 @@ class Game
         // .
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices())
         {
-            entityProcessorService.process(this.gameData, this.world);
+            entityProcessorService.EntityProcess(this.gameData, this.world);
         }
 
         // .

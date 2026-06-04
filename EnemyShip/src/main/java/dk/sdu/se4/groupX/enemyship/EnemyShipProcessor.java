@@ -42,7 +42,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
      * @param world contains and updates the Game-world, and all the entities inside it.
      */
     @Override
-    public void process(GameData gameData, World world)
+    public void EntityProcess(GameData gameData, World world)
     {
         for (Entity entity : world.getEntities(Enemy.class))
         {

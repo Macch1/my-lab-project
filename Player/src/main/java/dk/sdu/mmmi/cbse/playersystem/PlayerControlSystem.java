@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 public class PlayerControlSystem implements IEntityProcessingService {
 
     @Override
-    public void process(GameData gameData, World world) {
+    public void EntityProcess(GameData gameData, World world) {
             
         for (Entity player : world.getEntities(Player.class))
         {

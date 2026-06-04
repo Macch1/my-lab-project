@@ -21,7 +21,7 @@ public class AsteroidProcessor implements IEntityProcessingService
 
 
     @Override
-    public void process(GameData gameData, World world)
+    public void EntityProcess(GameData gameData, World world)
     {
         // .
         for (Entity asteroid : world.getEntities(Asteroid.class))

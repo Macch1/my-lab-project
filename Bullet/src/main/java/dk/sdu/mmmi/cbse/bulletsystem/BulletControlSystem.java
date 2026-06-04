@@ -13,7 +13,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI
 
 
     @Override
-    public void process(GameData gameData, World world)
+    public void EntityProcess(GameData gameData, World world)
     {
 
         for (Entity bullet : world.getEntities(Bullet.class))
