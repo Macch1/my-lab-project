@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * PlayerControlSystem is responsible for processing the Player entity each frame.
- * Handles player input — rotation, movement and shooting —
+ * Handles player input - rotation, movement and shooting -
  * boundary wrapping at the screen edges, and player health checks.
  *
  * Discovers BulletSPI implementations via ServiceLoader each time the player fires,
@@ -48,7 +48,7 @@ public class PlayerControlSystem implements IEntityProcessingService
         // Process all Player entities currently in the world.
         for (Entity player : world.getEntities(Player.class))
         {
-            // Check if the player is dead — remove it and skip to the next.
+            // Check if the player is dead - remove it and skip to the next.
             if (this.handleHealth(player, world))
             {
                 // Skip dead entities.
@@ -90,31 +90,31 @@ public class PlayerControlSystem implements IEntityProcessingService
 
             // Wrap the player's position around the screen edges.
 
-            // Wrap the player's X position — left edge.
+            // Wrap the player's X position - left edge.
             if (player.Get_X() < 0)
             {
-                // Player has gone off the left edge — wrap to the right edge.
+                // Player has gone off the left edge - wrap to the right edge.
                 player.Set_X(1);
             }
 
-            // Wrap the player's X position — right edge.
+            // Wrap the player's X position - right edge.
             if (player.Get_X() > gameData.getDisplayWidth())
             {
-                // Player has gone off the right edge — wrap to the left edge.
+                // Player has gone off the right edge - wrap to the left edge.
                 player.Set_X(gameData.getDisplayWidth()-1);
             }
 
-            // Wrap the player's Y position — top edge.
+            // Wrap the player's Y position - top edge.
             if (player.Get_Y() < 0)
             {
-                // Player has gone off the top edge — wrap to the bottom edge.
+                // Player has gone off the top edge - wrap to the bottom edge.
                 player.Set_Y(1);
             }
 
-            // Wrap the player's Y position — bottom edge.
+            // Wrap the player's Y position - bottom edge.
             if (player.Get_Y() > gameData.getDisplayHeight())
             {
-                // Player has gone off the bottom edge — wrap to the top edge.
+                // Player has gone off the bottom edge - wrap to the top edge.
                 player.Set_Y(gameData.getDisplayHeight()-1);
             }
         }

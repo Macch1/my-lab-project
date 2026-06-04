@@ -6,7 +6,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 
 /**
  * IGamePluginService is the service interface for all game plugins in the game.
- * Implementations are responsible for managing the lifecycle of their entities —
+ * Implementations are responsible for managing the lifecycle of their entities -
  * spawning them into the world on start, and removing them from the world on stop.
  *
  * Implementations are discovered and loaded by Core at startup via ServiceLoader.
@@ -19,7 +19,7 @@ public interface IGamePluginService {
 
 
     /**
-     * Starts the plugin — spawns all entities managed by this plugin into the world.
+     * Starts the plugin - spawns all entities managed by this plugin into the world.
      * Called once at game startup and once on each restart by Game.java's restart() method.
      *
      * Pre-Condition:  gameData != null, world != null, plugin has not already been started.
@@ -32,7 +32,7 @@ public interface IGamePluginService {
 
 
     /**
-     * Stops the plugin — removes all entities managed by this plugin from the world.
+     * Stops the plugin - removes all entities managed by this plugin from the world.
      * Called once when the game is stopped or restarted by Game.java's restart() method.
      *
      * Pre-Condition:  gameData != null, world != null, plugin has been started.

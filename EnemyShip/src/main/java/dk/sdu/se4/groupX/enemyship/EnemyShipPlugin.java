@@ -41,7 +41,7 @@ public class EnemyShipPlugin implements IGamePluginService
 
 
     /**
-     * Starts the EnemyShip plugin — spawns the initial set of enemy ships into the world.
+     * Starts the EnemyShip plugin - spawns the initial set of enemy ships into the world.
      * Called once at game startup and once on each restart by Game.java's restart() method.
      *
      * Pre-Condition:  gameData != null, world != null.
@@ -71,7 +71,7 @@ public class EnemyShipPlugin implements IGamePluginService
 
 
     /**
-     * Stops the EnemyShip plugin — removes all Enemy entities from the world.
+     * Stops the EnemyShip plugin - removes all Enemy entities from the world.
      * Called once when the game is stopped or restarted by Game.java's restart() method.
      *
      * Pre-Condition:  gameData != null, world != null.

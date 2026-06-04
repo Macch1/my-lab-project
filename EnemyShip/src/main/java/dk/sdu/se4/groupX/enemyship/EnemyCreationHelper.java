@@ -12,7 +12,7 @@ import java.util.Random;
  * EnemyCreationHelper is a static helper class responsible for creating Enemy entities.
  * Used by both EnemyShipPlugin and EnemyShipProcessor to ensure consistent enemy creation.
  *
- * Handles spawn position calculation — enemies always spawn at a random point along
+ * Handles spawn position calculation - enemies always spawn at a random point along
  * a screen edge, aimed roughly towards the center of the map with a random offset.
  */
 public class EnemyCreationHelper
@@ -46,7 +46,7 @@ public class EnemyCreationHelper
      * Post-Condition: a fully configured Enemy entity is returned, ready to be added to the world.
      *
      * @param gameData contains the display dimensions used for spawn position calculation.
-     * @param world the game world — reserved for future use in spawn logic.
+     * @param world the game world - reserved for future use in spawn logic.
      * @return a fully configured Enemy entity ready to be added to the world.
      */
     public static Enemy createEnemy(GameData gameData, World world)
@@ -55,7 +55,7 @@ public class EnemyCreationHelper
         double[] start_position;
         double start_rotation;
 
-        // Create a new Enemy entity — default flags and values set by Enemy constructor.
+        // Create a new Enemy entity - default flags and values set by Enemy constructor.
         Enemy enemy = new Enemy();
 
         // Calculate a random spawn position along a screen edge.
@@ -77,7 +77,7 @@ public class EnemyCreationHelper
         // Set the spawn rotation of the enemy ship.
         enemy.Set_Rotation(start_rotation);
 
-        // Override collision properties — enemies deal full damage on impact.
+        // Override collision properties - enemies deal full damage on impact.
         enemy.Set_Can_Collide(true);
         enemy.Set_CanTake_CollideDamage(true);
         enemy.Set_CanTake_Damaged(true);
@@ -115,7 +115,7 @@ public class EnemyCreationHelper
 
         // Determine the spawn coordinates based on the selected screen edge.
 
-        // Top edge — random X position along the top of the screen.
+        // Top edge - random X position along the top of the screen.
         if (side_id == 0)
         {
             coordinates[0] = random.nextDouble() * gameData.getDisplayWidth();
@@ -123,7 +123,7 @@ public class EnemyCreationHelper
             return coordinates;
         }
 
-        // Bottom edge — random X position along the bottom of the screen.
+        // Bottom edge - random X position along the bottom of the screen.
         else if (side_id == 1)
         {
             coordinates[0] = random.nextDouble() * gameData.getDisplayWidth();
@@ -131,7 +131,7 @@ public class EnemyCreationHelper
             return coordinates;
         }
 
-        // Right edge — random Y position along the right of the screen.
+        // Right edge - random Y position along the right of the screen.
         else if (side_id == 2)
         {
             coordinates[0] = gameData.getDisplayWidth();
@@ -139,7 +139,7 @@ public class EnemyCreationHelper
             return coordinates;
         }
 
-        // Left edge — random Y position along the left of the screen.
+        // Left edge - random Y position along the left of the screen.
         else if (side_id == 3)
         {
             coordinates[0] = 0.0;
@@ -147,7 +147,7 @@ public class EnemyCreationHelper
             return coordinates;
         }
 
-        // Fallback — should never occur, but log a warning and return (0, 0) if it does.
+        // Fallback - should never occur, but log a warning and return (0, 0) if it does.
         System.err.println("WARNING: Random number gave us this Side ID = " + side_id + ".");
         coordinates[0] = (double) 0.0;
         coordinates[1] = (double) 0.0;
@@ -157,7 +157,7 @@ public class EnemyCreationHelper
 
     /**
      * Calculates a spawn rotation aimed roughly towards the center of the map.
-     * Adds a random offset of up to ±60 degrees to vary the enemy's approach angle.
+     * Adds a random offset of up to +/-60 degrees to vary the enemy's approach angle.
      *
      * @param spawnX the X coordinate of the enemy's spawn position.
      * @param spawnY the Y coordinate of the enemy's spawn position.
@@ -173,7 +173,7 @@ public class EnemyCreationHelper
         // Calculate the angle from the spawn position towards the center of the map.
         double angle_to_Center = Math.toDegrees(Math.atan2(center_Y - spawnY, center_X - spawnX));
 
-        // Add a random offset of up to ±60 degrees to vary the approach angle.
+        // Add a random offset of up to +/-60 degrees to vary the approach angle.
         double offset = (random.nextDouble() * 120.0) - 60.0;
 
         // Return the final spawn rotation.

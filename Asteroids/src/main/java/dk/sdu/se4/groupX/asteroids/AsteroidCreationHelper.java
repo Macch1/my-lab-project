@@ -12,7 +12,7 @@ import java.util.Random;
  * AsteroidCreationHelper is a static helper class responsible for creating Asteroid entities.
  * Used by both AsteroidPlugin and AsteroidProcessor to ensure consistent asteroid creation.
  *
- * Handles spawn position calculation — ensuring asteroids always spawn at a safe distance
+ * Handles spawn position calculation - ensuring asteroids always spawn at a safe distance
  * from the player's current position, with a maximum of 50 attempts before giving up.
  */
 public class AsteroidCreationHelper
@@ -51,12 +51,12 @@ public class AsteroidCreationHelper
      * Post-Condition: a fully configured Asteroid entity is returned, ready to be added to the world.
      *
      * @param gameData contains the display dimensions used for spawn position calculation.
-     * @param world the game world — used to find the player's current position.
+     * @param world the game world - used to find the player's current position.
      * @return a fully configured Asteroid entity ready to be added to the world.
      */
     public static Asteroid createAsteroid(GameData gameData, World world)
     {
-        // Create a new Asteroid entity — default flags and values set by Asteroid constructor.
+        // Create a new Asteroid entity - default flags and values set by Asteroid constructor.
         Asteroid asteroid = new Asteroid();
 
         // Randomly determine the size of the asteroid between 10 and 30 units.
@@ -78,7 +78,7 @@ public class AsteroidCreationHelper
         // Set a random rotation direction for the asteroid.
         asteroid.Set_Rotation(random.nextInt(360));
 
-        // Override collision properties — asteroids destroy ships on contact.
+        // Override collision properties - asteroids destroy ships on contact.
         asteroid.Set_Can_Collide(true);
         asteroid.Set_CanTake_CollideDamage(true);
         asteroid.Set_CanTake_Damaged(true);
@@ -104,7 +104,7 @@ public class AsteroidCreationHelper
      * Makes up to 50 attempts before returning the last calculated position.
      *
      * @param gameData contains the display dimensions used to calculate spawn bounds.
-     * @param world the game world — used to find the player's current position.
+     * @param world the game world - used to find the player's current position.
      * @return a double array containing the safe spawn [x, y] position.
      */
     private static double[] getSafeSpawnPosition(GameData gameData, World world)
@@ -122,7 +122,7 @@ public class AsteroidCreationHelper
             // Check if the entity is of type Player.
             if (entity.Get_Type() == EntityType.Player)
             {
-                // Player found — use its current position.
+                // Player found - use its current position.
                 playerX = entity.Get_X();
                 playerY = entity.Get_Y();
 

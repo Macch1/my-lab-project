@@ -10,11 +10,11 @@ package dk.sdu.mmmi.cbse.common.data;
 public class GameKeys
 {
 
-    // Current and previous frame key states — used to detect held and single-press events.
+    // Current and previous frame key states - used to detect held and single-press events.
     private static boolean[] keys;
     private static boolean[] pkeys;
 
-    // Key constants — defines the total number of keys and their index mappings.
+    // Key constants - defines the total number of keys and their index mappings.
     private static final int NUM_KEYS = 5;
     public static final int UP = 0;
     public static final int LEFT = 1;

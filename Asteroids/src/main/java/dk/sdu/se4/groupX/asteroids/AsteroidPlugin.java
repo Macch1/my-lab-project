@@ -25,7 +25,7 @@ public class AsteroidPlugin implements IGamePluginService
 
 
     /**
-     * Starts the Asteroid plugin — spawns the initial set of asteroids into the world.
+     * Starts the Asteroid plugin - spawns the initial set of asteroids into the world.
      * Called once at game startup and once on each restart by Game.java's restart() method.
      *
      * Pre-Condition:  gameData != null, world != null.
@@ -55,7 +55,7 @@ public class AsteroidPlugin implements IGamePluginService
 
 
     /**
-     * Stops the Asteroid plugin — removes all Asteroid entities from the world.
+     * Stops the Asteroid plugin - removes all Asteroid entities from the world.
      * Called once when the game is stopped or restarted by Game.java's restart() method.
      *
      * Pre-Condition:  gameData != null, world != null.

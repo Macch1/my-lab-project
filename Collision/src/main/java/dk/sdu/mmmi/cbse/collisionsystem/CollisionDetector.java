@@ -45,7 +45,7 @@ public class CollisionDetector implements IPostEntityProcessingService
 
     /**
      * Checks all entity pairs in the world for collisions and resolves them.
-     * Skips entities of type None and Background — they cannot participate in collisions.
+     * Skips entities of type None and Background - they cannot participate in collisions.
      * Called once per frame by Game.java after all IEntityProcessingService calls.
      *
      * Pre-Condition:  gameData != null, world != null, all IEntityProcessingService
@@ -76,7 +76,7 @@ public class CollisionDetector implements IPostEntityProcessingService
                 // An entity can't collide with itself.
                 if (entity1.Get_ID().equals(entity2.Get_ID()))
                 {
-                    // Skip — an entity cannot collide with itself.
+                    // Skip - an entity cannot collide with itself.
                     continue;
                 }
 
@@ -88,7 +88,7 @@ public class CollisionDetector implements IPostEntityProcessingService
                     continue;
                 }
 
-                // CollisionDetection — check if the two entities are within collision distance.
+                // CollisionDetection - check if the two entities are within collision distance.
                 if (this.within_collision_distance(entity1, entity2))
                 {
                     // Tries to resolve a potential collision.
@@ -155,15 +155,15 @@ public class CollisionDetector implements IPostEntityProcessingService
         // Check if either Entity can take damage.
         if ((!entityA.Check_CanTake_Damaged())  &&  (!entityB.Check_CanTake_Damaged()))
         {
-            // Neither entity can take damage — skip the collision.
+            // Neither entity can take damage - skip the collision.
             return true;
         }
 
-        // NPC is neutral — outside the combat system entirely.
+        // NPC is neutral - outside the combat system entirely.
         // Nothing damages an NPC, and an NPC damages nothing.
         if ((entityA.Get_Type() == EntityType.Player)  &&  (entityB.Get_Type() == EntityType.NPC))
         {
-            // Player and NPC — no damage exchanged.
+            // Player and NPC - no damage exchanged.
             return false;
         }
 
@@ -171,7 +171,7 @@ public class CollisionDetector implements IPostEntityProcessingService
         // Enemies should not interact with items meant for the player.
         if ((entityA.Get_Type() == EntityType.PowerUp)  &&  (entityB.Get_Type() != EntityType.Player))
         {
-            // PowerUp and non-Player — no damage exchanged.
+            // PowerUp and non-Player - no damage exchanged.
             return false;
         }
 
@@ -231,7 +231,7 @@ public class CollisionDetector implements IPostEntityProcessingService
         double distance = Math.sqrt(dx * dx + dy * dy);
 
         // Calculate how much the two entities are overlapping.
-        // This is our priority — we MUST push at least this far.
+        // This is our priority - we MUST push at least this far.
         double overlap = (entityA.Get_Radius() + entityB.Get_Radius()) - distance;
 
         // Normalise to a unit vector (the collision normal).
@@ -241,7 +241,7 @@ public class CollisionDetector implements IPostEntityProcessingService
         // Handle the edge case where entities are exactly on top of each other.
         if (distance == 0)
         {
-            // Entities are exactly on top of each other — no direction can be calculated.
+            // Entities are exactly on top of each other - no direction can be calculated.
             // Use a fallback direction, but still push by the full overlap distance.
             nx = 1;
             ny = 0;

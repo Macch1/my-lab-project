@@ -6,12 +6,12 @@ import dk.sdu.mmmi.cbse.common.data.EntityType;
 
 /**
  * Enemy is the base entity type for all enemy entities in the game.
- * Extends Entity and sets the default configuration for enemy behaviour —
+ * Extends Entity and sets the default configuration for enemy behaviour -
  * enemies can move, can be pushed by the collision system, can collide,
  * can take collision damage, and deal damage on impact.
  *
  * Enemies have additional attributes for movement speed, turning behaviour,
- * and bullet reload management — used by EnemyShipProcessor each frame.
+ * and bullet reload management - used by EnemyShipProcessor each frame.
  *
  * The visual shape, position and rotation of the enemy are set by
  * EnemyCreationHelper at creation time.
@@ -30,7 +30,7 @@ public class Enemy extends Entity
     // The default movement speed factor of the enemy ship.
     private static final double DEFAULT_SPEED_FACTOR = 0.3;
 
-    // The default desired rotation of the enemy ship — updated each frame to face the player.
+    // The default desired rotation of the enemy ship - updated each frame to face the player.
     private static final double DEFAULT_DESIRED_ROTATION = 0.0;
 
     // The minimum angular difference in degrees before the enemy is considered aimed at the player.
@@ -62,7 +62,7 @@ public class Enemy extends Entity
     // The current movement speed factor of the enemy ship.
     private double enemy_speedFactor;
 
-    // The current desired rotation of the enemy ship — updated each frame to face the player.
+    // The current desired rotation of the enemy ship - updated each frame to face the player.
     private double desired_rotation;
 
     // The minimum angular difference in degrees before the enemy is considered aimed at the player.
@@ -104,15 +104,15 @@ public class Enemy extends Entity
         // Set the entity type to Enemy.
         this.Set_Type(EntityType.Enemy);
 
-        // Movement — enemies can move freely and can be pushed by collisions.
+        // Movement - enemies can move freely and can be pushed by collisions.
         this.Set_Can_Move(true);
         this.Set_CanBe_Pushed(true);
 
-        // Health — enemies start with 50 health and can be destroyed.
+        // Health - enemies start with 50 health and can be destroyed.
         this.Set_Health(50);
         this.Set_CanTake_Damaged(true);
 
-        // Collision — enemies can collide, take collision damage, and deal damage on impact.
+        // Collision - enemies can collide, take collision damage, and deal damage on impact.
         this.Set_Can_Collide(true);
         this.Set_CanTake_CollideDamage(true);
         this.Set_CollisionDamage(100);

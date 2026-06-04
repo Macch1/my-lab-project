@@ -47,7 +47,7 @@ public class AsteroidProcessor implements IEntityProcessingService
         // Process all Asteroid entities currently in the world.
         for (Entity asteroid : world.getEntities(Asteroid.class))
         {
-            // Check if the asteroid is dead — handle destruction and skip to the next.
+            // Check if the asteroid is dead - handle destruction and skip to the next.
             if (this.handleHealth(asteroid, world))
             {
                 continue; // Skip dead entities.
@@ -61,31 +61,31 @@ public class AsteroidProcessor implements IEntityProcessingService
             asteroid.Set_X(asteroid.Get_X() + changeX * 0.5);
             asteroid.Set_Y(asteroid.Get_Y() + changeY * 0.5);
 
-            // Wrap the asteroid's X position — left edge.
+            // Wrap the asteroid's X position - left edge.
             if (asteroid.Get_X() < 0)
             {
-                // Asteroid has gone off the left edge — wrap to the right edge.
+                // Asteroid has gone off the left edge - wrap to the right edge.
                 asteroid.Set_X(gameData.getDisplayWidth());
             }
 
-            // Wrap the asteroid's X position — right edge.
+            // Wrap the asteroid's X position - right edge.
             if (asteroid.Get_X() > gameData.getDisplayWidth())
             {
-                // Asteroid has gone off the right edge — wrap to the left edge.
+                // Asteroid has gone off the right edge - wrap to the left edge.
                 asteroid.Set_X(0);
             }
 
-            // Wrap the asteroid's Y position — top edge.
+            // Wrap the asteroid's Y position - top edge.
             if (asteroid.Get_Y() < 0)
             {
-                // Asteroid has gone off the top edge — wrap to the bottom edge.
+                // Asteroid has gone off the top edge - wrap to the bottom edge.
                 asteroid.Set_Y(gameData.getDisplayHeight());
             }
 
-            // Wrap the asteroid's Y position — bottom edge.
+            // Wrap the asteroid's Y position - bottom edge.
             if (asteroid.Get_Y() > gameData.getDisplayHeight())
             {
-                // Asteroid has gone off the bottom edge — wrap to the top edge.
+                // Asteroid has gone off the bottom edge - wrap to the top edge.
                 asteroid.Set_Y(0);
             }
         }
@@ -122,7 +122,7 @@ public class AsteroidProcessor implements IEntityProcessingService
 
     /**
      * Checks if the asteroid's health has reached zero and handles its destruction.
-     * Attempts to split the asteroid via AsteroidSplitterSPI — if no splitter is available,
+     * Attempts to split the asteroid via AsteroidSplitterSPI - if no splitter is available,
      * or if the asteroid is too small to split, it is simply removed from the world.
      * Awards 10 points to the score and decrements the asteroid count on destruction.
      *

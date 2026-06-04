@@ -44,7 +44,7 @@ import static java.util.stream.Collectors.toList;
 class Game
 {
 
-    // The core game data and world state — passed to all plugins and processors every frame.
+    // The core game data and world state - passed to all plugins and processors every frame.
     private final GameData gameData = new GameData();
     private final World world = new World();
 
@@ -59,12 +59,12 @@ class Game
     private final Text healthText = new Text(10, 40, "Health: 100");
     private final Text gameOverText = new Text("GAME OVER\nPress ENTER to restart");
 
-    // Lists of all discovered plugins and processors — injected by Spring via ModuleConfig.
+    // Lists of all discovered plugins and processors - injected by Spring via ModuleConfig.
     private final List<IGamePluginService> gamePluginServices;
     private final List<IEntityProcessingService> entityProcessingServiceList;
     private final List<IPostEntityProcessingService> postEntityProcessingServices;
 
-    // The IScoreTracker implementation — discovered via ServiceLoader at startup.
+    // The IScoreTracker implementation - discovered via ServiceLoader at startup.
     private IScoreTracker scoreTracker = null;
 
     // Flag indicating whether the game is currently in a game over state.
@@ -187,7 +187,7 @@ class Game
             }
         });
 
-        // Start all registered game plugins — spawns initial entities into the world.
+        // Start all registered game plugins - spawns initial entities into the world.
         for (IGamePluginService iGamePlugin : getGamePluginServices())
         {
             iGamePlugin.start(gameData, world);
@@ -258,7 +258,7 @@ class Game
             return;  // Skip all normal processing until restarted.
         }
 
-        // Check if the player is alive before processing — used to detect death this frame.
+        // Check if the player is alive before processing - used to detect death this frame.
         boolean playerAliveBefore = this.isPlayerAlive();
 
         // Call all IEntityProcessingService implementations for this frame.
@@ -273,7 +273,7 @@ class Game
             postEntityProcessorService.PostEntityProcess(this.gameData, this.world);
         }
 
-        // If the player was alive before processing but is gone now — trigger game over.
+        // If the player was alive before processing but is gone now - trigger game over.
         if (playerAliveBefore && (!this.isPlayerAlive()))
         {
             this.gameOver();
@@ -289,7 +289,7 @@ class Game
      */
     private void gameOver()
     {
-        // Set the game over flag — update() will now only listen for ENTER.
+        // Set the game over flag - update() will now only listen for ENTER.
         this.gameOver = true;
 
         // Show the game over text in the center of the screen.
@@ -298,7 +298,7 @@ class Game
         // Submit the final score to the HighScoreSystem microservice.
         if (this.scoreTracker != null)
         {
-            System.out.println("Game over — Final score: " + world.Get_CurrentScore());
+            System.out.println("Game over - Final score: " + world.Get_CurrentScore());
             this.scoreTracker.submitFinalScore(world.Get_CurrentScore());
         }
     }
@@ -326,7 +326,7 @@ class Game
         }
         this.polygons.clear();
 
-        // Reset the world state — score, entity counts and spawn limits.
+        // Reset the world state - score, entity counts and spawn limits.
         this.world.Set_CurrentScore(0);
         this.world.Set_CurrentEnemyCount(0);
         this.world.Set_CurrentAsteroidCount(0);
@@ -337,7 +337,7 @@ class Game
         this.gameOver = false;
         this.gameOverText.setVisible(false);
 
-        // Restart all plugins — respawns all initial entities into the world.
+        // Restart all plugins - respawns all initial entities into the world.
         for (IGamePluginService iGamePlugin : getGamePluginServices())
         {
             iGamePlugin.start(this.gameData, this.world);
@@ -469,7 +469,7 @@ class Game
             // Check if the entity is of type Player.
             if (entity.Get_Type() == EntityType.Player)
             {
-                // Player found — store the reference and stop searching.
+                // Player found - store the reference and stop searching.
                 player = entity;
                 break;
             }
@@ -483,7 +483,7 @@ class Game
         }
         else
         {
-            // Player not found — set health display to zero.
+            // Player not found - set health display to zero.
             this.healthText.setText("Health: 0");
         }
 

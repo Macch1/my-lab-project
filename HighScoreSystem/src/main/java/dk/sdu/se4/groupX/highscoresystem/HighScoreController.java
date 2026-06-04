@@ -32,7 +32,7 @@ public class HighScoreController
     {
         try
         {
-            String entry = LocalDateTime.now() + " — Final Score: " + score + "\n";
+            String entry = LocalDateTime.now() + " - Final Score: " + score + "\n";
 
             Files.writeString(
                     Path.of("highscores.txt"),

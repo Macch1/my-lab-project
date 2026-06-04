@@ -9,7 +9,7 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 /**
  * BulletPlugin is responsible for managing the lifecycle of the Bullet component.
- * Unlike other plugins, BulletPlugin does not spawn any entities at startup —
+ * Unlike other plugins, BulletPlugin does not spawn any entities at startup -
  * bullets are created dynamically by BulletControlSystem via BulletSPI.createBullet()
  * when a firing entity requests a bullet.
  *
@@ -24,7 +24,7 @@ public class BulletPlugin implements IGamePluginService
     ///
 
 
-    // Note: No explicit constructor needed — default constructor is sufficient
+    // Note: No explicit constructor needed - default constructor is sufficient
     // since BulletPlugin holds no state that requires initialisation.
 
 
@@ -37,7 +37,7 @@ public class BulletPlugin implements IGamePluginService
 
     /**
      * Starts the Bullet plugin.
-     * No entities are spawned at startup — bullets are created dynamically during gameplay.
+     * No entities are spawned at startup - bullets are created dynamically during gameplay.
      *
      * Pre-Condition:  gameData != null, world != null.
      * Post-Condition: Bullet plugin is active and ready to create bullets on demand.

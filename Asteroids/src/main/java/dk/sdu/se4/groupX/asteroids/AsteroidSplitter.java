@@ -60,7 +60,7 @@ public class AsteroidSplitter implements AsteroidSplitterSPI
         // Remove the original asteroid from the world.
         world.removeEntity(e);
 
-        // Calculate the size of each fragment — half the radius of the original asteroid.
+        // Calculate the size of each fragment - half the radius of the original asteroid.
         float newSize = e.Get_Radius() / 2f;
 
         // If the fragment size is below the minimum, the asteroid is too small to split.
@@ -91,7 +91,7 @@ public class AsteroidSplitter implements AsteroidSplitterSPI
             // Set a random rotation direction for the fragment.
             fragment.Set_Rotation(random.nextInt(360));
 
-            // Set the fragment's health — collision flags inherited from Asteroid constructor.
+            // Set the fragment's health - collision flags inherited from Asteroid constructor.
             fragment.Set_Health(50);
 
             // Add the fragment to the world and increment the asteroid count.

@@ -9,7 +9,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
  * Implementations are responsible for cross-entity logic that must run after all
  * IEntityProcessingService implementations have completed their updates for the current frame.
  *
- * The key distinction from IEntityProcessingService is the timing guarantee —
+ * The key distinction from IEntityProcessingService is the timing guarantee -
  * PostEntityProcess() is always called after all EntityProcess() calls have completed,
  * ensuring that all entity states are up to date before cross-entity logic is applied.
  *

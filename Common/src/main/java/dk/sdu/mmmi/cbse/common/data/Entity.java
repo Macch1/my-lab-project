@@ -25,16 +25,16 @@ public class Entity implements Serializable
     private double entity_Rotation;
     private float entity_Radius;
 
-    // Movement and push flags — determines if the entity can move or be pushed.
+    // Movement and push flags - determines if the entity can move or be pushed.
     private boolean can_Move;
     private boolean canBe_Pushed;
 
-    // Collision flags — determines if the entity can collide and take collision damage.
+    // Collision flags - determines if the entity can collide and take collision damage.
     private boolean can_Collide;
     private boolean canTake_Damaged;
     private boolean canTake_CollideDamage;
 
-    // Health and damage values — determines how much health the entity has and how much damage it deals.
+    // Health and damage values - determines how much health the entity has and how much damage it deals.
     private int entity_Health;
     private int entity_CollisionDamage;
 
@@ -49,7 +49,7 @@ public class Entity implements Serializable
     /**
      * Default constructor for Entity.
      * Initialises all flags to false and all values to zero.
-     * Entity type defaults to EntityType.None — must be set by the subclass constructor.
+     * Entity type defaults to EntityType.None - must be set by the subclass constructor.
      */
     public Entity ()
     {

@@ -11,7 +11,7 @@ import java.net.http.HttpResponse;
 /**
  * ScoreTracker is the implementation of IScoreTracker.
  * Responsible for communicating the final game score to the HighScoreSystem microservice via HTTP.
- * Fails gracefully if the HighScoreSystem is unreachable — the game continues unaffected.
+ * Fails gracefully if the HighScoreSystem is unreachable - the game continues unaffected.
  *
  * Discovered and loaded by Core at startup via ServiceLoader.
  * submitFinalScore() is called once per game session by Game.java when the player dies.

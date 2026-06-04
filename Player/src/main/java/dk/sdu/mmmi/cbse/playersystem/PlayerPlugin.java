@@ -42,7 +42,7 @@ public class PlayerPlugin implements IGamePluginService
 
 
     /**
-     * Starts the Player plugin — spawns a single Player entity into the world.
+     * Starts the Player plugin - spawns a single Player entity into the world.
      * Called once at game startup and once on each restart by Game.java's restart() method.
      *
      * Pre-Condition:  gameData != null, world != null.
@@ -63,7 +63,7 @@ public class PlayerPlugin implements IGamePluginService
 
 
     /**
-     * Stops the Player plugin — removes all Player entities from the world.
+     * Stops the Player plugin - removes all Player entities from the world.
      * Called once when the game is stopped or restarted by Game.java's restart() method.
      * Uses a loop rather than a direct reference in case the player was already
      * removed from the world by handleHealth() before stop() was called.
@@ -106,7 +106,7 @@ public class PlayerPlugin implements IGamePluginService
      */
     private Player createPlayerShip(GameData gameData)
     {
-        // Create a new Player entity — default flags and values set by Player constructor.
+        // Create a new Player entity - default flags and values set by Player constructor.
         Player playerShip = new Player();
 
         // Set the visual shape of the player ship.
@@ -119,7 +119,7 @@ public class PlayerPlugin implements IGamePluginService
         // Set the collision radius of the player ship.
         playerShip.Set_Radius(8);
 
-        // Override collision properties — player deals full damage on impact.
+        // Override collision properties - player deals full damage on impact.
         playerShip.Set_Can_Collide(true);
         playerShip.Set_CanTake_CollideDamage(true);
         playerShip.Set_CanTake_Damaged(true);

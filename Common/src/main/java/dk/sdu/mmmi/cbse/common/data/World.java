@@ -33,7 +33,7 @@ public class World
     private int currentAsteroidCount;
     private int max_Asteroids;
 
-    // Default maximum values for enemies and asteroids — used on startup and restart.
+    // Default maximum values for enemies and asteroids - used on startup and restart.
     public static final int MAX_ENEMIES_DEFAULT = 3;
     public static final int MAX_ASTEROIDS_DEFAULT = 10;
 

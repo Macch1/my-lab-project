@@ -13,7 +13,7 @@ package dk.sdu.mmmi.cbse.common.services;
  *
  * Pre-Condition:  world.Get_CurrentScore() contains the final score when submitFinalScore() is called.
  * Post-Condition: Final score is submitted to the HighScoreSystem microservice via HTTP.
- *                 Fails gracefully if HighScoreSystem is unreachable — game continues unaffected.
+ *                 Fails gracefully if HighScoreSystem is unreachable - game continues unaffected.
  */
 public interface IScoreTracker
 {

@@ -10,13 +10,13 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 /**
  * BulletControlSystem is responsible for managing the lifecycle of all Bullet entities.
- * Implements both IEntityProcessingService and BulletSPI —
+ * Implements both IEntityProcessingService and BulletSPI -
  * acting as both the bullet processor and the bullet factory.
  *
- * As IEntityProcessingService — moves all bullets forward each frame,
+ * As IEntityProcessingService - moves all bullets forward each frame,
  * removes bullets that have left the screen bounds, and handles bullet health.
  *
- * As BulletSPI — creates and configures new Bullet entities at the position
+ * As BulletSPI - creates and configures new Bullet entities at the position
  * and rotation of the firing entity, ready to be added to the world.
  */
 public class BulletControlSystem implements IEntityProcessingService, BulletSPI
@@ -44,7 +44,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI
         // Process all bullet entities currently in the world.
         for (Entity bullet : world.getEntities(Bullet.class))
         {
-            // Check if the bullet is dead — remove it and skip to the next.
+            // Check if the bullet is dead - remove it and skip to the next.
             if (this.handleHealth(bullet, world))
             {
                 continue; // Skip dead entities.
@@ -61,7 +61,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI
             // Remove the bullet if it has left the screen bounds.
             if ( (bullet.Get_X() < (- gameData.getDisplayWidth()))   ||   (bullet.Get_X() > (gameData.getDisplayWidth() * 2))   ||   (bullet.Get_Y() < (- gameData.getDisplayHeight()))   ||   (bullet.Get_Y() > (gameData.getDisplayHeight() * 2)) )
             {
-                // Bullet has left the screen bounds — remove it from the world.
+                // Bullet has left the screen bounds - remove it from the world.
                 world.removeEntity(bullet);
             }
         }
@@ -110,7 +110,7 @@ public class BulletControlSystem implements IEntityProcessingService, BulletSPI
         // Set the bullet's collision radius.
         bullet.Set_Radius(1);
 
-        // Configure collision properties — bullets can collide and deal damage on impact.
+        // Configure collision properties - bullets can collide and deal damage on impact.
         bullet.Set_Can_Collide(true);
         bullet.Set_CanTake_CollideDamage(true);
         bullet.Set_CanTake_Damaged(true);

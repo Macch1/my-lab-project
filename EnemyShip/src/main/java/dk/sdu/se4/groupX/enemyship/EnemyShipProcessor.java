@@ -71,25 +71,25 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // Cast the entity to Enemy to access enemy-specific attributes.
             Enemy enemyShip = (Enemy) entity;
 
-            // Step 0 — Check health — remove dead enemies and skip to the next.
+            // Step 0 - Check health - remove dead enemies and skip to the next.
             if (this.handleHealth(enemyShip, world))
             {
                 continue; // Skip dead entities.
             }
 
-            // Step 1 — Move the enemy forward in its current direction.
+            // Step 1 - Move the enemy forward in its current direction.
             this.moveForward(enemyShip);
 
-            // Step 2 — Calculate the desired rotation towards the player.
+            // Step 2 - Calculate the desired rotation towards the player.
             this.calculateAngleToPlayer(enemyShip, world);
 
-            // Step 3 — Turn the enemy towards the player.
+            // Step 3 - Turn the enemy towards the player.
             this.turnTowardsPlayer(enemyShip);
 
-            // Step 4 — Fire a bullet if the enemy is aimed at the player.
+            // Step 4 - Fire a bullet if the enemy is aimed at the player.
             this.shootIfAimed(enemyShip, gameData, world);
 
-            // Step 5 — Wrap the enemy around the screen edges.
+            // Step 5 - Wrap the enemy around the screen edges.
             this.wrapAroundEdges(enemyShip, gameData);
         }
 
@@ -176,7 +176,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
      * Called each frame to update the enemy's target direction.
      *
      * @param enemyShip the enemy entity to update the desired rotation for.
-     * @param world the game world — used to find the player's current position.
+     * @param world the game world - used to find the player's current position.
      */
     private void calculateAngleToPlayer(Enemy enemyShip, World world)
     {
@@ -203,13 +203,13 @@ public class EnemyShipProcessor implements IEntityProcessingService
         // Calculate how much the enemy needs to turn this frame.
         double orientation_change = (enemyShip.Get_Rotation() - enemyShip.getDesired_rotation()) * enemyShip.getEnemy_turnFactor();
 
-        // Clamp the turn amount to the maximum turn speed — upper bound.
+        // Clamp the turn amount to the maximum turn speed - upper bound.
         if (orientation_change > enemyShip.getEnemy_turnSpeed_max())
         {
             orientation_change = enemyShip.getEnemy_turnSpeed_max();
         }
 
-        // Clamp the turn amount to the maximum turn speed — lower bound.
+        // Clamp the turn amount to the maximum turn speed - lower bound.
         if (orientation_change < -enemyShip.getEnemy_turnSpeed_max())
         {
             orientation_change = -enemyShip.getEnemy_turnSpeed_max();
@@ -260,7 +260,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
             enemyShip.setEnemy_Reload_ticksLeft(enemyShip.getEnemy_Reload_time());
         }
 
-        // If the enemy doesn't have a bullet loaded yet — count down the reload timer.
+        // If the enemy doesn't have a bullet loaded yet - count down the reload timer.
         else if (!enemyShip.isEnemy_Bullet_loaded())
         {
             // Decrement the reload timer by 1 frame.
@@ -269,7 +269,7 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // Check if the reload timer has reached zero.
             if (enemyShip.getEnemy_Reload_ticksLeft() <= 0)
             {
-                // Reload complete — mark the bullet as loaded.
+                // Reload complete - mark the bullet as loaded.
                 enemyShip.setEnemy_Bullet_loaded(true);
             }
         }
@@ -310,31 +310,31 @@ public class EnemyShipProcessor implements IEntityProcessingService
      */
     private void wrapAroundEdges(Enemy enemyShip, GameData gameData)
     {
-        // Wrap the enemy's X position — left edge.
+        // Wrap the enemy's X position - left edge.
         if (enemyShip.Get_X() < 0)
         {
-            // Enemy has gone off the left edge — wrap to the right edge.
+            // Enemy has gone off the left edge - wrap to the right edge.
             enemyShip.Set_X(gameData.getDisplayWidth());
         }
 
-        // Wrap the enemy's X position — right edge.
+        // Wrap the enemy's X position - right edge.
         if (enemyShip.Get_X() > gameData.getDisplayWidth())
         {
-            // Enemy has gone off the right edge — wrap to the left edge.
+            // Enemy has gone off the right edge - wrap to the left edge.
             enemyShip.Set_X(0);
         }
 
-        // Wrap the enemy's Y position — top edge.
+        // Wrap the enemy's Y position - top edge.
         if (enemyShip.Get_Y() < 0)
         {
-            // Enemy has gone off the top edge — wrap to the bottom edge.
+            // Enemy has gone off the top edge - wrap to the bottom edge.
             enemyShip.Set_Y(gameData.getDisplayHeight());
         }
 
-        // Wrap the enemy's Y position — bottom edge.
+        // Wrap the enemy's Y position - bottom edge.
         if (enemyShip.Get_Y() > gameData.getDisplayHeight())
         {
-            // Enemy has gone off the bottom edge — wrap to the top edge.
+            // Enemy has gone off the bottom edge - wrap to the top edge.
             enemyShip.Set_Y(0);
         }
     }
