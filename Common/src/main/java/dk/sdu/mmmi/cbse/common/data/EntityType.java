@@ -2,9 +2,12 @@ package dk.sdu.mmmi.cbse.common.data;
 
 
 /**
+ * EntityType defines the type of an Entity in the game world.
+ * Used by the collision system to determine how entities interact with each other,
+ * and by processors to filter and identify specific entity types.
  *
- *
- *
+ * The type is assigned in the constructor of each Entity subclass,
+ * and defaults to EntityType.None until explicitly set.
  *
  * Note: Future-proofed, by having types beyond what is currently needed.
  */
