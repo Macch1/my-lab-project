@@ -11,8 +11,14 @@ import java.util.Collection;
 import java.util.ServiceLoader;
 import static java.util.stream.Collectors.toList;
 
+
+/**
+ *
+ */
 public class AsteroidProcessor implements IEntityProcessingService
 {
+
+
 
     @Override
     public void process(GameData gameData, World world)
@@ -23,7 +29,8 @@ public class AsteroidProcessor implements IEntityProcessingService
             // Checks if the Asteroid is still "Alive" / "Not destroyed".
             if (this.handleHealth(asteroid, world))
             {
-                continue; // skip dead entities
+                // .
+                continue;
             }
 
             // .
@@ -35,11 +42,44 @@ public class AsteroidProcessor implements IEntityProcessingService
             asteroid.Set_Y(asteroid.Get_Y() + changeY * 0.5);
 
             // .
-            if (asteroid.Get_X() < 0) asteroid.Set_X(gameData.getDisplayWidth());
-            if (asteroid.Get_X() > gameData.getDisplayWidth()) asteroid.Set_X(0);
-            if (asteroid.Get_Y() < 0) asteroid.Set_Y(gameData.getDisplayHeight());
-            if (asteroid.Get_Y() > gameData.getDisplayHeight()) asteroid.Set_Y(0);
+            if (asteroid.Get_X() < 0)
+            {
+                asteroid.Set_X(gameData.getDisplayWidth());
+            }
+            if (asteroid.Get_X() > gameData.getDisplayWidth())
+            {
+                asteroid.Set_X(0);
+            }
+
+            // .
+            if (asteroid.Get_Y() < 0)
+            {
+                asteroid.Set_Y(gameData.getDisplayHeight());
+            }
+            if (asteroid.Get_Y() > gameData.getDisplayHeight())
+            {
+                asteroid.Set_Y(0);
+            }
+
         }
+
+
+        // Spawn new asteroids if below max.
+        if (world.Get_CurrentAsteroidCount() < world.Get_MaxAsteroids())
+        {
+
+            // .
+            while (world.Get_CurrentAsteroidCount() < world.Get_MaxAsteroids())
+            {
+                // .
+                Entity asteroid = AsteroidCreationHelper.createAsteroid(gameData, world);
+
+                // .
+                world.addEntity(asteroid);
+                world.AddTo_CurrentAsteroidCount(1);
+            }
+        }
+
     }
 
 
@@ -84,6 +124,7 @@ public class AsteroidProcessor implements IEntityProcessingService
 
             // Notify World that an asteroid was destroyed.
             world.AddTo_CurrentScore(10);
+            world.AddTo_CurrentAsteroidCount(-1);
 
             // returns "true" to indicate the Asteroid is "Dead" / "Destroyed".
             return true;

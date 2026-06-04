@@ -22,9 +22,6 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
 
 
-    private final Random random = new Random();
-
-
     public EnemyShipProcessor ()
     {
 
@@ -55,7 +52,8 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // Step 0 - Check Health
             if (this.handleHealth(enemyShip, world))
             {
-                continue; // skip dead entities
+                // .
+                continue;
             }
 
             // Step 1 - Move forward

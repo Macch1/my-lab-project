@@ -55,6 +55,9 @@ public class AsteroidSplitter implements AsteroidSplitterSPI
 
             // .
             world.addEntity(fragment);
+
+            // .
+            world.AddTo_CurrentAsteroidCount(1);
         }
     }
 

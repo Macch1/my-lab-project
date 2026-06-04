@@ -14,9 +14,6 @@ public class EnemyShipPlugin implements IGamePluginService
 
 
 
-    private final Random random = new Random();
-
-
 
 
     public EnemyShipPlugin()
@@ -42,7 +39,7 @@ public class EnemyShipPlugin implements IGamePluginService
     public void start(GameData gameData, World world)
     {
         // .
-        for (int i = 0; i < World.MAX_ENEMIES_DEFAULT; i++)
+        for (int i = 0; i < world.Get_MaxEnemies(); i++)
         {
             // .
             Entity enemy = EnemyCreationHelper.createEnemy(gameData, world);
