@@ -14,9 +14,22 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
+import java.util.Random;
+
 
 public class EnemyShipProcessor implements IEntityProcessingService
 {
+
+
+
+    private final Random random = new Random();
+
+
+    public EnemyShipProcessor ()
+    {
+
+    }
+
 
 
 
@@ -60,6 +73,24 @@ public class EnemyShipProcessor implements IEntityProcessingService
             // Step 5 - Wrap around screen edges
             wrapAroundEdges(enemyShip, gameData);
         }
+
+
+        // Spawn new enemies if below max.
+        if (world.Get_CurrentEnemyCount() < world.Get_MaxEnemies())
+        {
+
+            // .
+            while(world.Get_CurrentEnemyCount() < world.Get_MaxEnemies())
+            {
+                // .
+                Entity enemy = EnemyCreationHelper.createEnemy(gameData, world);
+
+                // .
+                world.addEntity(enemy);
+                world.AddTo_CurrentEnemyCount(1);
+            }
+        }
+
     }
 
 
@@ -90,6 +121,9 @@ public class EnemyShipProcessor implements IEntityProcessingService
 
             // Notify World that an enemy was destroyed.
             world.AddTo_CurrentScore(50);
+
+            // Adds -1 to the current Enemy count.
+            world.AddTo_CurrentEnemyCount(-1);
 
             // returns "true" to indicate the Enemy is "Dead" / "Destroyed".
             return true;
@@ -277,6 +311,10 @@ public class EnemyShipProcessor implements IEntityProcessingService
             enemyShip.Set_Y(0);
         }
     }
+
+
+
+
 
 
 

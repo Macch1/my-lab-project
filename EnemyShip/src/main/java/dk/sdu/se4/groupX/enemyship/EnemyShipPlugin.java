@@ -9,13 +9,12 @@ import dk.sdu.se4.groupX.commonenemy.Enemy;
 import java.util.Random;
 
 
-public class EnemyShipPlugin implements IGamePluginService {
+public class EnemyShipPlugin implements IGamePluginService
+{
 
 
 
     private final Random random = new Random();
-
-    private Entity enemyShips;
 
 
 
@@ -42,9 +41,16 @@ public class EnemyShipPlugin implements IGamePluginService {
     @Override
     public void start(GameData gameData, World world)
     {
-        // Add entities to the world
-        enemyShips = createEnemyShip(gameData);
-        world.addEntity(enemyShips);
+        // .
+        for (int i = 0; i < World.MAX_ENEMIES_DEFAULT; i++)
+        {
+            // .
+            Entity enemy = EnemyCreationHelper.createEnemy(gameData, world);
+
+            // .
+            world.addEntity(enemy);
+            world.AddTo_CurrentEnemyCount(1);
+        }
 
     }
 
@@ -60,10 +66,14 @@ public class EnemyShipPlugin implements IGamePluginService {
     @Override
     public void stop(GameData gameData, World world)
     {
-        for (Entity enemy : world.getEntities(Enemy.class)) {
-            // Remove entities
+        // .
+        for (Entity enemy : world.getEntities(Enemy.class))
+        {
             world.removeEntity(enemy);
         }
+
+        // .
+        world.Set_CurrentEnemyCount(0);
     }
 
 
@@ -77,109 +87,6 @@ public class EnemyShipPlugin implements IGamePluginService {
     //////////////////////////////////////////////////////////////
     ////////////////////    Helper Methods    ////////////////////
     ///
-
-
-    /**
-     *
-     * @param gameData
-     * @return
-     */
-    private Entity createEnemyShip(GameData gameData)
-    {
-        // Setup variables.
-        double[] start_position;
-        double start_rotation;
-        Entity enemyShip = new Enemy();
-
-        // Calculate.
-        start_position = this.getSpawnPosition(gameData);
-        start_rotation = this.getSpawnRotation(start_position[0], start_position[1], gameData);
-
-        // Set entity values.
-        enemyShip.Set_PolygonCoordinates(10, 0, 5, -7, -7, -5, -7, 5, 5, 7);
-        enemyShip.Set_X(start_position[0]);
-        enemyShip.Set_Y(start_position[1]);
-        enemyShip.Set_Radius(8);
-        enemyShip.Set_Rotation(start_rotation);
-
-        // Health and collision logic.
-        enemyShip.Set_Can_Collide(true);
-        enemyShip.Set_CanTake_CollideDamage(true);
-        enemyShip.Set_CanTake_Damaged(true);
-        enemyShip.Set_CollisionDamage(100);
-        enemyShip.Set_Health(50); // easier to kill than player
-
-
-        // Return Entity (Enemy).
-        return enemyShip;
-    }
-
-
-
-
-
-    private double[] getSpawnPosition(GameData gameData)
-    {
-        // The return values.
-        double[] coordinates = new double[2];
-
-        // Rolling for which side to spawn on.
-        int side_id = (int)(random.nextInt(100) % 4);
-
-        // Logic to determine the coordinates based on the side.
-        if (side_id == 0)
-        {
-            // Top
-            coordinates[0] = (double) (gameData.getDisplayWidth() / 2.0);
-            coordinates[1] = (double) 0.0;
-            return coordinates;
-        }
-        else if (side_id == 1)
-        {
-            // Bottom
-            coordinates[0] = (double) (gameData.getDisplayWidth() / 2.0);
-            coordinates[1] = (double) gameData.getDisplayHeight();
-            return coordinates;
-        }
-        else if (side_id == 2)
-        {
-            // Right
-            coordinates[0] = (double) gameData.getDisplayWidth();
-            coordinates[1] = (double) (gameData.getDisplayHeight() / 2.0);
-            return coordinates;
-        }
-        else if (side_id == 3)
-        {
-            // Left
-            coordinates[0] = (double) 0.0;
-            coordinates[1] = (double) (gameData.getDisplayHeight() / 2.0);
-            return coordinates;
-        }
-
-        // Standard error stream (best for warnings/errors)
-        System.err.println("WARNING: Random number gave us this Side ID = " + side_id + ".");
-
-        coordinates[0] = (double) 0.0;
-        coordinates[1] = (double) 0.0;
-        return coordinates;
-    }
-
-
-    private double getSpawnRotation(double spawnX, double spawnY, GameData gameData)
-    {
-        // Find Center of Map.
-        double center_X = gameData.getDisplayWidth() / 2.0;
-        double center_Y = gameData.getDisplayHeight() / 2.0;
-
-        // Calculate the direction of the center.
-        double angle_to_Center = Math.toDegrees(Math.atan2(center_Y - spawnY, center_X - spawnX));
-
-        // Calculate offset with a random chance.
-        double offset = (double) ((random.nextDouble() * 120.0) - 60.0);
-
-        // return the start rotation, for the enemy ship.
-        return angle_to_Center + offset;
-    }
 
 
 

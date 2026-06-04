@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+
 /**
  * GameData contains the UserInterface and the play-area for the game.
  * This includes the display dimensions and Key-binds.

@@ -43,10 +43,12 @@ class Game {
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private final Pane gameWindow = new Pane();
     private final Text scoreText = new Text(10, 20, "Score: 0");
+    private final Text gameOverText = new Text("GAME OVER\nPress ENTER to restart");
     private final List<IGamePluginService> gamePluginServices;
     private final List<IEntityProcessingService> entityProcessingServiceList;
     private final List<IPostEntityProcessingService> postEntityProcessingServices;
     private IScoreTracker scoreTracker = null;
+    private boolean gameOver = false;
 
 
     /**
@@ -71,63 +73,80 @@ class Game {
     public void start(Stage window) throws Exception
     {
         // .
-        gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        gameWindow.getChildren().add(scoreText);
+        this.gameWindow.setPrefSize(this.gameData.getDisplayWidth(), this.gameData.getDisplayHeight());
+        this.gameWindow.getChildren().add(this.scoreText);
 
         // .
-        Scene scene = new Scene(gameWindow);
+        Scene scene = new Scene(this.gameWindow);
+
+        // Setup gameOverText.
+        this.gameOverText.setX(this.gameData.getDisplayWidth() / 2.0 - 100);
+        this.gameOverText.setY(this.gameData.getDisplayHeight() / 2.0);
+        this.gameOverText.setVisible(false);
+        this.gameWindow.getChildren().add(this.gameOverText);
 
         // .
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.LEFT))
             {
-                gameData.getKeys().setKey(GameKeys.LEFT, true);
+                this.gameData.getKeys().setKey(GameKeys.LEFT, true);
             }
             if (event.getCode().equals(KeyCode.RIGHT))
             {
-                gameData.getKeys().setKey(GameKeys.RIGHT, true);
+                this.gameData.getKeys().setKey(GameKeys.RIGHT, true);
             }
             if (event.getCode().equals(KeyCode.UP))
             {
-                gameData.getKeys().setKey(GameKeys.UP, true);
+                this.gameData.getKeys().setKey(GameKeys.UP, true);
             }
             if (event.getCode().equals(KeyCode.SPACE))
             {
-                gameData.getKeys().setKey(GameKeys.SPACE, true);
+                this.gameData.getKeys().setKey(GameKeys.SPACE, true);
+            }
+            if (event.getCode().equals(KeyCode.ENTER))
+            {
+                this.gameData.getKeys().setKey(GameKeys.ENTER, true);
             }
         });
+
         scene.setOnKeyReleased(event -> {
             if (event.getCode().equals(KeyCode.LEFT))
             {
-                gameData.getKeys().setKey(GameKeys.LEFT, false);
+                this.gameData.getKeys().setKey(GameKeys.LEFT, false);
             }
             if (event.getCode().equals(KeyCode.RIGHT))
             {
-                gameData.getKeys().setKey(GameKeys.RIGHT, false);
+                this.gameData.getKeys().setKey(GameKeys.RIGHT, false);
             }
             if (event.getCode().equals(KeyCode.UP))
             {
-                gameData.getKeys().setKey(GameKeys.UP, false);
+                this.gameData.getKeys().setKey(GameKeys.UP, false);
             }
             if (event.getCode().equals(KeyCode.SPACE))
             {
-                gameData.getKeys().setKey(GameKeys.SPACE, false);
+                this.gameData.getKeys().setKey(GameKeys.SPACE, false);
             }
-
+            if (event.getCode().equals(KeyCode.ENTER))
+            {
+                this.gameData.getKeys().setKey(GameKeys.ENTER, false);
+            }
         });
 
         // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : getGamePluginServices()) {
+        for (IGamePluginService iGamePlugin : getGamePluginServices())
+        {
             iGamePlugin.start(gameData, world);
-        }
-        for (Entity entity : world.getEntities()) {
-            Polygon polygon = new Polygon(entity.Get_PolygonCoordinates());
-            polygons.put(entity, polygon);
-            gameWindow.getChildren().add(polygon);
         }
 
         // .
-        this.scoreTracker = getScoreTracker();
+        for (Entity entity : world.getEntities()) {
+            Polygon polygon = new Polygon(entity.Get_PolygonCoordinates());
+            this.polygons.put(entity, polygon);
+            this.gameWindow.getChildren().add(polygon);
+        }
+
+        // .
+        this.scoreTracker = this.getScoreTracker();
 
         // .
         window.setScene(scene);
@@ -160,8 +179,19 @@ class Game {
      */
     private void update()
     {
+        // If game is over, only listen for ENTER.
+        if (this.gameOver)
+        {
+            if (this.gameData.getKeys().isPressed(GameKeys.ENTER))
+            {
+                this.restart();
+            }
+
+            return;  // stops all normal processing
+        }
+
         // Check if player is alive before processing.
-        boolean playerAliveBefore = isPlayerAlive();
+        boolean playerAliveBefore = this.isPlayerAlive();
 
         // .
         // System.out.println("Frame start — playerAliveBefore: " + playerAliveBefore);
@@ -169,24 +199,88 @@ class Game {
         // .
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices())
         {
-            entityProcessorService.process(gameData, world);
+            entityProcessorService.process(this.gameData, this.world);
         }
 
         // .
         for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices())
         {
-            postEntityProcessorService.process(gameData, world);
+            postEntityProcessorService.process(this.gameData, this.world);
         }
 
 
-        // If player was alive before but is gone now — game over, submit final score.
-        if ((playerAliveBefore)   &&   (!isPlayerAlive())   &&   (scoreTracker != null))
+        // If player was alive before but is gone now — game over.
+        if (playerAliveBefore && (!this.isPlayerAlive()))
         {
-            scoreTracker.submitFinalScore(world.Get_CurrentScore());
+            this.gameOver();
         }
 
         // .
         // System.out.println("Frame end — playerAliveAfter: " + isPlayerAlive());
+    }
+
+
+
+
+    /**
+     * Handles the game over state — shows game over text and submits final score.
+     * The game loop continues running but update() returns early until ENTER is pressed.
+     */
+    private void gameOver()
+    {
+        // Set game over flag — update() will now only listen for ENTER.
+        this.gameOver = true;
+
+        // Show game over text.
+        this.gameOverText.setVisible(true);
+
+        // Submit final score to HighScoreSystem.
+        if (this.scoreTracker != null)
+        {
+            this.scoreTracker.submitFinalScore(world.Get_CurrentScore());
+        }
+
+    }
+
+
+
+
+    /**
+     * Resets the game world and restarts all plugins.
+     */
+    private void restart()
+    {
+        // Stop all plugins and clean up
+        for (IGamePluginService iGamePlugin : getGamePluginServices())
+        {
+            iGamePlugin.stop(this.gameData, this.world);
+        }
+
+        // Clear all polygons from the screen
+        for (Polygon polygon : this.polygons.values())
+        {
+            this.gameWindow.getChildren().remove(polygon);
+        }
+
+        // .
+        this.polygons.clear();
+
+        // Reset world state
+        this.world.Set_CurrentScore(0);
+        this.world.Set_CurrentEnemyCount(0);
+        this.world.Set_CurrentAsteroidCount(0);
+        this.world.Set_MaxEnemies(World.MAX_ENEMIES_DEFAULT);
+        this.world.Set_MaxAsteroids(World.MAX_ASTEROIDS_DEFAULT);
+
+        // Hide game over text
+        this.gameOver = false;
+        this.gameOverText.setVisible(false);
+
+        // Restart all plugins
+        for (IGamePluginService iGamePlugin : getGamePluginServices())
+        {
+            iGamePlugin.start(this.gameData, this.world);
+        }
     }
 
 
