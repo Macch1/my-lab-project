@@ -8,24 +8,39 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.se4.groupX.commonplayer.Player;
 
 
-public class PlayerPlugin implements IGamePluginService {
+public class PlayerPlugin implements IGamePluginService
+{
 
-    private Entity player;
 
-    public PlayerPlugin() {
+
+    public PlayerPlugin()
+    {
     }
+
+
+
 
     @Override
-    public void start(GameData gameData, World world) {
-
-        // Add entities to the world
-        player = createPlayerShip(gameData);
-        world.addEntity(player);
+    public void start(GameData gameData, World world)
+    {
+        // Add Player to the world.
+        // .
+        world.addEntity(createPlayerShip(gameData));
     }
 
-    private Entity createPlayerShip(GameData gameData) {
 
+
+    /**
+     *
+     * @param gameData
+     * @return
+     */
+    private Entity createPlayerShip(GameData gameData)
+    {
+        // .
         Entity playerShip = new Player();
+
+        // .
         playerShip.Set_PolygonCoordinates(-5,-5,10,0,-5,5);
         playerShip.Set_X(gameData.getDisplayHeight()/2);
         playerShip.Set_Y(gameData.getDisplayWidth()/2);
@@ -38,13 +53,25 @@ public class PlayerPlugin implements IGamePluginService {
         playerShip.Set_CollisionDamage(100);
         playerShip.Set_Health(100);
 
+        // .
         return playerShip;
     }
 
+
+
     @Override
-    public void stop(GameData gameData, World world) {
-        // Remove entities
-        world.removeEntity(player);
+    public void stop(GameData gameData, World world)
+    {
+        // Remove all player entities from the world.
+        // .
+        for (Entity player : world.getEntities(Player.class))
+        {
+            // .
+            world.removeEntity(player);
+        }
     }
 
+
 }
+
+
