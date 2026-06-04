@@ -282,4 +282,4 @@ Developed as a university exam project for **Komponentbaserede Systemer** at SDU
 
 ## Disclaimer
 
-AI have been used in the project for the following tasks: Updating Comments, Updating JavaDocs, Debugging, and as a RubberDuck.
+AI have been used in the project for the following tasks: *Updating Comments*, *Updating JavaDocs*, *Debugging*, *Update ReadMe*, and as a *RubberDuck*.
