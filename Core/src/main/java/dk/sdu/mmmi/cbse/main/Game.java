@@ -253,7 +253,7 @@ class Game
         // .
         for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices())
         {
-            postEntityProcessorService.process(this.gameData, this.world);
+            postEntityProcessorService.PostEntityProcess(this.gameData, this.world);
         }
 
 

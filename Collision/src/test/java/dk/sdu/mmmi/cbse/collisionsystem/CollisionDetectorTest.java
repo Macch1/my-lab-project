@@ -121,7 +121,7 @@ class CollisionDetectorTest {
         test_world.addEntity(entity2);
 
         // Act
-        collisionDetector.process(test_gameData, test_world);
+        collisionDetector.PostEntityProcess(test_gameData, test_world);
 
         // Assert
         assertEquals(100, entity1.Get_Health());
@@ -163,7 +163,7 @@ class CollisionDetectorTest {
         test_world.addEntity(entity2);
 
         // Act
-        collisionDetector.process(test_gameData, test_world);
+        collisionDetector.PostEntityProcess(test_gameData, test_world);
 
         // Assert
         assertEquals(50, entity1.Get_Health());
@@ -205,7 +205,7 @@ class CollisionDetectorTest {
         test_world.addEntity(entity2);
 
         // Act
-        collisionDetector.process(test_gameData, test_world);
+        collisionDetector.PostEntityProcess(test_gameData, test_world);
 
 
 
@@ -251,7 +251,7 @@ class CollisionDetectorTest {
         test_world.addEntity(entity2);
 
         // Act
-        collisionDetector.process(test_gameData, test_world);
+        collisionDetector.PostEntityProcess(test_gameData, test_world);
 
         // Assert
         assertEquals(100, entity1.Get_Health());
@@ -283,7 +283,7 @@ class CollisionDetectorTest {
         test_world.addEntity(entity1);
 
         // Act
-        collisionDetector.process(test_gameData, test_world);
+        collisionDetector.PostEntityProcess(test_gameData, test_world);
 
         // Assert
         assertEquals(100, entity1.Get_Health());
