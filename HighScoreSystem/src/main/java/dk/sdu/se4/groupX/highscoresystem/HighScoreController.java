@@ -18,7 +18,8 @@ public class HighScoreController
 {
 
     // .
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         SpringApplication.run(HighScoreController.class, args);
     }
 
@@ -27,8 +28,10 @@ public class HighScoreController
 
     // .
     @PostMapping("/score/submit")
-    public ResponseEntity<String> submit_FinalScore(@RequestParam(value = "score") Long score) {
-        try {
+    public ResponseEntity<String> submit_FinalScore(@RequestParam(value = "score") Long score)
+    {
+        try
+        {
             String entry = LocalDateTime.now() + " — Final Score: " + score + "\n";
 
             Files.writeString(
@@ -52,14 +55,22 @@ public class HighScoreController
 
     // .
     @GetMapping("/score/highscores")
-    public ResponseEntity<String> get_Highscores() {
-        try {
+    public ResponseEntity<String> get_Highscores()
+    {
+        try
+        {
+            // .
             Path path = Path.of("highscores.txt");
-            if (!Files.exists(path)) {
+
+            // .
+            if (!Files.exists(path))
+            {
                 return ResponseEntity.ok("No highscores yet.");
             }
             return ResponseEntity.ok(Files.readString(path));
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return ResponseEntity.internalServerError().body("Failed to read highscores.");
         }
     }
