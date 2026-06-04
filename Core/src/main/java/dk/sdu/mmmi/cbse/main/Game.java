@@ -281,6 +281,8 @@ class Game
         // Submit final score to HighScoreSystem.
         if (this.scoreTracker != null)
         {
+            // .
+            System.out.println("Game over — Final score: " + world.Get_CurrentScore());
             this.scoreTracker.submitFinalScore(world.Get_CurrentScore());
         }
 
@@ -294,6 +296,9 @@ class Game
      */
     private void restart()
     {
+        // .
+        System.out.println("Game restarting...");
+
         // Stop all plugins and clean up
         for (IGamePluginService iGamePlugin : getGamePluginServices())
         {
