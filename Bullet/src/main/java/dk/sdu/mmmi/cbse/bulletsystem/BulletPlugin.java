@@ -11,17 +11,29 @@ public class BulletPlugin implements IGamePluginService {
     private Entity bullet;
 
     @Override
-    public void start(GameData gameData, World world) {
+    public void start(GameData gameData, World world)
+    {
+        // .
+        System.out.println("Bullet plugin starting.");
 
     }
 
     @Override
-    public void stop(GameData gameData, World world) {
-        for (Entity e : world.getEntities()) {
-            if (e.getClass() == Bullet.class) {
+    public void stop(GameData gameData, World world)
+    {
+        // .
+        System.out.println("Bullet plugin stopping.");
+
+        // .
+        for (Entity e : world.getEntities())
+        {
+            // .
+            if (e.getClass() == Bullet.class)
+            {
                 world.removeEntity(e);
             }
         }
+
     }
 
 }

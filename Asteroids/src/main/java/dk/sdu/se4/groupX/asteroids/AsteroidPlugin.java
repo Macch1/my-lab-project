@@ -20,6 +20,9 @@ public class AsteroidPlugin implements IGamePluginService
     @Override
     public void start(GameData gameData, World world)
     {
+        // .
+        System.out.println("Asteroid plugin starting.");
+
         // Spawn the initial set of asteroids up to the maximum allowed count.
         for (int i = 0; i < world.Get_MaxAsteroids(); i++)
         {
@@ -39,6 +42,9 @@ public class AsteroidPlugin implements IGamePluginService
     @Override
     public void stop(GameData gameData, World world)
     {
+        // .
+        System.out.println("Asteroid plugin stopping.");
+
         // Remove all asteroid entities from the world.
         for (Entity asteroid : world.getEntities(Asteroid.class))
         {

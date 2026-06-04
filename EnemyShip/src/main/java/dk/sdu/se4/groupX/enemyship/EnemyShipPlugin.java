@@ -39,6 +39,9 @@ public class EnemyShipPlugin implements IGamePluginService
     public void start(GameData gameData, World world)
     {
         // .
+        System.out.println("EnemyShip plugin starting.");
+
+        // .
         for (int i = 0; i < world.Get_MaxEnemies(); i++)
         {
             // .
@@ -63,6 +66,9 @@ public class EnemyShipPlugin implements IGamePluginService
     @Override
     public void stop(GameData gameData, World world)
     {
+        // .
+        System.out.println("EnemyShip plugin stopping.");
+
         // .
         for (Entity enemy : world.getEntities(Enemy.class))
         {
