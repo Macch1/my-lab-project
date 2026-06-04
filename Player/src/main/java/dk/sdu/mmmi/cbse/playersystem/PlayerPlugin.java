@@ -15,6 +15,7 @@ public class PlayerPlugin implements IGamePluginService
 
     public PlayerPlugin()
     {
+
     }
 
 
@@ -35,10 +36,10 @@ public class PlayerPlugin implements IGamePluginService
      * @param gameData
      * @return
      */
-    private Entity createPlayerShip(GameData gameData)
+    private Player createPlayerShip(GameData gameData)
     {
         // .
-        Entity playerShip = new Player();
+        Player playerShip = new Player();
 
         // .
         playerShip.Set_PolygonCoordinates(-5,-5,10,0,-5,5);
